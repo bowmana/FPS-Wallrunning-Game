@@ -1,0 +1,138 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://default_env.tres" type="Environment" id=2]
+[ext_resource path="res://Interactable/InteractableLightSwitch.gd" type="Script" id=3]
+[ext_resource path="res://Scenes/UI/UI.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/Enemies/Enemy.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scenes/Player/Weapons/lmg.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scenes/UI/WeaponPickup.tscn" type="PackedScene" id=7]
+
+[sub_resource type="CubeMesh" id=1]
+
+[sub_resource type="ConcavePolygonShape" id=2]
+data = PoolVector3Array( -1, 1, 1, 1, 1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, -1, -1, 1, 1, 1, -1, -1, 1, -1, 1, -1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, -1, 1, 1, 1, -1, 1, -1, -1, 1, -1, 1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, 1, 1, -1, -1, 1, -1, -1, -1, 1, 1, 1, -1, 1, 1, 1, 1, -1, -1, 1, 1, -1, 1, -1, 1, 1, -1, -1, -1, 1, 1, -1, 1, -1, -1, -1, 1, -1, 1, 1, -1, -1, -1, -1, -1 )
+
+[sub_resource type="SpatialMaterial" id=3]
+
+[sub_resource type="SpatialMaterial" id=4]
+albedo_color = Color( 0.843137, 0.556863, 0.137255, 1 )
+
+[sub_resource type="SpatialMaterial" id=5]
+albedo_color = Color( 0.0901961, 0.807843, 0.305882, 1 )
+
+[sub_resource type="SpatialMaterial" id=6]
+albedo_color = Color( 0.658824, 0.0705882, 0.0705882, 1 )
+
+[node name="World" type="Spatial"]
+
+[node name="UI" parent="." instance=ExtResource( 4 )]
+
+[node name="Player" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.54111, 0 )
+jump = 60
+
+[node name="Ground" type="MeshInstance" parent="."]
+transform = Transform( 67.4037, 0, 0, 0, 1, 0, 0, 0, 70.0385, 0, -3.08026, 0 )
+mesh = SubResource( 1 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Ground"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Ground/StaticBody"]
+shape = SubResource( 2 )
+
+[node name="Ground2" type="MeshInstance" parent="."]
+transform = Transform( -2.94631e-06, 1, -3.06148e-06, 0, -4.37114e-08, -70.0385, -67.4037, -4.37114e-08, 1.33822e-13, -67.2267, -3.08026, 0 )
+mesh = SubResource( 1 )
+material/0 = SubResource( 3 )
+
+[node name="StaticBody" type="StaticBody" parent="Ground2"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Ground2/StaticBody"]
+shape = SubResource( 2 )
+
+[node name="Ground3" type="MeshInstance" parent="."]
+transform = Transform( -6.55671e-07, 1, -1.31134e-07, 0, -4.62978e-07, -31.7751, -35.3461, -1.03002e-07, 1.3507e-14, -38.224, 0.337771, -8.75289 )
+mesh = SubResource( 1 )
+material/0 = SubResource( 4 )
+
+[node name="StaticBody" type="StaticBody" parent="Ground3"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Ground3/StaticBody"]
+shape = SubResource( 2 )
+
+[node name="Ground7" type="MeshInstance" parent="."]
+transform = Transform( 12.4385, -7.46448e-09, -1.67671, -8.38355, -2.44304e-08, -2.4877, -1.11967e-07, 1, -7.32913e-08, -55.817, 3.76126, 31.213 )
+mesh = SubResource( 1 )
+material/0 = SubResource( 4 )
+
+[node name="StaticBody" type="StaticBody" parent="Ground7"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Ground7/StaticBody"]
+shape = SubResource( 2 )
+
+[node name="Ground4" type="MeshInstance" parent="."]
+transform = Transform( 14.4889, 0.258603, 0.0316886, 0, 0.0408118, -2.9975, -3.88229, 0.965121, 0.118264, 33.1228, 0.337775, 56.8222 )
+mesh = SubResource( 1 )
+material/0 = SubResource( 5 )
+
+[node name="StaticBody" type="StaticBody" parent="Ground4"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Ground4/StaticBody"]
+shape = SubResource( 2 )
+
+[node name="Ground6" type="MeshInstance" parent="."]
+transform = Transform( 14.4889, 0.258603, 0.0316886, 3.0998, -0.746026, -1.89912, -2.33739, 0.613652, -2.32214, 38.1652, 0.337775, 15.5461 )
+mesh = SubResource( 1 )
+material/0 = SubResource( 5 )
+
+[node name="StaticBody" type="StaticBody" parent="Ground6"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Ground6/StaticBody"]
+shape = SubResource( 2 )
+
+[node name="Ground5" type="MeshInstance" parent="."]
+transform = Transform( 14.4889, 0.258603, 0.0316886, 2.53128, -0.59832, -2.34986, -2.94361, 0.758378, -1.86472, 33.1228, 0.337774, 42.7447 )
+mesh = SubResource( 1 )
+material/0 = SubResource( 5 )
+
+[node name="StaticBody" type="StaticBody" parent="Ground5"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Ground5/StaticBody"]
+shape = SubResource( 2 )
+
+[node name="LightSwitch" type="MeshInstance" parent="."]
+transform = Transform( -4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, -64.9599, 2.14645, 31.526 )
+mesh = SubResource( 1 )
+material/0 = SubResource( 6 )
+
+[node name="StaticBody" type="StaticBody" parent="LightSwitch"]
+transform = Transform( 1, 0, 0, 0, 1, -8.35189e-23, 0, -8.35188e-23, 1, 0, 0, 0 )
+collision_layer = 2
+script = ExtResource( 3 )
+light = NodePath("../../SpotLight")
+
+[node name="CollisionShape" type="CollisionShape" parent="LightSwitch/StaticBody"]
+shape = SubResource( 2 )
+
+[node name="SpotLight" type="SpotLight" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -64.96, 2.146, 31.526 )
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource( 2 )
+
+[node name="Enemy4" parent="." instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 37.6486 )
+speed = 400
+
+[node name="Enemy5" parent="." instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 25.2191, 0, -20.184 )
+
+[node name="Enemy6" parent="." instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -43.6806, 0, -20.184 )
+
+[node name="lmg" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0759926, 0 )
+
+[node name="WeaponPickup" parent="lmg" instance=ExtResource( 7 )]

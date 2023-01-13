@@ -1,0 +1,17 @@
+# Made using Asset Forge (2.2.0)
+
+:materials
+
+[name:metalDark;color:RGBA(0.455, 0.455, 0.455, 1.000);scale:(1.0, 1.0);texture:Metal/circuit.png;shader:Default;valueA:0.35;valueB:0.5;]
+[name:_defaultMat;color:RGBA(0.406, 0.447, 0.579, 1.000);scale:(1.0, 1.0);shader:Default;valueA:0.35;valueB:0.25;]
+[name:dark;color:RGBA(0.224, 0.235, 0.275, 1.000);scale:(1.0, 1.0);shader:Default;valueA:0.35;valueB:0;]
+
+:models
+
+[name:;collection:Blasters;type:blaster_barrel;position:(0.0000, 0.0000, 1.0000);rotation:(0.0000, 0.0000, 0.0000);scale:(1.0000, 1.0000, 1.0000);group:;locked:False;hidden:False;materials:metalDark+_defaultMat+dark;]
+[name:;collection:Blasters;type:blaster_center;position:(0.0000, 0.0000, 0.0000);rotation:(0.0000, 0.0000, 0.0000);scale:(1.0000, 1.0000, 1.0000);group:;locked:False;hidden:False;materials:metalDark+_defaultMat;]
+[name:;collection:Blasters;type:stock_stealth;position:(0.0000, 0.0000, -1.0000);rotation:(0.0000, 0.0000, 0.0000);scale:(1.0000, 1.0000, 1.0000);group:;locked:False;hidden:False;materials:dark+metalDark+_defaultMat;]
+[name:;collection:Blasters;type:detailRail_front;position:(0.0000, 1.0000, 1.0000);rotation:(0.0000, 0.0000, 0.0000);scale:(1.0000, 1.0000, 1.0000);group:;locked:False;hidden:False;materials:dark;]
+[name:;collection:Blasters;type:attachment_handle;position:(0.0000, 0.0000, 1.0000);rotation:(0.0000, 0.0000, 0.0000);scale:(1.0000, 1.0000, 1.0000);group:;locked:False;hidden:False;materials:_defaultMat+metalDark+dark;]
+[name:;collection:Blasters;type:clip_tape;position:(0.0000, -0.2000, 0.0000);rotation:(0.0000, 0.0000, 0.0000);scale:(1.0000, 1.0000, 1.0000);group:;locked:False;hidden:False;materials:dark+_defaultMat;]
+[name:;collection:Blasters;type:attachment_silencer;position:(0.0000, 0.0000, 2.0000);rotation:(0.0000, 0.0000, 0.0000);scale:(1.0000, 1.0000, 1.0000);group:;locked:False;hidden:False;materials:dark+metalDark+_defaultMat;]

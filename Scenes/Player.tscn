@@ -1,0 +1,176 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://Scenes/Player.gd" type="Script" id=1]
+[ext_resource path="res://Scenes/Weapon.gd" type="Script" id=2]
+[ext_resource path="res://Scenes/Interaction.gd" type="Script" id=3]
+[ext_resource path="res://Scenes/Player/Weapons/lmg.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/Camera.gd" type="Script" id=5]
+[ext_resource path="res://Assets/Models/airplaneGun.glb" type="PackedScene" id=6]
+[ext_resource path="res://Scenes/Viewport.gd" type="Script" id=7]
+[ext_resource path="res://Scenes/WeaponsHolder.gd" type="Script" id=8]
+
+[sub_resource type="CapsuleShape" id=1]
+radius = 0.75
+height = 1.25
+
+[sub_resource type="CapsuleMesh" id=2]
+radius = 0.75
+mid_height = 1.25
+
+[sub_resource type="Animation" id=3]
+resource_name = "AssultFire"
+length = 0.08
+tracks/0/type = "value"
+tracks/0/path = NodePath("Head/Camera/Weapons:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.02, 0.08 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0, 0.125 ), Vector3( 0, 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "reloadsmg"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Head/Camera/Weapons:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.12, 0.31, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( -9.09091, -11.3636, 0 ), Vector3( -40, -25, -20 ), Vector3( 0, 0, 0 ) ]
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("Head/Camera/Weapons:translation:x")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray(  ),
+"times": PoolRealArray(  )
+}
+tracks/2/type = "bezier"
+tracks/2/path = NodePath("Head/Camera/Weapons:translation:y")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"points": PoolRealArray(  ),
+"times": PoolRealArray(  )
+}
+tracks/3/type = "bezier"
+tracks/3/path = NodePath("Head/Camera/Weapons:translation:z")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"points": PoolRealArray(  ),
+"times": PoolRealArray(  )
+}
+
+[node name="Player" type="KinematicBody" groups=[
+"Player",
+]]
+script = ExtResource( 1 )
+speed = 20
+jump = 70
+dec_mouse_sens = 0.15
+
+[node name="Head" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0 )
+
+[node name="Camera" type="Camera" parent="Head"]
+cull_mask = 1048573
+
+[node name="InteractionRaycast" type="RayCast" parent="Head/Camera"]
+visible = false
+enabled = true
+cast_to = Vector3( 0, 0, -4 )
+collision_mask = 2
+script = ExtResource( 3 )
+
+[node name="Weapons" type="Spatial" parent="Head/Camera"]
+script = ExtResource( 8 )
+
+[node name="lmg" parent="Head/Camera/Weapons" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.295042, -0.795178 )
+script = ExtResource( 2 )
+fire_rate = 0.1
+clip_size = 500
+default_position = Vector3( 0.371, -0.521, -0.689 )
+ads_position = Vector3( 0, -0.261, -0.34 )
+ads_acceleration = 0.001
+raycast_path = NodePath("RayCast")
+camera_path = NodePath("../..")
+weapon_path = NodePath(".")
+anim_player_path = NodePath("../../../../AnimationPlayer")
+
+[node name="RayCast" type="RayCast" parent="Head/Camera/Weapons/lmg"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.188861, 0 )
+enabled = true
+cast_to = Vector3( 0, 0, -100 )
+
+[node name="airplaneGun" parent="Head/Camera/Weapons" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.07754 )
+visible = false
+script = ExtResource( 2 )
+default_position = Vector3( 0.371, -0.521, -0.689 )
+ads_position = Vector3( 0, -0.261, -0.34 )
+raycast_path = NodePath("RayCast")
+camera_path = NodePath("../..")
+weapon_path = NodePath(".")
+anim_player_path = NodePath("../../../../AnimationPlayer")
+ads_cast_to_offset = Vector3( 0, 4, 0 )
+
+[node name="RayCast" type="RayCast" parent="Head/Camera/Weapons/airplaneGun"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.117802, 0 )
+enabled = true
+cast_to = Vector3( 0, 0, -100 )
+
+[node name="RayCast" type="RayCast" parent="Head/Camera"]
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+shape = SubResource( 1 )
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="ViewportContainer" type="ViewportContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Viewport" type="Viewport" parent="ViewportContainer"]
+size = Vector2( 1920, 1080 )
+transparent_bg = true
+handle_input_locally = false
+render_target_update_mode = 3
+script = ExtResource( 7 )
+
+[node name="Camera" type="Camera" parent="ViewportContainer/Viewport"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.815943, 0.139 )
+cull_mask = 2
+fov = 66.5
+near = 0.01
+script = ExtResource( 5 )
+camera_path = NodePath("../../../Head/Camera")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/AssultFire = SubResource( 3 )
+anims/reloadsmg = SubResource( 4 )
