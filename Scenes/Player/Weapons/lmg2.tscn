@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Assets/Models/lmg.glb" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Weapon.gd" type="Script" id=2]
@@ -79,7 +79,9 @@ tracks/3/keys = {
 "times": PoolRealArray(  )
 }
 
-[node name="lmg" instance=ExtResource( 1 )]
+[sub_resource type="CylinderMesh" id=4]
+
+[node name="lmg2" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 default_position = Vector3( 0.167, -0.4, -0.6 )
 ads_position = Vector3( 0, -0.3, -0.428 )
@@ -100,3 +102,8 @@ anims/reloadsmg = SubResource( 3 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.188861, 0 )
 enabled = true
 cast_to = Vector3( 0, 0, -100 )
+
+[node name="MeshInstance2" type="MeshInstance" parent="." index="4"]
+transform = Transform( 0.0659547, 0, 0, 0, 0.0807743, -0.151429, 0, 0.0824348, 0.0439717, 0, 0.292392, -0.247619 )
+mesh = SubResource( 4 )
+material/0 = null

@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Assets/Models/lmg.glb" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/UI/WeaponPickup.tscn" type="PackedScene" id=3]
+
+[sub_resource type="CylinderMesh" id=1]
+
+[node name="lmg2" instance=ExtResource( 1 )]
+
+[node name="lmg" parent="." index="0"]
+layers = 2
+
+[node name="Sprite3D" type="Sprite3D" parent="." index="1"]
+transform = Transform( 0.005, 0, 0, 0, 0.005, 0, 0, 0, 0.005, 0, 0.286506, 0 )
+
+[node name="WeaponPickup" parent="." index="2" instance=ExtResource( 3 )]
+Uid = "lmg2"
+
+[node name="MeshInstance" type="MeshInstance" parent="." index="3"]
+transform = Transform( 0.0659547, 0, 0, 0, 0.0807743, -0.151429, 0, 0.0824348, 0.0439717, 0, 0.292392, 0.80347 )
+mesh = SubResource( 1 )
+material/0 = null
+
+[node name="MeshInstance2" type="MeshInstance" parent="." index="4"]
+transform = Transform( 0.0659547, 0, 0, 0, 0.0807743, -0.151429, 0, 0.0824348, 0.0439717, 0, 0.292392, -0.247619 )
+mesh = SubResource( 1 )
+material/0 = null

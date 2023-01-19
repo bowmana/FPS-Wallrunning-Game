@@ -15,13 +15,13 @@ export var ads_cast_from : Vector3 = Vector3(0,.1,0)
 onready var ammo_label = $"/root/World/UI/Label"
 onready var b_decal = preload("res://Scenes/Player/Decals/BulletDecal.tscn")
 onready var weaponPickup = preload("res://Scenes/UI/WeaponPickup.tscn")
-export var raycast_path : NodePath #use this instead of $"" syntax
+#export var raycast_path : NodePath #use this instead of $"" syntax
 
-export var camera_path : NodePath
-export var weapon_path : NodePath
-export var anim_player_path : NodePath
+#export var camera_path : NodePath
 
-signal dropped
+
+
+
 
 
 var weapon : Spatial
@@ -39,15 +39,13 @@ var initial_cast_to : Vector3 =  Vector3(0,0,0)
 var rayPos : Vector3 =  Vector3(0,0,0)
 func _ready():
 	current_ammo = clip_size
-	raycast = get_node(raycast_path)
-	camera = get_node(camera_path)
-	
+#	raycast = get_node(raycast_path)
+	raycast = $RayCast
+#	camera = get_node(camera_path)
+	camera = get_node("/root/World/Player/Head/Camera")
 	rayPos = raycast.transform.origin
 	initial_cast_to = raycast.cast_to
-	
-	
-	weapon = get_node(weapon_path)
-	anim_player = get_node(anim_player_path)
+	anim_player = $AnimationPlayer
 	
 
 
@@ -69,11 +67,6 @@ func _process(delta):
 			reload()
 			
 
-	if Input.is_action_just_pressed("drop"):
-		var weaponPickup_inst = weaponPickup.instance()
-		
-		add_child(weaponPickup_inst)
-		
 		
 	if Input.is_action_just_pressed("reload") and not reloading:
 		reload()
@@ -124,7 +117,7 @@ func fire():
 	
 	can_fire = false
 	current_ammo -=1
-	anim_player.play("AssultFire")
+	anim_player.play("fire")
 	check_collision()
 	yield(get_tree().create_timer(fire_rate), "timeout")
 	can_fire = true

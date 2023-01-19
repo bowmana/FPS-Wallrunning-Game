@@ -62,3 +62,4 @@ process_material = SubResource( 5 )
 draw_pass_1 = SubResource( 7 )
 
 [connection signal="body_entered" from="." to="." method="_on_Area_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_WeaponPickup_body_exited"]
