@@ -24,7 +24,6 @@ onready var anim = $AnimationPlayer2
 var gun1
 var gun2
 
-
 onready var weaponholder = $Head/Camera/Weapons
 onready var testingdropnode = $Head/Camera/Weapons2
 
@@ -72,7 +71,10 @@ func _input(event):
 		if Weaponlist.weapons["primary"] != null:
 			weaponholder.remove_child(gun1)
 			var weapon_pickup = Weaponlist.get_weapon_pickup(gun1.name)
+			
 			weapon_pickup.set_global_transform(get_global_transform())
+
+#	
 			world.add_child(weapon_pickup)
 			WeaponInteract.get_remove_node().queue_free()
 			gun1 = Weaponlist.get_primary()
@@ -105,30 +107,36 @@ func wall_run():
 
 
 func sliding(delta, head_basis):
-	if Input.is_action_just_pressed("slide") and is_on_floor() and not slide_cooldown:
+	
+	if Input.is_action_just_pressed("slide") and is_on_floor() and not slide_cooldown and Input.is_action_pressed("move_forward"):
 		sliding = true
 		slide_cooldown = true
-		yield(get_tree().create_timer(1), "timeout")
+		yield(get_tree().create_timer(1.5), "timeout")
 		sliding = false
-		yield(get_tree().create_timer(3), "timeout")
+		yield(get_tree().create_timer(1.5), "timeout")
 		slide_cooldown = false
 	if Input.is_action_just_released("slide"):
 		sliding = false
 		print("notsliding")
 
 	if sliding:
+		
 		velocity -= head_basis.z * slide_multiplier * speed * delta
 		particles.emitting = true
 		if not anim.is_playing():
 			anim.play("sliding")
-	else:
-		if anim.is_playing() and anim.get_current_animation() == "sliding":
-			anim.seek(0) 
-			anim.stop()
+	
+		
+	if !sliding and anim.is_playing() and anim.get_current_animation() == "sliding":
 
-		particles.emitting = false
-			
-#		anim.play("sliding", -1,1.0)
+		anim.play("sliding", -1,10)
+
+	particles.emitting = false
+	
+		
+		
+		
+#
 
 
 
@@ -148,13 +156,15 @@ func _process(delta):
 	if curr_weapon == 1:
 		if gun2:
 			weaponholder.remove_child(gun2)
-		weaponholder.add_child(gun1)
+		if gun1 != null:
+			weaponholder.add_child(gun1)
 		
 			
 	if curr_weapon == 2 :
 		if gun1:
 			weaponholder.remove_child(gun1)
-		weaponholder.add_child(gun2)
+		if gun2 != null:
+			weaponholder.add_child(gun2)
 	
 
 

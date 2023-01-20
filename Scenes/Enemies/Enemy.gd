@@ -12,7 +12,8 @@ func _physics_process(delta):
 			look_at(target.global_transform.origin, Vector3.UP)
 			set_color_red()
 			move_to_target(delta)
-		else: set_color_green()
+		else: 
+			set_color_green()
 
 func move_to_target(delta):
 	var direction = (target.transform.origin - transform.origin).normalized()

@@ -15,13 +15,6 @@ export var ads_cast_from : Vector3 = Vector3(0,.1,0)
 onready var ammo_label = $"/root/World/UI/Label"
 onready var b_decal = preload("res://Scenes/Player/Decals/BulletDecal.tscn")
 onready var weaponPickup = preload("res://Scenes/UI/WeaponPickup.tscn")
-#export var raycast_path : NodePath #use this instead of $"" syntax
-
-#export var camera_path : NodePath
-
-
-
-
 
 
 var weapon : Spatial
