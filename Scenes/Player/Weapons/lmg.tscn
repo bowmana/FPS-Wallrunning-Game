@@ -83,7 +83,7 @@ tracks/3/keys = {
 script = ExtResource( 2 )
 default_position = Vector3( 0.167, -0.4, -0.6 )
 ads_position = Vector3( 0, -0.3, -0.428 )
-ads_cast_to_offset = Vector3( 0, -2.6, 0 )
+ads_cast_to_offset = Vector3( 0, -10, 0 )
 
 [node name="lmg" parent="." index="0"]
 layers = 2
@@ -99,4 +99,10 @@ anims/reloadsmg = SubResource( 3 )
 [node name="RayCast" type="RayCast" parent="." index="3"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.188861, 0 )
 enabled = true
-cast_to = Vector3( 0, 0, -100 )
+cast_to = Vector3( 0, 0, -400 )
+
+[node name="CrosshairRay" type="RayCast" parent="." index="4"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.188861, 0 )
+visible = false
+enabled = true
+cast_to = Vector3( 0, 0, -400 )

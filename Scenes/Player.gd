@@ -4,11 +4,11 @@ export var speed = 10
 export var acceleration = 5
 export var gravity = .98
 export var jump = 30
+var jump_num = 0
 export var world_node : NodePath
 var world
-var jump_num = 0
-export var walljumpforce = 170
-export var walljumpheight = 150
+
+
 var sliding = false
 var slide_multiplier = 1.5
 var slide_cooldown = false
@@ -36,6 +36,17 @@ onready var wall_normal = Vector3()
 
 var direction = Vector3()
 var wallrunning = false
+
+export(float) var wallrun_angle = 15
+var wallrun_current_angle = 0
+var side = ""
+
+var is_wallrun_jumping = false
+
+export var walljumpforce = 170
+export var walljumpheight = 150
+
+
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -98,12 +109,70 @@ func wall_run():
 	if !is_on_floor() and Input.is_action_pressed("move_forward") and is_on_wall():
 		if not Input.is_action_just_pressed("jump"):
 			velocity.y = 0
+
+
 		wall_normal = get_slide_collision(0)
-		yield(get_tree().create_timer(0.1), "timeout")
-		direction = -wall_normal.normal * speed
-		wallrunning = true
-		jump_num = 1
+#		yield(get_tree().create_timer(0.1), "timeout")
+		var wallrun_direction = Vector3.UP.cross(wall_normal.normal)
+		var player_view_dir = -head.global_transform.basis.z
+		var dot = wallrun_direction.dot(player_view_dir)
+		if dot < 0:
+			wallrun_direction = - wallrun_direction
+			
+		var wallrun_axis_2d = Vector2(wallrun_direction.x, wallrun_direction.z)
+		var view_dir_2d = Vector2(player_view_dir.x, player_view_dir.z)
+		var angle = wallrun_axis_2d.angle_to(view_dir_2d)
 		
+		angle = rad2deg(angle)
+		if dot < 0:
+			angle =-angle
+			
+		if angle > 85:
+			print(angle)
+			wallrunning = false
+			return
+		
+		wallrun_direction += -wall_normal.normal *.1
+		wallrunning = true
+		side = get_side(wall_normal.position)
+		jump_num = 1
+		direction = wallrun_direction * speed
+
+func process_wallrun_rotation(delta):
+	if wallrunning:
+		if side == "RIGHT":
+			wallrun_current_angle += delta * 60
+			wallrun_current_angle = clamp(wallrun_current_angle, -wallrun_angle, wallrun_angle)
+		elif side == "LEFT":
+			wallrun_current_angle -= delta * 60
+			wallrun_current_angle = clamp(wallrun_current_angle, -wallrun_angle, wallrun_angle)
+	else:
+		if wallrun_current_angle > 0:
+			wallrun_current_angle -= delta * 40
+			wallrun_current_angle = max(0,wallrun_current_angle)
+		elif wallrun_current_angle < 0:
+			wallrun_current_angle += delta * 40
+			wallrun_current_angle = min(wallrun_current_angle,0)
+			
+	#set rotation_degrees to Vector3(0,0,1) * wallrun_current_angle
+	rotation_degrees = Vector3(0,0,1) * wallrun_current_angle
+
+func get_side(point):
+	point = to_local(point)
+	
+	if point.x > 0:
+		return "RIGHT"
+	elif point.x < 0:
+		return "LEFT"
+	else:
+		return "CENTER"
+		
+func wall_jump():
+	if Input.is_action_just_pressed("jump") and wallrunning:
+			velocity += wall_normal.normal * walljumpforce + Vector3(0,walljumpheight,0)
+			wallrunning = false
+			
+	
 
 
 func sliding(delta, head_basis):
@@ -188,6 +257,9 @@ func _physics_process(delta):
 	if is_on_floor():
 		jump_num = 0
 	wall_run()
+	
+	process_wallrun_rotation(delta)
+#	wall_jump(head_basis)
 	sliding(delta, head_basis)
 	if !is_on_wall():
 		wallrunning = false
@@ -220,10 +292,10 @@ func _physics_process(delta):
 		if jump_num == 1:
 			velocity.y += jump
 			jump_num = 2
-	if Input.is_action_just_pressed("jump") and wallrunning:
-		velocity += wall_normal.normal * walljumpforce + Vector3(0,walljumpheight,0)
-		wallrunning = false
+	wall_jump()
+
 	velocity = move_and_slide(velocity, Vector3.UP)
+	
 	
 	
 

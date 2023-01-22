@@ -146,7 +146,7 @@ tracks/4/keys = {
 "times": PoolRealArray( 0, 0.5, 1.5 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector3( 1, 1, 1 ), Vector3( 0.3, 1, 0.3 ), Vector3( 1, 1, 1 ) ]
+"values": [ Vector3( 1, 1, 1 ), Vector3( 0.3, 0.5, 0.3 ), Vector3( 1, 1, 1 ) ]
 }
 tracks/5/type = "value"
 tracks/5/path = NodePath("CollisionShape:translation")
@@ -178,7 +178,7 @@ tracks/6/keys = {
 ]]
 script = ExtResource( 1 )
 speed = 20
-jump = 120
+jump = 90
 dec_mouse_sens = 0.15
 
 [node name="Head" type="Spatial" parent="."]
@@ -186,6 +186,7 @@ dec_mouse_sens = 0.15
 [node name="Camera" type="Camera" parent="Head"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
 cull_mask = 1048573
+far = 800.0
 
 [node name="InteractionRaycast" type="RayCast" parent="Head/Camera"]
 visible = false
@@ -200,8 +201,6 @@ script = ExtResource( 8 )
 [node name="Weapons2" type="Spatial" parent="Head/Camera"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5.21569 )
 script = ExtResource( 8 )
-
-[node name="RayCast" type="RayCast" parent="Head/Camera"]
 
 [node name="Particles" type="Particles" parent="Head/Camera"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.76106, 1.24865 )

@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Assets/Models/airplaneGun.glb" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Weapon.gd" type="Script" id=2]
+[ext_resource path="res://Assets/Models/Crosshairs/crosshair.png" type="Texture" id=3]
 
 [sub_resource type="Animation" id=1]
 length = 0.08
@@ -98,3 +99,8 @@ anims/reloadsmg = SubResource( 3 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.117802, 0 )
 enabled = true
 cast_to = Vector3( 0, 0, -100 )
+
+[node name="Sprite3D" type="Sprite3D" parent="RayCast" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00945421, -0.614983 )
+layers = 2
+texture = ExtResource( 3 )
