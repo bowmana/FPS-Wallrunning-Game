@@ -1,6 +1,8 @@
 extends KinematicBody
 
 export var speed = 10
+onready var SPEED = speed
+export var SPRINT_SPEED = 15
 export var acceleration = 5
 export var gravity = .98
 export var jump = 30
@@ -19,6 +21,7 @@ onready var head = $Head
 onready var camera = $Head/Camera
 onready var particles = $Head/Camera/Particles
 onready var anim = $AnimationPlayer2
+onready var weapon_cam = $ViewportContainer/Viewport/Camera
 
 
 var gun1
@@ -182,7 +185,7 @@ func sliding(delta, head_basis):
 		slide_cooldown = true
 		yield(get_tree().create_timer(1.5), "timeout")
 		sliding = false
-		yield(get_tree().create_timer(1.5), "timeout")
+		yield(get_tree().create_timer(.10), "timeout")
 		slide_cooldown = false
 	if Input.is_action_just_released("slide"):
 		sliding = false
@@ -276,7 +279,22 @@ func _physics_process(delta):
 		direction += head_basis.x
 		
 	direction = direction.normalized()
-	
+	if velocity.length() < 3.0 and !sliding:
+		anim.play("HeadBob", 0.1, 0.2)
+	elif velocity.length() <= speed and !sliding:
+		anim.play("HeadBob", 0.1, 1.0)
+	else:
+		if !sliding:
+			anim.play("HeadBob", 0.1, 1.5)
+	if speed == SPRINT_SPEED and velocity.length() > 3.0:
+		weapon_cam.fov = lerp(weapon_cam.fov, 80, 10 * delta)
+	else:
+		weapon_cam.fov = lerp(weapon_cam.fov, 70, 10 * delta)
+		
+	if Input.is_action_pressed("sprint") and Input.is_action_pressed("ads") == false:
+		speed = SPRINT_SPEED
+	else:
+		speed = SPEED
 	
 	velocity = velocity.linear_interpolate(direction * speed, acceleration * delta)
 	

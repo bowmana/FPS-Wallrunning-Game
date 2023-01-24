@@ -81,6 +81,8 @@ tracks/3/keys = {
 
 [node name="lmg" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
+fire_rate = 0.1
+clip_size = 50
 default_position = Vector3( 0.167, -0.4, -0.6 )
 ads_position = Vector3( 0, -0.3, -0.428 )
 ads_cast_to_offset = Vector3( 0, -10, 0 )

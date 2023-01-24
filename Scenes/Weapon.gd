@@ -16,11 +16,11 @@ onready var ammo_label = $"/root/World/UI/Label"
 onready var b_decal = preload("res://Scenes/Player/Decals/BulletDecal.tscn")
 onready var crosshair_decal = preload("res://Scenes/Player/Decals/CrossHair.tscn")
 onready var weaponPickup = preload("res://Scenes/UI/WeaponPickup.tscn")
-onready var crosshair = crosshair_decal.instance()
+#onready var crosshair = crosshair_decal.instance()
 
 var weapon : Spatial
 var raycast : RayCast
-var crosshair_raycast : RayCast
+#var crosshair_raycast : RayCast
 var camera : Camera
 
 var anim_player : AnimationPlayer
@@ -36,12 +36,12 @@ func _ready():
 	current_ammo = clip_size
 #	raycast = get_node(raycast_path)
 	raycast = $RayCast
-	crosshair_raycast = $CrosshairRay
+#	crosshair_raycast = $MeshInstance/Laser
 #	
 	camera = get_node("/root/World/Player/Head/Camera")
 
 
-	get_tree().get_root().add_child(crosshair)
+#	get_tree().get_root().add_child(crosshair)
 	rayPos = raycast.transform.origin
 	initial_cast_to = raycast.cast_to
 	anim_player = $AnimationPlayer
@@ -80,11 +80,11 @@ func _process(delta):
 #		crosshair_raycast.transform.origin = (rayPos + ads_cast_from)
 		raycast.cast_to = raycast.cast_to.linear_interpolate(initial_cast_to + ads_cast_to_offset, ads_acceleration)
 #		crosshair_raycast.cast_to = crosshair_raycast.cast_to.linear_interpolate(initial_cast_to + ads_cast_to_offset, ads_acceleration)
-		var distance = raycast.get_collision_point().distance_to(raycast.global_transform.origin)
-		var scalingfactor = lerp(0.01, .2, (distance) / 100)
-		crosshair.scale = Vector3(scalingfactor,scalingfactor,scalingfactor)
-
-		stamp_decal_to_normal(crosshair)
+#		var distance = raycast.get_collision_point().distance_to(raycast.global_transform.origin)
+#		var scalingfactor = lerp(0.05, 4, (distance) / 100)
+#		crosshair.scale = Vector3(scalingfactor,scalingfactor,scalingfactor)
+#
+#		stamp_decal_to_normal(crosshair)
 
 
 		camera.fov = lerp(camera.fov, ads_fov, ads_acceleration)

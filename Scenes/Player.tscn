@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Scenes/Player.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Interaction.gd" type="Script" id=3]
@@ -83,6 +83,37 @@ tracks/3/enabled = true
 tracks/3/keys = {
 "points": PoolRealArray(  ),
 "times": PoolRealArray(  )
+}
+
+[sub_resource type="Animation" id=8]
+resource_name = "HeadBob"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/path = NodePath("Head/Camera:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 1, 0 ), Vector3( 0, 1.2, 0 ), Vector3( 0, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "Idle"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Head:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ) ]
 }
 
 [sub_resource type="Animation" id=7]
@@ -189,7 +220,6 @@ cull_mask = 1048573
 far = 800.0
 
 [node name="InteractionRaycast" type="RayCast" parent="Head/Camera"]
-visible = false
 enabled = true
 cast_to = Vector3( 0, 0, -4 )
 collision_mask = 2
@@ -244,4 +274,6 @@ anims/AssultFire = SubResource( 5 )
 anims/reloadsmg = SubResource( 6 )
 
 [node name="AnimationPlayer2" type="AnimationPlayer" parent="."]
+anims/HeadBob = SubResource( 8 )
+anims/Idle = SubResource( 9 )
 anims/sliding = SubResource( 7 )
