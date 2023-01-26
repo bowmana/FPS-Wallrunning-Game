@@ -85,7 +85,7 @@ tracks/3/keys = {
 "times": PoolRealArray(  )
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=7]
 resource_name = "HeadBob"
 length = 0.6
 tracks/0/type = "value"
@@ -101,7 +101,7 @@ tracks/0/keys = {
 "values": [ Vector3( 0, 1, 0 ), Vector3( 0, 1.2, 0 ), Vector3( 0, 1, 0 ) ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=8]
 resource_name = "Idle"
 tracks/0/type = "value"
 tracks/0/path = NodePath("Head:translation")
@@ -116,8 +116,7 @@ tracks/0/keys = {
 "values": [ Vector3( 0, 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=7]
-resource_name = "sliding"
+[sub_resource type="Animation" id=9]
 length = 1.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("Head/Camera/Weapons:translation")
@@ -274,6 +273,8 @@ anims/AssultFire = SubResource( 5 )
 anims/reloadsmg = SubResource( 6 )
 
 [node name="AnimationPlayer2" type="AnimationPlayer" parent="."]
-anims/HeadBob = SubResource( 8 )
-anims/Idle = SubResource( 9 )
-anims/sliding = SubResource( 7 )
+anims/HeadBob = SubResource( 7 )
+anims/Idle = SubResource( 8 )
+anims/sliding = SubResource( 9 )
+
+[node name="JetTimer" type="Timer" parent="."]

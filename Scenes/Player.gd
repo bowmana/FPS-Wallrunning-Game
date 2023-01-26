@@ -18,6 +18,7 @@ export var mouse_sens = 0.3
 var multiplier =  1
 export var dec_mouse_sens = .2
 onready var head = $Head
+
 onready var camera = $Head/Camera
 onready var particles = $Head/Camera/Particles
 onready var anim = $AnimationPlayer2
@@ -34,6 +35,7 @@ onready var curr_weapon = 1
 
 signal send_curr_weapon
 var velocity = Vector3()
+
 var camera_x_rotation = 0
 onready var wall_normal = Vector3()
 
@@ -49,9 +51,17 @@ var is_wallrun_jumping = false
 export var walljumpforce = 170
 export var walljumpheight = 150
 
+var space_button_held_time = 0
+var max_jetpack_velocity = 50
+onready var can_jetpack = false
+var jet_counter = 0
+var jet_timer_on = false
+
+
 
 
 func _ready():
+	
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	world = get_node(world_node)
 	
@@ -131,14 +141,14 @@ func wall_run():
 			angle =-angle
 			
 		if angle > 85:
-			print(angle)
+			
 			wallrunning = false
 			return
 		
 		wallrun_direction += -wall_normal.normal *.1
 		wallrunning = true
 		side = get_side(wall_normal.position)
-		jump_num = 1
+		jump_num = 0
 		direction = wallrun_direction * speed
 
 func process_wallrun_rotation(delta):
@@ -175,9 +185,7 @@ func wall_jump():
 			velocity += wall_normal.normal * walljumpforce + Vector3(0,walljumpheight,0)
 			wallrunning = false
 			
-	
-
-
+			
 func sliding(delta, head_basis):
 	
 	if Input.is_action_just_pressed("slide") and is_on_floor() and not slide_cooldown and Input.is_action_pressed("move_forward"):
@@ -202,17 +210,16 @@ func sliding(delta, head_basis):
 	if !sliding and anim.is_playing() and anim.get_current_animation() == "sliding":
 
 		anim.play("sliding", -1,10)
+		
 
 	particles.emitting = false
 	
-		
-		
-		
-#
-
 
 
 func _process(delta):
+
+		
+
 	if Input.is_action_just_pressed("ui_cancel"):
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	
@@ -250,15 +257,50 @@ func weapon_select():
 	elif Input.is_action_just_pressed("weapon2"):
 		curr_weapon = 2
 		
+		
+		
+func jet_pack(delta):
+	
+	if jump_num == 0 and !is_on_floor():
+		jet_timer_on = true
+	if is_on_floor():
+		jet_timer_on = false
+		jet_counter = 0
+		space_button_held_time = 0
+		jump_num = 0
+		
+	if wallrunning:
+		jet_timer_on = false
+		space_button_held_time = 0
+		jet_counter = 0
+	
+	if (Input.is_action_pressed("jump") and not wallrunning and not is_on_floor()) or (jump_num == 0 and !is_on_floor() and Input.is_action_pressed("jump")):
+		
+		if jet_counter >= .33:
+			if space_button_held_time >= 10:
+				
+				return
+			
+			
+			space_button_held_time += delta*12
+			print(space_button_held_time)
+			var jetpack_velocity = min(space_button_held_time * acceleration, max_jetpack_velocity)
+			velocity.y = jetpack_velocity
+		else:
+			
+			space_button_held_time = 0
+
+
 
 
 func _physics_process(delta):
+	if jet_timer_on:
+		jet_counter += delta
 	
 	var head_basis = head.get_global_transform().basis
 	
 	direction = Vector3()
-	if is_on_floor():
-		jump_num = 0
+
 	wall_run()
 	
 	process_wallrun_rotation(delta)
@@ -304,17 +346,20 @@ func _physics_process(delta):
 	
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		if jump_num == 0:
+			
 			velocity.y += jump
 			jump_num = 1
-	if Input.is_action_just_pressed("jump") and not wallrunning and not is_on_floor():
-		if jump_num == 1:
-			velocity.y += jump
-			jump_num = 2
+			yield(get_tree().create_timer(.01), "timeout")
+			jet_counter = 0
+			jet_timer_on = true
+			
+			
+
+	jet_pack(delta)
 	wall_jump()
 
 	velocity = move_and_slide(velocity, Vector3.UP)
-	
-	
+
 	
 
 

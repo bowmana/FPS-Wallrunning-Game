@@ -19,6 +19,19 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="BoostLable" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -43.0
+margin_top = -39.0
+margin_right = 43.0
+text = "Boost: 0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="InteractionLabel" type="Label" parent="."]
 anchor_top = 1.0
 anchor_right = 1.0
