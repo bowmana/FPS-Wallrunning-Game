@@ -1,0 +1,121 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Assets/Models/weapons/shotty1/shotty1.glb" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/Shotgun.gd" type="Script" id=2]
+
+[sub_resource type="Animation" id=1]
+length = 0.08
+tracks/0/type = "value"
+tracks/0/path = NodePath("Head/Camera/Weapons:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.02, 0.08 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0, 0.125 ), Vector3( 0, 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "fire"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0, 0.1 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Head/Camera/Weapons:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.12, 0.31, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( -9.09091, -11.3636, 0 ), Vector3( -40, -25, -20 ), Vector3( 0, 0, 0 ) ]
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("Head/Camera/Weapons:translation:x")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray(  ),
+"times": PoolRealArray(  )
+}
+tracks/2/type = "bezier"
+tracks/2/path = NodePath("Head/Camera/Weapons:translation:y")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"points": PoolRealArray(  ),
+"times": PoolRealArray(  )
+}
+tracks/3/type = "bezier"
+tracks/3/path = NodePath("Head/Camera/Weapons:translation:z")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"points": PoolRealArray(  ),
+"times": PoolRealArray(  )
+}
+
+[node name="shotty1" instance=ExtResource( 1 )]
+transform = Transform( 0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0 )
+script = ExtResource( 2 )
+
+[node name="clipBarrel_large" parent="." index="0"]
+layers = 2
+
+[node name="clipBarrel_large2" parent="." index="1"]
+layers = 2
+
+[node name="largeBlaster_back" parent="." index="2"]
+layers = 2
+
+[node name="stock_solid" parent="." index="3"]
+layers = 2
+
+[node name="panel_double" parent="." index="4"]
+layers = 2
+
+[node name="block_quarter" parent="." index="5"]
+transform = Transform( -8.14603e-09, 0.392, 4.37114e-09, 0, -1.71349e-08, 0.1, 0.05, 6.38649e-08, 7.12149e-16, -0.26604, 1.19, 1.53 )
+layers = 2
+
+[node name="mediumBlaster_barrelSilencer" parent="." index="6"]
+layers = 2
+
+[node name="Laser" type="RayCast" parent="mediumBlaster_barrelSilencer" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.89165e-05, 0.816915, 0 )
+enabled = true
+cast_to = Vector3( 0, -1, -150 )
+
+[node name="RayCast" type="RayCast" parent="." index="7"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.573255, 0 )
+enabled = true
+cast_to = Vector3( 0, -1, -200 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="8"]
+anims/AssultFire = SubResource( 1 )
+anims/fire = SubResource( 2 )
+anims/reloadsmg = SubResource( 3 )

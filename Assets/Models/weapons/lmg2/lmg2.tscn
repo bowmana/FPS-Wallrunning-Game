@@ -1,7 +1,7 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://Assets/Models/lmg.glb" type="PackedScene" id=1]
-[ext_resource path="res://Scenes/AdvancedRifle.gd" type="Script" id=2]
+[ext_resource path="res://Assets/Models/weapons/lmg2/lmg2.glb" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/Weapon.gd" type="Script" id=2]
 
 [sub_resource type="Animation" id=1]
 length = 0.08
@@ -79,39 +79,59 @@ tracks/3/keys = {
 "times": PoolRealArray(  )
 }
 
-[sub_resource type="CubeMesh" id=4]
-
-[sub_resource type="CylinderMesh" id=5]
-
 [node name="lmg2" instance=ExtResource( 1 )]
+transform = Transform( 0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0 )
 script = ExtResource( 2 )
 default_position = Vector3( 0.167, -0.4, -0.6 )
-ads_position = Vector3( 0, -0.3, -0.428 )
-ads_cast_to_offset = Vector3( 0, -3, 0 )
+ads_position = Vector3( 0, -0.3, -0.426 )
 
-[node name="lmg" parent="." index="0"]
+[node name="attachment_silencer" parent="." index="0"]
 layers = 2
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="1"]
+[node name="stock_solid" parent="." index="1"]
+layers = 2
+
+[node name="blaster_center" parent="." index="2"]
+layers = 2
+
+[node name="mediumBlaster_handleGuardSmall" parent="." index="3"]
+layers = 2
+
+[node name="clipBarrel_large" parent="." index="4"]
+layers = 2
+
+[node name="blaster_centerDetail" parent="." index="5"]
+layers = 2
+
+[node name="attachment_barrelThin" parent="." index="6"]
+layers = 2
+
+[node name="detailTargetSightFront" parent="." index="7"]
+layers = 2
+
+[node name="detailTargetSightFront2" parent="." index="8"]
+layers = 2
+
+[node name="detailTargetSightFront3" parent="." index="9"]
+layers = 2
+
+[node name="clipBarrel_small" parent="." index="10"]
+layers = 2
+
+[node name="Laser" type="RayCast" parent="clipBarrel_small" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.50736, 0 )
+enabled = true
+cast_to = Vector3( 0, -1, -1500 )
+
+[node name="detailTargetSight" parent="." index="11"]
+layers = 2
+
+[node name="RayCast" type="RayCast" parent="." index="12"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00508521, 0.747095, -0.0141549 )
+enabled = true
+cast_to = Vector3( 0, -1, -2000 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="13"]
 anims/AssultFire = SubResource( 1 )
 anims/fire = SubResource( 2 )
 anims/reloadsmg = SubResource( 3 )
-
-[node name="RayCast" type="RayCast" parent="." index="2"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.188861, 0 )
-enabled = true
-cast_to = Vector3( 0, 0, -100 )
-
-[node name="MeshInstance" type="MeshInstance" parent="." index="3"]
-transform = Transform( 0.02, 0, 0, 0, 0.02, 0, 0, 0, 0.04, 0.0582785, 0.166519, -0.275458 )
-mesh = SubResource( 4 )
-material/0 = null
-
-[node name="Laser" type="RayCast" parent="MeshInstance" index="0"]
-enabled = true
-cast_to = Vector3( 0, -1, -400 )
-
-[node name="MeshInstance2" type="MeshInstance" parent="." index="4"]
-transform = Transform( 0.144042, 0, 0, 0, 0.0304408, 0, 0, 0, 0.195376, 0.04586, 0.130318, 0.992097 )
-mesh = SubResource( 5 )
-material/0 = null

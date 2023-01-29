@@ -18,7 +18,7 @@ export var mouse_sens = 0.3
 var multiplier =  1
 export var dec_mouse_sens = .2
 onready var head = $Head
-
+onready var boost_bar = $"/root/World/UI/BoostBar"
 onready var camera = $Head/Camera
 onready var particles = $Head/Camera/Particles
 onready var anim = $AnimationPlayer2
@@ -56,6 +56,9 @@ var max_jetpack_velocity = 50
 onready var can_jetpack = false
 var jet_counter = 0
 var jet_timer_on = false
+#var slide_counter = 0 
+#var slide_timer_on = false
+#var is_crouch = false
 
 
 
@@ -187,16 +190,29 @@ func wall_jump():
 			
 			
 func sliding(delta, head_basis):
-	
-	if Input.is_action_just_pressed("slide") and is_on_floor() and not slide_cooldown and Input.is_action_pressed("move_forward"):
+#	if (Input.is_action_just_pressed("slide") or Input.is_action_pressed("slide")) and is_on_floor() :
+#		slide_timer_on = true
+#		if slide_counter <= .2:
+#			sliding = false
+#
+#
+#			print("herre", delta)
+		
+		
+	if Input.is_action_pressed("slide") and is_on_floor() and not slide_cooldown and Input.is_action_pressed("move_forward") :
 		sliding = true
 		slide_cooldown = true
-		yield(get_tree().create_timer(1.5), "timeout")
+		yield(get_tree().create_timer(1.0), "timeout")
 		sliding = false
 		yield(get_tree().create_timer(.10), "timeout")
 		slide_cooldown = false
+
+			
+			
 	if Input.is_action_just_released("slide"):
 		sliding = false
+#		slide_timer_on = false
+#		slide_counter = 0
 		print("notsliding")
 
 	if sliding:
@@ -206,7 +222,8 @@ func sliding(delta, head_basis):
 		if not anim.is_playing():
 			anim.play("sliding")
 	
-		
+
+	
 	if !sliding and anim.is_playing() and anim.get_current_animation() == "sliding":
 
 		anim.play("sliding", -1,10)
@@ -216,10 +233,15 @@ func sliding(delta, head_basis):
 	
 
 
+
 func _process(delta):
 
-		
 
+	boost_bar.value = space_button_held_time*10
+	if boost_bar.value == 0:
+		boost_bar.visible = false
+	else:
+		boost_bar.visible = true
 	if Input.is_action_just_pressed("ui_cancel"):
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	
@@ -283,7 +305,7 @@ func jet_pack(delta):
 			
 			
 			space_button_held_time += delta*12
-			print(space_button_held_time)
+#			print(space_button_held_time)
 			var jetpack_velocity = min(space_button_held_time * acceleration, max_jetpack_velocity)
 			velocity.y = jetpack_velocity
 		else:
@@ -296,6 +318,9 @@ func jet_pack(delta):
 func _physics_process(delta):
 	if jet_timer_on:
 		jet_counter += delta
+#	if slide_timer_on:
+#		slide_counter += delta
+	
 	
 	var head_basis = head.get_global_transform().basis
 	
@@ -304,12 +329,14 @@ func _physics_process(delta):
 	wall_run()
 	
 	process_wallrun_rotation(delta)
-#	wall_jump(head_basis)
+
 	sliding(delta, head_basis)
 	if !is_on_wall():
 		wallrunning = false
 	if Input.is_action_pressed("move_forward"):
 		direction -= head_basis.z
+#		print(slide_counter)
+		
 		
 	elif Input.is_action_pressed("move_backward"):
 		direction += head_basis.z

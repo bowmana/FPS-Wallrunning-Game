@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Assets/Models/weapons/smg1/smg1.glb" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/UI/WeaponPickup.tscn" type="PackedScene" id=2]
+
+[node name="smg1" instance=ExtResource( 1 )]
+transform = Transform( 0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0 )
+
+[node name="attachment_silencer" parent="." index="5"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0325953, -2 )
+
+[node name="WeaponPickup" parent="." index="10" instance=ExtResource( 2 )]
+Uid = "smg1"

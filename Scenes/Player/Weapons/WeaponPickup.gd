@@ -14,11 +14,11 @@ func _on_Area_body_entered(body):
 		if Weaponlist.get_primary() == null:
 			Weaponlist.add_primary(Uid)
 			get_parent().queue_free()
-			print(Weaponlist.get_weapons())
+#			print(Weaponlist.get_weapons())
 		elif Weaponlist.get_secondary() == null:
 			Weaponlist.add_secondary(Uid)
 			get_parent().queue_free()
-			print(Weaponlist.get_weapons())
+#			print(Weaponlist.get_weapons())
 #
 			
 

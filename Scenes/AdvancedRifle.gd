@@ -16,7 +16,7 @@ func _process(delta):
 		var scalingfactor = lerp(0.05, 4, (distance) / 100)
 		crosshair.scale = Vector3(scalingfactor,scalingfactor,scalingfactor)
 
-		stamp_decal_to_normal(crosshair)
+		stamp_decal_to_normal(crosshair, crosshair_raycast)
 	
 	else:
 		crosshair.visible = false
