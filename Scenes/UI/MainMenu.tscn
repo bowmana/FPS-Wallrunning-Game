@@ -22,7 +22,6 @@ __meta__ = {
 }
 
 [node name="Options" type="VBoxContainer" parent="."]
-visible = false
 anchor_left = 0.5
 anchor_right = 0.5
 anchor_bottom = 1.0
@@ -34,33 +33,62 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="Options"]
-margin_top = 493.0
+margin_top = 438.0
 margin_right = 200.0
-margin_bottom = 507.0
+margin_bottom = 452.0
 text = "Options"
 align = 1
 
 [node name="Label2" type="Label" parent="Options"]
-margin_top = 511.0
+margin_top = 456.0
 margin_right = 200.0
-margin_bottom = 542.0
-text = "Volume
+margin_bottom = 487.0
+text = "Master Volume
 "
 
 [node name="MasterSlider" type="HSlider" parent="Options"]
+margin_top = 491.0
+margin_right = 200.0
+margin_bottom = 507.0
+min_value = -45.0
+max_value = 0.0
+
+[node name="FX" type="Label" parent="Options"]
+margin_top = 511.0
+margin_right = 200.0
+margin_bottom = 542.0
+text = "FX Volume
+"
+
+[node name="FXSlider" type="HSlider" parent="Options"]
 margin_top = 546.0
 margin_right = 200.0
 margin_bottom = 562.0
 min_value = -45.0
 max_value = 0.0
 
-[node name="Button" type="Button" parent="Options"]
+[node name="Music" type="Label" parent="Options"]
 margin_top = 566.0
 margin_right = 200.0
-margin_bottom = 586.0
+margin_bottom = 597.0
+text = "Music Volume
+"
+
+[node name="MusicSlider" type="HSlider" parent="Options"]
+margin_top = 601.0
+margin_right = 200.0
+margin_bottom = 617.0
+min_value = -45.0
+max_value = 0.0
+
+[node name="Button" type="Button" parent="Options"]
+margin_top = 621.0
+margin_right = 200.0
+margin_bottom = 641.0
 text = "Back"
 
 [node name="OptionsMenu" type="VBoxContainer" parent="."]
+visible = false
 anchor_left = 0.5
 anchor_right = 0.5
 anchor_bottom = 1.0
@@ -117,8 +145,11 @@ __meta__ = {
 [node name="main" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 2 )
 volume_db = -6.0
+bus = "Music"
 
 [connection signal="value_changed" from="Options/MasterSlider" to="." method="_on_MasterSlider_value_changed"]
+[connection signal="value_changed" from="Options/FXSlider" to="." method="_on_FXSlider_value_changed"]
+[connection signal="value_changed" from="Options/MusicSlider" to="." method="_on_MusicSlider_value_changed"]
 [connection signal="pressed" from="Options/Button" to="." method="_on_Button_pressed"]
 [connection signal="pressed" from="OptionsMenu/LevelSelect" to="." method="_on_LevelSelect_pressed"]
 [connection signal="pressed" from="OptionsMenu/Tutorial" to="." method="_on_Tutorial_pressed"]

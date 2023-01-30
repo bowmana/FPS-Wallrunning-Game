@@ -12,9 +12,12 @@ onready var scroll_tween: Tween = Tween.new()
 onready var margin_r: int = $CenterContainer/MarginContainer.get("custom_constants/margin_right")
 onready var card_space: int = $CenterContainer/MarginContainer/HBoxContainer.get("custom_constants/separation")
 onready var card_nodes: Array = $CenterContainer/MarginContainer/HBoxContainer.get_children()
+onready var clicksound = $click
+onready var windsound = $wind
 
 
 func _ready() -> void:
+	windsound.play()
 	add_child(scroll_tween)
 	yield(get_tree(), "idle_frame")
 	
@@ -77,15 +80,18 @@ func _on_LevelSelect_gui_input(event):
 			scroll_tween.stop_all()
 		else:
 			scroll()
+			clicksound.play()
 			
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey:
 		if event.is_action_pressed("move_right") and card_current_index < card_x_positions.size() - 1:
 			card_current_index += 1
+			clicksound.play()
 			scroll()
 		if event.is_action_pressed("move_left") and card_current_index > 0:
 			card_current_index -= 1
 			scroll()
+			clicksound.play()
 
 
 #func _on_CardMenu6_pressed():
@@ -118,4 +124,24 @@ func _on_CardMenu7_pressed():
 
 
 func _on_CardMenu1_mouse_entered():
-	
+	clicksound.play()
+
+
+func _on_CardMenu2_mouse_entered():
+	clicksound.play()
+
+
+func _on_CardMenu3_mouse_entered():
+	clicksound.play()
+
+
+func _on_CardMenu4_mouse_entered():
+	clicksound.play()
+
+
+func _on_CardMenu5_mouse_entered():
+	clicksound.play()
+
+
+func _on_CardMenu7_mouse_entered():
+	clicksound.play()

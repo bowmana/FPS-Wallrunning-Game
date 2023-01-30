@@ -30,3 +30,19 @@ func _on_MasterSlider_value_changed(value):
 func _on_Button_pressed():
 	$Options.hide()
 	$OptionsMenu.show()
+
+
+func _on_FXSlider_value_changed(value):
+	if value == -45:
+		AudioServer.set_bus_mute(1, true)
+	else:
+		AudioServer.set_bus_mute(1, false)
+		AudioServer.set_bus_volume_db(1,value)
+
+
+func _on_MusicSlider_value_changed(value):
+	if value == -45:
+		AudioServer.set_bus_mute(2, true)
+	else:
+		AudioServer.set_bus_mute(2, false)
+		AudioServer.set_bus_volume_db(2,value)
