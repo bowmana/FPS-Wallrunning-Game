@@ -82,8 +82,12 @@ tracks/3/keys = {
 [node name="lmg2" instance=ExtResource( 1 )]
 transform = Transform( 0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0 )
 script = ExtResource( 2 )
+fire_rate = 0.15
+clip_size = 45
 default_position = Vector3( 0.167, -0.4, -0.6 )
 ads_position = Vector3( 0, -0.3, -0.426 )
+weapon_fire_anim = "lmg2fire"
+fully_auto = true
 
 [node name="attachment_silencer" parent="." index="0"]
 layers = 2
@@ -128,6 +132,7 @@ layers = 2
 
 [node name="RayCast" type="RayCast" parent="." index="12"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00508521, 0.747095, -0.0141549 )
+visible = false
 enabled = true
 cast_to = Vector3( 0, -1, -2000 )
 

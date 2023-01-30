@@ -35,6 +35,7 @@ GlobalGameSettings="*res://Assets/Singletons/GlobalGameSettings.gd"
 Weaponlist="*res://Assets/Singletons/Weaponlist.gd"
 WeaponInteract="*res://Assets/Singletons/WeaponInteract.gd"
 Global="*res://Assets/Singletons/Global.gd"
+SoundsManager="*res://Assets/Singletons/SoundsManager.gd"
 
 [display]
 

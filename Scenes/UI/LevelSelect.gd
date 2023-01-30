@@ -115,3 +115,7 @@ func _on_CardMenu5_pressed():
 
 func _on_CardMenu7_pressed():
 	Global.pick_level(5)
+
+
+func _on_CardMenu1_mouse_entered():
+	

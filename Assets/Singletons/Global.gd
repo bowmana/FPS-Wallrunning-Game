@@ -58,3 +58,7 @@ func get_level():
 func pick_level(level):
 	current_level =level
 	get_tree().change_scene(levels[current_level])
+
+
+func _on_Button_pressed():
+	main_menu()

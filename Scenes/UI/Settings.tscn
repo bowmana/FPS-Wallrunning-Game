@@ -1,0 +1,124 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Assets/Singletons/SoundsManager.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Singletons/GlobalGameSettings.gd" type="Script" id=2]
+[ext_resource path="res://Assets/Singletons/Global.gd" type="Script" id=3]
+
+[node name="Settings" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -1.49829
+margin_bottom = -1.49829
+color = Color( 0.458824, 0.505882, 0.505882, 1 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/separation = 400
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Options" type="VBoxContainer" parent="HBoxContainer"]
+margin_left = 704.0
+margin_right = 755.0
+margin_bottom = 1080.0
+alignment = 1
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="HBoxContainer/Options"]
+margin_top = 497.0
+margin_right = 51.0
+margin_bottom = 528.0
+text = "Options
+"
+align = 1
+
+[node name="Label2" type="Label" parent="HBoxContainer/Options"]
+margin_top = 532.0
+margin_right = 51.0
+margin_bottom = 563.0
+text = "Volume
+"
+align = 1
+
+[node name="MasterSlider" type="HSlider" parent="HBoxContainer/Options"]
+margin_top = 567.0
+margin_right = 51.0
+margin_bottom = 583.0
+min_value = -45.0
+max_value = 0.0
+
+[node name="Options2" type="VBoxContainer" parent="HBoxContainer"]
+margin_left = 1155.0
+margin_right = 1215.0
+margin_bottom = 1080.0
+alignment = 1
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="HBoxContainer/Options2"]
+margin_top = 452.0
+margin_right = 60.0
+margin_bottom = 483.0
+text = "Options
+"
+align = 1
+
+[node name="Sens" type="Label" parent="HBoxContainer/Options2"]
+margin_top = 487.0
+margin_right = 60.0
+margin_bottom = 535.0
+text = "Sens
+
+"
+align = 1
+
+[node name="SensSlider" type="HSlider" parent="HBoxContainer/Options2"]
+margin_top = 539.0
+margin_right = 60.0
+margin_bottom = 555.0
+
+[node name="ADSsens" type="Label" parent="HBoxContainer/Options2"]
+margin_top = 559.0
+margin_right = 60.0
+margin_bottom = 607.0
+text = "ADS sens
+
+"
+align = 1
+
+[node name="SecSensSlider" type="HSlider" parent="HBoxContainer/Options2"]
+margin_top = 611.0
+margin_right = 60.0
+margin_bottom = 627.0
+
+[node name="Button" type="Button" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -6.0
+margin_top = -10.0
+margin_right = 6.0
+margin_bottom = 10.0
+text = "Back"
+
+[connection signal="value_changed" from="HBoxContainer/Options/MasterSlider" to="HBoxContainer/Options" method="_on_MasterSlider_value_changed"]
+[connection signal="value_changed" from="HBoxContainer/Options2/SensSlider" to="HBoxContainer/Options2" method="_on_SensSlider_value_changed"]
+[connection signal="value_changed" from="HBoxContainer/Options2/SecSensSlider" to="HBoxContainer/Options2" method="_on_SecSensSlider_value_changed"]
+[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]

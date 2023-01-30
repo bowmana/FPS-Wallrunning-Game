@@ -82,6 +82,11 @@ tracks/3/keys = {
 [node name="shotty1" instance=ExtResource( 1 )]
 transform = Transform( 0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0 )
 script = ExtResource( 2 )
+default_position = Vector3( 0.3, -1, -0.8 )
+ads_position = Vector3( 0.107, -0.52, -0.2 )
+ads_cast_from = Vector3( 0, 0.7, 0 )
+weapon_fire_anim = "shotty1fire"
+ads_cast_to_offset = Vector3( 0, 12, 0 )
 
 [node name="clipBarrel_large" parent="." index="0"]
 layers = 2

@@ -12,6 +12,8 @@ script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+card_scale = null
+card_current_scale = null
 scroll_duration = 0.3
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
@@ -72,6 +74,7 @@ margin_bottom = 410.0
 texture_normal = ExtResource( 1 )
 
 [connection signal="gui_input" from="." to="." method="_on_LevelSelect_gui_input"]
+[connection signal="mouse_entered" from="CenterContainer/MarginContainer/HBoxContainer/CardMenu1" to="." method="_on_CardMenu1_mouse_entered"]
 [connection signal="pressed" from="CenterContainer/MarginContainer/HBoxContainer/CardMenu1" to="." method="_on_CardMenu1_pressed"]
 [connection signal="pressed" from="CenterContainer/MarginContainer/HBoxContainer/CardMenu2" to="." method="_on_CardMenu2_pressed"]
 [connection signal="pressed" from="CenterContainer/MarginContainer/HBoxContainer/CardMenu3" to="." method="_on_CardMenu3_pressed"]

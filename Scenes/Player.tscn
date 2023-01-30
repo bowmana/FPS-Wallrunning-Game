@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Scenes/Player.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Interaction.gd" type="Script" id=3]
@@ -41,6 +41,50 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id=6]
+resource_name = "lmg2fire"
+length = 0.061
+tracks/0/type = "value"
+tracks/0/path = NodePath("Head/Camera/Weapons:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.06 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0, 0.18 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Head/Camera/Weapons:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.06 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0.1, 0.2, 0 ) ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "lmgfire"
+length = 0.061
+tracks/0/type = "value"
+tracks/0/path = NodePath("Head/Camera/Weapons:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.06 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0, 0.125 ) ]
+}
+
+[sub_resource type="Animation" id=8]
 length = 0.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("Head/Camera/Weapons:rotation_degrees")
@@ -85,8 +129,35 @@ tracks/3/keys = {
 "times": PoolRealArray(  )
 }
 
-[sub_resource type="Animation" id=7]
-resource_name = "HeadBob"
+[sub_resource type="Animation" id=9]
+resource_name = "shotty1fire"
+length = 0.061
+tracks/0/type = "value"
+tracks/0/path = NodePath("Head/Camera/Weapons:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.061 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( -0.1, 0.3, -0.4 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Head/Camera/Weapons:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.061 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0.3, 0.6, 0.3 ) ]
+}
+
+[sub_resource type="Animation" id=10]
 length = 0.6
 tracks/0/type = "value"
 tracks/0/path = NodePath("Head/Camera:translation")
@@ -101,8 +172,7 @@ tracks/0/keys = {
 "values": [ Vector3( 0, 1, 0 ), Vector3( 0, 1.2, 0 ), Vector3( 0, 1, 0 ) ]
 }
 
-[sub_resource type="Animation" id=8]
-resource_name = "Idle"
+[sub_resource type="Animation" id=11]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Head:translation")
 tracks/0/interp = 1
@@ -116,7 +186,7 @@ tracks/0/keys = {
 "values": [ Vector3( 0, 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=12]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Head/Camera/Weapons:translation")
 tracks/0/interp = 1
@@ -214,7 +284,7 @@ dec_mouse_sens = 0.15
 [node name="Head" type="Spatial" parent="."]
 
 [node name="Camera" type="Camera" parent="Head"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.13333, 0 )
 cull_mask = 1048573
 far = 800.0
 
@@ -225,11 +295,10 @@ collision_mask = 2
 script = ExtResource( 3 )
 
 [node name="Weapons" type="Spatial" parent="Head/Camera"]
+transform = Transform( 0.999932, -0.00518085, 0.0104716, 0.00523589, 0.999973, -0.00523596, -0.0104442, 0.00529044, 0.999931, -0.1, 0.3, -0.4 )
 script = ExtResource( 8 )
-
-[node name="Weapons2" type="Spatial" parent="Head/Camera"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5.21569 )
-script = ExtResource( 8 )
+sway_left = Vector3( 0, 0.05, 0 )
+sway_right = Vector3( 0, -0.05, 0 )
 
 [node name="Particles" type="Particles" parent="Head/Camera"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.76106, 1.24865 )
@@ -271,11 +340,14 @@ camera_path = NodePath("../../../Head/Camera")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/AssultFire = SubResource( 5 )
-anims/reloadsmg = SubResource( 6 )
+anims/lmg2fire = SubResource( 6 )
+anims/lmgfire = SubResource( 7 )
+anims/reloadsmg = SubResource( 8 )
+anims/shotty1fire = SubResource( 9 )
 
 [node name="AnimationPlayer2" type="AnimationPlayer" parent="."]
-anims/HeadBob = SubResource( 7 )
-anims/Idle = SubResource( 8 )
-anims/sliding = SubResource( 9 )
+anims/HeadBob = SubResource( 10 )
+anims/Idle = SubResource( 11 )
+anims/sliding = SubResource( 12 )
 
 [node name="JetTimer" type="Timer" parent="."]

@@ -12,10 +12,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.02, 0.08 ),
+"times": PoolRealArray( 0, 0.02, 0.1 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0, 0.125 ), Vector3( 0, 0, 0 ) ]
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0, 0.125 ), Vector3( 0, 0, 0.1 ) ]
 }
 
 [sub_resource type="Animation" id=2]
@@ -31,7 +31,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0, 0.1 ) ]
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0, -0.1 ) ]
 }
 
 [sub_resource type="Animation" id=3]
@@ -81,10 +81,12 @@ tracks/3/keys = {
 
 [node name="lmg" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
-fire_rate = 0.1
+fire_rate = 0.15
 clip_size = 50
 default_position = Vector3( 0.167, -0.4, -0.6 )
 ads_position = Vector3( 0, -0.3, -0.428 )
+weapon_fire_anim = "lmgfire"
+fully_auto = true
 ads_cast_to_offset = Vector3( 0, -10, 0 )
 
 [node name="lmg" parent="." index="0"]

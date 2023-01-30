@@ -17,3 +17,11 @@ func get_dec_sensitivity():
 # Setter method for dec_sensitivity
 func set_dec_sensitivity(value):
 	_dec_sensitivity = value
+
+
+func _on_SensSlider_value_changed(value):
+	pass # Replace with function body.
+
+
+func _on_SecSensSlider_value_changed(value):
+	pass # Replace with function body.
