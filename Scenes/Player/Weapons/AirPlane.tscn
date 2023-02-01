@@ -92,24 +92,25 @@ default_position = Vector3( 0.167, -0.4, -0.6 )
 ads_position = Vector3( 0, -0.22, -0.128 )
 ads_cast_to_offset = Vector3( 0, 0, 0 )
 
-[node name="mergedBlocks(Clone)" parent="." index="0"]
+[node name="Laser" type="RayCast" parent="." index="0"]
+transform = Transform( 0.02, 0, 0, 0, 0.02, 0, 0, 0, 0.04, 0.0582785, 0.166519, -0.275458 )
+enabled = true
+cast_to = Vector3( 0, -1, -400 )
+
+[node name="mergedBlocks(Clone)" parent="." index="1"]
 layers = 2
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="1"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="2"]
 anims/AssultFire = SubResource( 1 )
 anims/fire = SubResource( 2 )
 anims/reloadsmg = SubResource( 3 )
 
-[node name="RayCast" type="RayCast" parent="." index="2"]
+[node name="RayCast" type="RayCast" parent="." index="3"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.117802, 0 )
 enabled = true
 cast_to = Vector3( 0, 0, -400 )
 
-[node name="MeshInstance" type="MeshInstance" parent="." index="3"]
+[node name="MeshInstance" type="MeshInstance" parent="." index="4"]
 transform = Transform( 0.02, 0, 0, 0, 0.02, 0, 0, 0, 0.04, 0.0582785, 0.166519, -0.275458 )
 mesh = SubResource( 4 )
 material/0 = null
-
-[node name="Laser" type="RayCast" parent="MeshInstance" index="0"]
-enabled = true
-cast_to = Vector3( 0, -1, -400 )

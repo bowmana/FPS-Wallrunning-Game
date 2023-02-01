@@ -1,7 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Assets/Models/weapons/lmg2/lmg2.glb" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Weapon.gd" type="Script" id=2]
+[ext_resource path="res://lmg1-4.wav" type="AudioStream" id=3]
+[ext_resource path="res://lmg1-3.wav" type="AudioStream" id=4]
+[ext_resource path="res://lmg1-1.wav" type="AudioStream" id=5]
+[ext_resource path="res://lmg1-2.wav" type="AudioStream" id=6]
 
 [sub_resource type="Animation" id=1]
 length = 0.08
@@ -21,20 +25,97 @@ tracks/0/keys = {
 [sub_resource type="Animation" id=2]
 resource_name = "fire"
 length = 0.1
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:translation")
+tracks/0/type = "method"
+tracks/0/path = NodePath(".")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "play_shotsound"
+} ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:default_position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
 "times": PoolRealArray( 0, 0.1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0, 0.1 ) ]
+"values": [ Vector3( 0.136, -0.289, -0.473 ), Vector3( 0.136, -0.279, -0.483 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:ads_position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, -0.198, -0.213 ), Vector3( 0, -0.208, -0.223 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("attachment_silencer:translation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, -1 ), Vector3( 0, 0, -0.937201 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("attachment_silencer:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 1, 1, 1 ), Vector3( 1.2, 1, 0.9 ) ]
 }
 
 [sub_resource type="Animation" id=3]
+resource_name = "reload"
+tracks/0/type = "value"
+tracks/0/path = NodePath("clipBarrel_large:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 1 ), Vector3( -1, -1.5, 1 ), Vector3( 0, 0, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("clipBarrel_large:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0, 90 ), Vector3( 0, 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=4]
 length = 0.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("Head/Camera/Weapons:rotation_degrees")
@@ -84,51 +165,14 @@ transform = Transform( 0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0 )
 script = ExtResource( 2 )
 fire_rate = 0.15
 clip_size = 45
-default_position = Vector3( 0.167, -0.4, -0.6 )
-ads_position = Vector3( 0, -0.3, -0.426 )
+default_position = Vector3( 0.136, -0.279, -0.483 )
+ads_position = Vector3( 0, -0.198, -0.213 )
 weapon_fire_anim = "lmg2fire"
 fully_auto = true
+stream_sounds = [ ExtResource( 5 ), ExtResource( 6 ), ExtResource( 4 ), ExtResource( 3 ) ]
 
 [node name="attachment_silencer" parent="." index="0"]
-layers = 2
-
-[node name="stock_solid" parent="." index="1"]
-layers = 2
-
-[node name="blaster_center" parent="." index="2"]
-layers = 2
-
-[node name="mediumBlaster_handleGuardSmall" parent="." index="3"]
-layers = 2
-
-[node name="clipBarrel_large" parent="." index="4"]
-layers = 2
-
-[node name="blaster_centerDetail" parent="." index="5"]
-layers = 2
-
-[node name="attachment_barrelThin" parent="." index="6"]
-layers = 2
-
-[node name="detailTargetSightFront" parent="." index="7"]
-layers = 2
-
-[node name="detailTargetSightFront2" parent="." index="8"]
-layers = 2
-
-[node name="detailTargetSightFront3" parent="." index="9"]
-layers = 2
-
-[node name="clipBarrel_small" parent="." index="10"]
-layers = 2
-
-[node name="Laser" type="RayCast" parent="clipBarrel_small" index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.50736, 0 )
-enabled = true
-cast_to = Vector3( 0, -1, -1500 )
-
-[node name="detailTargetSight" parent="." index="11"]
-layers = 2
+transform = Transform( 1.2, 0, 0, 0, 1, 0, 0, 0, 0.9, 0, 0, -0.937201 )
 
 [node name="RayCast" type="RayCast" parent="." index="12"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00508521, 0.747095, -0.0141549 )
@@ -139,4 +183,13 @@ cast_to = Vector3( 0, -1, -2000 )
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="13"]
 anims/AssultFire = SubResource( 1 )
 anims/fire = SubResource( 2 )
-anims/reloadsmg = SubResource( 3 )
+anims/reload = SubResource( 3 )
+anims/reloadsmg = SubResource( 4 )
+
+[node name="shoot" type="AudioStreamPlayer" parent="." index="14"]
+bus = "FX"
+
+[node name="Laser" type="RayCast" parent="." index="15"]
+transform = Transform( 0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0.4, 0.745152, 0.1 )
+enabled = true
+cast_to = Vector3( 0, -1, -1500 )

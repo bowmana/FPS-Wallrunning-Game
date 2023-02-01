@@ -110,11 +110,6 @@ layers = 2
 [node name="mediumBlaster_barrelSilencer" parent="." index="6"]
 layers = 2
 
-[node name="Laser" type="RayCast" parent="mediumBlaster_barrelSilencer" index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.89165e-05, 0.816915, 0 )
-enabled = true
-cast_to = Vector3( 0, -1, -150 )
-
 [node name="RayCast" type="RayCast" parent="." index="7"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.573255, 0 )
 enabled = true
@@ -124,3 +119,8 @@ cast_to = Vector3( 0, -1, -200 )
 anims/AssultFire = SubResource( 1 )
 anims/fire = SubResource( 2 )
 anims/reloadsmg = SubResource( 3 )
+
+[node name="Laser" type="RayCast" parent="." index="9"]
+transform = Transform( 0.470933, 0.470933, 0, -0.470933, 0.470933, 0, 0, 0, 1, 1.21606, 0.841401, 1.8 )
+enabled = true
+cast_to = Vector3( 0, -1, -150 )

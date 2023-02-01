@@ -462,7 +462,7 @@ func _physics_process(delta):
 		
 	if Input.is_action_pressed("sprint") and Input.is_action_pressed("ads") == false:
 		target_speed = SPRINT_SPEED
-		if crouch:
+		if crouch and !head_bonked:
 			anim.play("sliding", -1, 10)
 			crouch = false
 	else:

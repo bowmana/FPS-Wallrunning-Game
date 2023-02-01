@@ -55,19 +55,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.06 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0, 0.18 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Head/Camera/Weapons:rotation_degrees")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.06 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector3( 0, 0, 0 ), Vector3( 0.1, 0.2, 0 ) ]
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0, 0.125 ) ]
 }
 
 [sub_resource type="Animation" id=7]
@@ -80,7 +68,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.06 ),
+"times": PoolRealArray( 0, 0.1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0, 0.125 ) ]
@@ -254,7 +242,7 @@ tracks/1/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=16]
+[sub_resource type="Animation" id=14]
 resource_name = "crouch"
 length = 0.2
 tracks/0/type = "value"
@@ -342,7 +330,7 @@ tracks/6/keys = {
 "values": [ Vector3( 0, 0, 0 ), Vector3( 0, -1.1, -0.15 ) ]
 }
 
-[sub_resource type="Animation" id=14]
+[sub_resource type="Animation" id=15]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Head/Camera/Weapons:translation")
 tracks/0/interp = 1
@@ -440,7 +428,7 @@ dec_mouse_sens = 0.15
 [node name="Head" type="Spatial" parent="."]
 
 [node name="Camera" type="Camera" parent="Head"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.06667, 0 )
 cull_mask = 1048573
 far = 800.0
 
@@ -461,6 +449,26 @@ emitting = false
 amount = 200
 process_material = SubResource( 1 )
 draw_pass_1 = SubResource( 2 )
+
+[node name="RayCast" type="RayCast" parent="Head/Camera"]
+enabled = true
+cast_to = Vector3( 0, -1, -400 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Head/Camera"]
+
+[node name="ColorRect" type="ColorRect" parent="Head/Camera/CanvasLayer"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -2.0
+margin_top = -2.0
+margin_right = 4.0
+margin_bottom = 4.0
+color = Color( 0.803922, 0.0705882, 0.956863, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="headray" type="RayCast" parent="Head"]
 transform = Transform( 1, 0, 0, 0, 1, 2.13163e-14, 0, 0, 1, 0, 1.37365, 1.59946e-08 )
@@ -509,8 +517,8 @@ anims/HeadBob = SubResource( 10 )
 anims/Idle = SubResource( 11 )
 anims/Sprinting = SubResource( 12 )
 anims/Walking = SubResource( 13 )
-anims/crouch = SubResource( 16 )
-anims/sliding = SubResource( 14 )
+anims/crouch = SubResource( 14 )
+anims/sliding = SubResource( 15 )
 
 [node name="JetTimer" type="Timer" parent="."]
 

@@ -17,6 +17,8 @@ export var fully_auto :bool
 onready var ammo_label = $"/root/World/UI/Label"
 onready var b_decal = preload("res://Scenes/Player/Decals/BulletDecal.tscn")
 onready var crosshair_decal = preload("res://Scenes/Player/Decals/CrossHair.tscn")
+onready var laser_decal_path = preload("res://Scenes/Player/Decals/LaserDecal.tscn")
+onready var laser_decal = laser_decal_path.instance()
 onready var weaponPickup = preload("res://Scenes/UI/WeaponPickup.tscn")
 
 
@@ -24,6 +26,7 @@ onready var weaponPickup = preload("res://Scenes/UI/WeaponPickup.tscn")
 
 var weapon : Spatial
 var raycast : RayCast
+var laser : RayCast
 
 var camera : Camera
 var head: Spatial
@@ -35,21 +38,43 @@ var reloading = false
 var up_recoil = 0
 
 export var ads_cast_to_offset : Vector3 = Vector3(0,8.33,0)
+export var stream_sounds: Array
+var last_shot_sound = floor(rand_range(0,3))
 var initial_cast_to : Vector3 =  Vector3(0,0,0)
 var rayPos : Vector3 =  Vector3(0,0,0)
+onready var shootsound = $shoot
+
 func _ready():
 	
 	current_ammo = clip_size
 
-	raycast = $RayCast
-
+#	raycast = $RayCast
+	laser = $Laser
+	raycast = get_node("/root/World/Player/Head/Camera/RayCast")
+	add_child(laser_decal)
 	camera = get_node("/root/World/Player/Head/Camera")
 	head = get_node("/root/World/Player/Head")
-	rayPos = raycast.transform.origin
-	initial_cast_to = raycast.cast_to
-	anim_player = get_node("/root/World/Player/AnimationPlayer")
-	
+#	rayPos = raycast.transform.origin
+#	initial_cast_to = raycast.cast_to
+#	anim_player = get_node("/root/World/Player/AnimationPlayer")
+	anim_player = $AnimationPlayer
+func play_shotsound():
+	var rand_shot = floor(rand_range(0,4))
+	while rand_shot == last_shot_sound:
+		rand_shot = floor(rand_range(0,4))
+	match str(rand_shot):
+		"0":
+			shootsound.stream = stream_sounds[0]
+		"1":
+			shootsound.stream = stream_sounds[1]
+		"2":
+			shootsound.stream = stream_sounds[2]
+		"3":
+			shootsound.stream = stream_sounds[3]
+	shootsound.pitch_scale = rand_range(-20,-14)
 
+	shootsound.play()
+	last_shot_sound = rand_shot
 
 func _process(delta):
 
@@ -92,20 +117,33 @@ func _process(delta):
 		transform.origin = transform.origin.linear_interpolate(ads_position, ads_acceleration)
 
 
-		raycast.transform.origin = (rayPos + ads_cast_from)
+#		raycast.transform.origin = (rayPos + ads_cast_from)
+#
+#		raycast.cast_to = raycast.cast_to.linear_interpolate(initial_cast_to + ads_cast_to_offset, ads_acceleration)
 
-		raycast.cast_to = raycast.cast_to.linear_interpolate(initial_cast_to + ads_cast_to_offset, ads_acceleration)
-
-
-
+		var distance = raycast.get_collision_point().distance_to(raycast.global_transform.origin)
+		var scalingfactor = lerp(.3, 4, (distance) / 100)
+		laser_decal.scale = Vector3(scalingfactor,scalingfactor,scalingfactor)
+		stamp_decal_to_normal(laser_decal, raycast)
+		laser.visible = false
+		raycast.visible = true
 		camera.fov = lerp(camera.fov, ads_fov, ads_acceleration)
 		GlobalGameSettings.set_dec_sensitivity(.2)
 	else:
 		transform.origin = transform.origin.linear_interpolate(default_position, ads_acceleration)
-		raycast.transform.origin = rayPos
+#		raycast.transform.origin = rayPos
+	
+		raycast.visible = true
+#		raycast.cast_to = raycast.cast_to.linear_interpolate(initial_cast_to,ads_acceleration)
+		laser.cast_to = raycast.cast_to
+		stamp_decal_to_normal(laser_decal, laser)
+		laser.visible = true
+#		raycast.visible = false
+		
 
-		raycast.cast_to = raycast.cast_to.linear_interpolate(initial_cast_to,ads_acceleration)
-
+		var distance = laser.get_collision_point().distance_to(laser.global_transform.origin)
+		var scalingfactor = lerp(.3, 4, (distance) / 100)
+		laser_decal.scale = Vector3(scalingfactor,scalingfactor,scalingfactor)
 		camera.fov = lerp(camera.fov, default_fov, ads_acceleration)
 		GlobalGameSettings.set_dec_sensitivity(1)
 		
@@ -136,9 +174,10 @@ func fire(delta):
 	can_fire = false
 	current_ammo -=1
 	print(weapon_fire_anim)
-	anim_player.play(weapon_fire_anim)
-
-	var side_recoil = rand_range(-4,4)
+#	anim_player.play(weapon_fire_anim)
+	anim_player.play("fire")
+	play_shotsound()
+	var side_recoil = rand_range(-1,2)
 	var recoil = rand_range(1,1.5)
 	up_recoil += recoil * delta
 	head.rotation.x = lerp(head.rotation.x, deg2rad(head.rotation_degrees.x + up_recoil), delta)
@@ -150,12 +189,13 @@ func fire(delta):
 	check_collision(raycast)
 
 	yield(get_tree().create_timer(fire_rate), "timeout")
+	
 	can_fire = true
 
 	
 func reload():
 	print("reloading")
-	anim_player.play("reloadsmg")
+	anim_player.play("reload")
 	reloading = true
 	yield(get_tree().create_timer(reload_speed), "timeout")
 	current_ammo = clip_size
