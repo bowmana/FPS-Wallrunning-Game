@@ -10,3 +10,5 @@ func _ready():
 	
 func _process(delta):
 	global_transform = camera.global_transform
+
+

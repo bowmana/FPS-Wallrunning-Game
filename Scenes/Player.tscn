@@ -1,7 +1,9 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://Scenes/Player.gd" type="Script" id=1]
+[ext_resource path="res://walking.wav" type="AudioStream" id=2]
 [ext_resource path="res://Scenes/Interaction.gd" type="Script" id=3]
+[ext_resource path="res://jet.wav" type="AudioStream" id=4]
 [ext_resource path="res://Scenes/Camera.gd" type="Script" id=5]
 [ext_resource path="res://Scenes/Viewport.gd" type="Script" id=7]
 [ext_resource path="res://Scenes/WeaponsHolder.gd" type="Script" id=8]
@@ -187,6 +189,160 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id=12]
+resource_name = "Sprinting"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/path = NodePath("Head/Camera:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 1, 0 ), Vector3( 0, 1.2, 0 ), Vector3( 0, 1, 0 ) ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.1, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "play_footstepL"
+}, {
+"args": [  ],
+"method": "play_footstepR"
+} ]
+}
+
+[sub_resource type="Animation" id=13]
+resource_name = "Walking"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/path = NodePath("Head/Camera:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 1, 0 ), Vector3( 0, 1.2, 0 ), Vector3( 0, 1, 0 ) ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.1, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "play_footstepL"
+}, {
+"args": [  ],
+"method": "play_footstepR"
+} ]
+}
+
+[sub_resource type="Animation" id=16]
+resource_name = "crouch"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("Head/Camera/Weapons:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, -0.1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Head/Camera/Weapons:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( -1, 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("MeshInstance:translation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, -0.5, 0 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("MeshInstance:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 1, 1, 1 ), Vector3( 1, 1, 0.5 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("CollisionShape:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 1, 1, 1 ), Vector3( 0.3, 0.5, 0.3 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("CollisionShape:translation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, -0.5, 0 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Head:translation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, -1.1, -0.15 ) ]
+}
+
+[sub_resource type="Animation" id=14]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Head/Camera/Weapons:translation")
 tracks/0/interp = 1
@@ -284,7 +440,7 @@ dec_mouse_sens = 0.15
 [node name="Head" type="Spatial" parent="."]
 
 [node name="Camera" type="Camera" parent="Head"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.13333, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
 cull_mask = 1048573
 far = 800.0
 
@@ -295,7 +451,6 @@ collision_mask = 2
 script = ExtResource( 3 )
 
 [node name="Weapons" type="Spatial" parent="Head/Camera"]
-transform = Transform( 0.999932, -0.00518085, 0.0104716, 0.00523589, 0.999973, -0.00523596, -0.0104442, 0.00529044, 0.999931, -0.1, 0.3, -0.4 )
 script = ExtResource( 8 )
 sway_left = Vector3( 0, 0.05, 0 )
 sway_right = Vector3( 0, -0.05, 0 )
@@ -306,6 +461,11 @@ emitting = false
 amount = 200
 process_material = SubResource( 1 )
 draw_pass_1 = SubResource( 2 )
+
+[node name="headray" type="RayCast" parent="Head"]
+transform = Transform( 1, 0, 0, 0, 1, 2.13163e-14, 0, 0, 1, 0, 1.37365, 1.59946e-08 )
+enabled = true
+cast_to = Vector3( 0, 2, 0 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
@@ -333,7 +493,6 @@ script = ExtResource( 7 )
 [node name="Camera" type="Camera" parent="ViewportContainer/Viewport"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
 cull_mask = 2
-fov = 66.5
 near = 0.01
 script = ExtResource( 5 )
 camera_path = NodePath("../../../Head/Camera")
@@ -348,6 +507,21 @@ anims/shotty1fire = SubResource( 9 )
 [node name="AnimationPlayer2" type="AnimationPlayer" parent="."]
 anims/HeadBob = SubResource( 10 )
 anims/Idle = SubResource( 11 )
-anims/sliding = SubResource( 12 )
+anims/Sprinting = SubResource( 12 )
+anims/Walking = SubResource( 13 )
+anims/crouch = SubResource( 16 )
+anims/sliding = SubResource( 14 )
 
 [node name="JetTimer" type="Timer" parent="."]
+
+[node name="walking" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
+volume_db = -30.0
+mix_target = 1
+bus = "FX"
+
+[node name="jet" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+volume_db = -30.0
+mix_target = 1
+bus = "FX"

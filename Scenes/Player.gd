@@ -3,12 +3,14 @@ extends KinematicBody
 export var speed = 10
 onready var SPEED = speed
 export var SPRINT_SPEED = 15
+export var crouch_speed = 2
 export var acceleration = 5
 export var gravity = .98
 export var jump = 30
 var jump_num = 0
 export var world_node : NodePath
 var world
+var target_speed = 0
 
 
 var sliding = false
@@ -19,10 +21,14 @@ var multiplier =  1
 export var dec_mouse_sens = .2
 onready var head = $Head
 onready var boost_bar = $"/root/World/UI/BoostBar"
+onready var console_label = $"/root/World/UI/Label2"
 onready var camera = $Head/Camera
 onready var particles = $Head/Camera/Particles
 onready var anim = $AnimationPlayer2
 onready var weapon_cam = $ViewportContainer/Viewport/Camera
+onready var walkingsound = $walking
+onready var jetsound = $jet
+onready var headray = $Head/headray
 
 
 var gun1
@@ -56,6 +62,9 @@ var max_jetpack_velocity = 50
 onready var can_jetpack = false
 var jet_counter = 0
 var jet_timer_on = false
+var crouch = false
+var head_bonked = false
+var last_step_sound = floor(rand_range(0,3))
 #var slide_counter = 0 
 #var slide_timer_on = false
 #var is_crouch = false
@@ -190,16 +199,9 @@ func wall_jump():
 			
 			
 func sliding(delta, head_basis):
-#	if (Input.is_action_just_pressed("slide") or Input.is_action_pressed("slide")) and is_on_floor() :
-#		slide_timer_on = true
-#		if slide_counter <= .2:
-#			sliding = false
-#
-#
-#			print("herre", delta)
+
 		
-		
-	if Input.is_action_pressed("slide") and is_on_floor() and not slide_cooldown and Input.is_action_pressed("move_forward") :
+	if Input.is_action_pressed("slide") and is_on_floor() and not slide_cooldown and Input.is_action_pressed("move_forward") and speed > 20 :
 		sliding = true
 		slide_cooldown = true
 		yield(get_tree().create_timer(1.0), "timeout")
@@ -211,12 +213,9 @@ func sliding(delta, head_basis):
 			
 	if Input.is_action_just_released("slide"):
 		sliding = false
-#		slide_timer_on = false
-#		slide_counter = 0
 		print("notsliding")
 
 	if sliding:
-		
 		velocity -= head_basis.z * slide_multiplier * speed * delta
 		particles.emitting = true
 		if not anim.is_playing():
@@ -225,17 +224,86 @@ func sliding(delta, head_basis):
 
 	
 	if !sliding and anim.is_playing() and anim.get_current_animation() == "sliding":
-
-		anim.play("sliding", -1,10)
-		
+		if !head_bonked:
+			anim.play("sliding", -1,10)
+		else:
+			
+			anim.play("crouch")
+			crouch = true
+			
 
 	particles.emitting = false
 	
+func crouch(head_basis, delta):
+	
+	if crouch:
+		speed = crouch_speed
 
+	if Input.is_action_just_pressed("slide") and is_on_floor() and !sliding and !crouch and speed <=20.01 :
+
+		anim.play("crouch")
+		print(crouch, "here1")
+		crouch = true
+
+
+
+	elif crouch and head_bonked == false:
+		if Input.is_action_just_pressed("slide") and is_on_floor() and !sliding:
+
+#			if anim.is_playing() and anim.get_current_animation() == "crouch":
+			crouch = false
+			anim.play("sliding", -1,1)
+#
+#
+
+		
+
+
+
+func play_footstepL():
+	var rand_footstep = floor(rand_range(0,4))
+	while rand_footstep == last_step_sound:
+		rand_footstep = floor(rand_range(0,4))
+	match str(rand_footstep):
+		"0":
+			walkingsound.stream = preload("res://walkingL1.wav")
+		"1":
+			walkingsound.stream = preload("res://walkingL2.wav")
+		"2":
+			walkingsound.stream = preload("res://walkingL3.wav")
+		"3":
+			walkingsound.stream = preload("res://walkingL4.wav")
+	walkingsound.pitch_scale = rand_range(-20,-14)
+	walkingsound.play()
+	last_step_sound = rand_footstep
+	
+func play_footstepR():
+	var rand_footstep = floor(rand_range(0,4))
+	while rand_footstep == last_step_sound:
+		rand_footstep = floor(rand_range(0,4))
+	match str(rand_footstep):
+		"0":
+			walkingsound.stream = preload("res://walkingR1.wav")
+		"1":
+			walkingsound.stream = preload("res://walkingR2.wav")
+		"2":
+			walkingsound.stream = preload("res://walkingR3.wav")
+		"3":
+			walkingsound.stream = preload("res://walkingR4.wav")
+	walkingsound.pitch_scale = rand_range(-20,-14)
+	walkingsound.play()
+	
+	last_step_sound = rand_footstep
+			
 
 
 func _process(delta):
+	head_bonked = false
+	if headray.is_colliding():
+		head_bonked = true
+		print("bonked")
 
+	console_label.set_text(str(speed))
 
 	boost_bar.value = space_button_held_time*10
 	if boost_bar.value == 0:
@@ -267,7 +335,6 @@ func _process(delta):
 		if gun2 != null:
 			weaponholder.add_child(gun2)
 	
-
 
 
 
@@ -305,6 +372,10 @@ func jet_pack(delta):
 			
 			
 			space_button_held_time += delta*12
+			jetsound.pitch_scale = -space_button_held_time
+			if !jetsound.is_playing():
+				jetsound.play()
+			
 #			print(space_button_held_time)
 			var jetpack_velocity = min(space_button_held_time * acceleration, max_jetpack_velocity)
 			velocity.y = jetpack_velocity
@@ -316,27 +387,48 @@ func jet_pack(delta):
 
 
 func _physics_process(delta):
+
+	
+	velocity = move_and_slide(velocity, Vector3.UP)
+	var head_basis = head.get_global_transform().basis
+	velocity = velocity.linear_interpolate(direction * speed, acceleration * delta)
+	
+	var gravity_resistance = get_floor_normal() if is_on_floor() else Vector3.UP
+
+	
+	
+	if Input.is_action_just_pressed("jump") and is_on_floor():
+		if jump_num == 0:
+			print("jumped")
+			velocity.y += jump
+			jump_num = 1
+			yield(get_tree().create_timer(.01), "timeout")
+			jet_counter = 0
+			jet_timer_on = true
+		
+		
+
+	jet_pack(delta)
+	
+	
 	if jet_timer_on:
 		jet_counter += delta
-#	if slide_timer_on:
-#		slide_counter += delta
-	
-	
-	var head_basis = head.get_global_transform().basis
 	
 	direction = Vector3()
 
 	wall_run()
 	
 	process_wallrun_rotation(delta)
-
+	crouch(head_basis,delta)
 	sliding(delta, head_basis)
+	
+	
+	
+	
 	if !is_on_wall():
 		wallrunning = false
 	if Input.is_action_pressed("move_forward"):
 		direction -= head_basis.z
-#		print(slide_counter)
-		
 		
 	elif Input.is_action_pressed("move_backward"):
 		direction += head_basis.z
@@ -348,46 +440,49 @@ func _physics_process(delta):
 		direction += head_basis.x
 		
 	direction = direction.normalized()
-	if velocity.length() < 3.0 and !sliding:
+	if velocity.length() < 3.0 and !sliding and is_on_floor():
 		anim.play("HeadBob", 0.1, 0.2)
-	elif velocity.length() <= speed and !sliding:
-		anim.play("HeadBob", 0.1, 1.0)
+		
+
+
+	elif velocity.length() <= SPEED and !sliding and (is_on_floor() or wallrunning):
+		anim.play("Walking", 0.1, 1.0)
+		
+		
 	else:
-		if !sliding:
-			anim.play("HeadBob", 0.1, 1.5)
+		
+		if !sliding and (is_on_floor() or wallrunning):
+		
+			anim.play("Sprinting", 0.1, 1.5)
+			
 	if speed == SPRINT_SPEED and velocity.length() > 3.0:
 		weapon_cam.fov = lerp(weapon_cam.fov, 80, 10 * delta)
 	else:
 		weapon_cam.fov = lerp(weapon_cam.fov, 70, 10 * delta)
 		
 	if Input.is_action_pressed("sprint") and Input.is_action_pressed("ads") == false:
-		speed = SPRINT_SPEED
+		target_speed = SPRINT_SPEED
+		if crouch:
+			anim.play("sliding", -1, 10)
+			crouch = false
 	else:
-		speed = SPEED
-	
-	velocity = velocity.linear_interpolate(direction * speed, acceleration * delta)
-	
-	var gravity_resistance = get_floor_normal() if is_on_floor() else Vector3.UP
+		target_speed = SPEED
+		
+	var interp_factor = 0
+	if direction.length()> 0:
+		interp_factor = 2
+	else:
+		interp_factor = 100
+	speed = lerp(speed, target_speed, interp_factor*delta)
+		
 
-	velocity -= gravity_resistance * gravity
 	
-	if Input.is_action_just_pressed("jump") and is_on_floor():
-		if jump_num == 0:
-			
-			velocity.y += jump
-			jump_num = 1
-			yield(get_tree().create_timer(.01), "timeout")
-			jet_counter = 0
-			jet_timer_on = true
-			
-			
 
-	jet_pack(delta)
 	wall_jump()
-
-	velocity = move_and_slide(velocity, Vector3.UP)
-
 	
+	velocity -= gravity_resistance * gravity
+
+
 
 
 

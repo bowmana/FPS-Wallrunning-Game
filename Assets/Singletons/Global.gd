@@ -8,7 +8,7 @@ var levels = ['res://Scenes/World.tscn', 'res://Scenes/World2.tscn']
 var end_screen = 'res://Scenes/UI/EndScreen.tscn'
 var main_menu = 'res://Scenes/UI/MainMenu.tscn'
 var tutorial = 'res://Scenes/Tutorial.tscn'
-var level_select = 'res://Scenes/UI/LevelSelect.tscn'
+var level_select = 'res://Scenes/UI/LevelSelectMain.tscn'
 var settings = 'res://Scenes/UI/Settings.tscn'
 var current_level = 0
 # Called when the node enters the scene tree for the first time.
