@@ -145,3 +145,7 @@ func _on_CardMenu5_mouse_entered():
 
 func _on_CardMenu7_mouse_entered():
 	clicksound.play()
+
+
+func _on_Button_pressed():
+	Global.main_menu()

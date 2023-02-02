@@ -4,6 +4,8 @@ onready var mainsoundtrack = $main
 
 func _ready():
 	mainsoundtrack.play()
+	
+	$Options.hide()
 
 
 func _on_LevelSelect_pressed():
@@ -46,3 +48,5 @@ func _on_MusicSlider_value_changed(value):
 	else:
 		AudioServer.set_bus_mute(2, false)
 		AudioServer.set_bus_volume_db(2,value)
+
+	

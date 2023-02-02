@@ -173,7 +173,7 @@ func fire(delta):
 	
 	can_fire = false
 	current_ammo -=1
-	print(weapon_fire_anim)
+
 #	anim_player.play(weapon_fire_anim)
 	anim_player.play("fire")
 	play_shotsound()
@@ -205,7 +205,7 @@ func reload():
 
 func stamp_decal_to_normal(decal, _raycast):
 	decal.global_transform.origin = _raycast.get_collision_point()
-	print(decal)
+	
 	var surface_dir_up = Vector3(0,1,0)
 	var surface_dir_down = Vector3(0,-1,0)
 	
