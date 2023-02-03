@@ -3,6 +3,8 @@ extends Control
 onready var mainsoundtrack = $main
 
 func _ready():
+	yield(SilentWolf.Scores.get_high_scores(0, "Exodus"), "sw_scores_received")
+	yield(SilentWolf.Scores.get_high_scores(0, "NightFall"), "sw_scores_received")
 	mainsoundtrack.play()
 	
 	$Options.hide()
@@ -50,3 +52,8 @@ func _on_MusicSlider_value_changed(value):
 		AudioServer.set_bus_volume_db(2,value)
 
 	
+
+
+func _on_Leaderboards_pressed():
+	var scene = "res://addons/silent_wolf/Scores/Leaderboard.tscn"
+	get_tree().change_scene(scene)

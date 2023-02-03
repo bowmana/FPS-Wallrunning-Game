@@ -14,7 +14,8 @@ func _ready():
 func _on_confirmation_succeeded():
 	SWLogger.info("email verification succeeded: " + str(SilentWolf.Auth.logged_in_player))
 	# redirect to configured scene (user is logged in after registration)
-	var scene_name = SilentWolf.auth_config.redirect_to_scene
+	
+	var scene_name = "res://Scenes/UI/MainMenu.tscn"
 	get_tree().change_scene(scene_name)
 
 
@@ -51,7 +52,8 @@ func _on_ConfirmButton_pressed():
 	SWLogger.debug("Email verification form submitted, code: " + str(code))
 	SilentWolf.Auth.verify_email(username, code)
 	show_processing_label()
-
+	
+	
 
 func _on_ResendConfCodeButton_pressed():
 	var username = SilentWolf.Auth.tmp_username

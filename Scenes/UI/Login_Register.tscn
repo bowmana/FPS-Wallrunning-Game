@@ -1,0 +1,80 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Scenes/UI/Login_Register.gd" type="Script" id=1]
+
+[node name="Login_Register" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -1.49829
+margin_bottom = -1.49829
+color = Color( 0.647059, 0.384314, 0.384314, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="OptionsMenu" type="VBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="OptionsMenu"]
+margin_top = 503.0
+margin_right = 137.0
+margin_bottom = 517.0
+text = "Main Menu"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="OptionsMenu"]
+margin_top = 521.0
+margin_right = 137.0
+margin_bottom = 552.0
+text = "Options
+"
+align = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="OptionsMenu"]
+margin_top = 556.0
+margin_right = 137.0
+margin_bottom = 576.0
+
+[node name="Login" type="Button" parent="OptionsMenu/HBoxContainer"]
+margin_right = 46.0
+margin_bottom = 20.0
+text = "Login"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="OptionsMenu/HBoxContainer"]
+margin_left = 50.0
+margin_top = 3.0
+margin_right = 69.0
+margin_bottom = 17.0
+text = "OR"
+
+[node name="Register" type="Button" parent="OptionsMenu/HBoxContainer"]
+margin_left = 73.0
+margin_right = 137.0
+margin_bottom = 20.0
+text = "Register"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="pressed" from="OptionsMenu/HBoxContainer/Login" to="." method="_on_Login_pressed"]
+[connection signal="pressed" from="OptionsMenu/HBoxContainer/Register" to="." method="_on_Register_pressed"]

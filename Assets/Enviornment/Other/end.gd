@@ -1,5 +1,5 @@
 extends Spatial
-
+export var map_name: String
 
 # Declare member variables here. Examples:
 # var a = 2
@@ -24,9 +24,9 @@ func _on_Area_body_entered(body):
 		Global.get_map()
 #		Global.get_score()
 		
-		var score_id = SilentWolf.Scores.persist_score(SilentWolf.Auth.logged_in_player, 5)
+		var score_id = SilentWolf.Scores.persist_score(SilentWolf.Auth.logged_in_player, 17, map_name)
 		print("Score persisted successfully: " + str(score_id))
-		yield(SilentWolf.Scores.get_high_scores(), "sw_scores_received")
+		yield(SilentWolf.Scores.get_high_scores(0, map_name), "sw_scores_received")
 		print("Scores: " + str(SilentWolf.Scores.scores))
 		yield(get_tree().create_timer(3), "timeout")
 		var endscene = 'res://Scenes/UI/End.tscn'

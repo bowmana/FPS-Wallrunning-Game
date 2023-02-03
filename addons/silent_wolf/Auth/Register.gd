@@ -52,7 +52,8 @@ func _on_registration_failed(error):
 
 
 func _on_BackButton_pressed():
-	get_tree().change_scene(SilentWolf.auth_config.redirect_to_scene)
+	var login_register_scene = "res://Scenes/UI/Login_Register.tscn"
+	get_tree().change_scene(login_register_scene)
 
 
 func show_processing_label():

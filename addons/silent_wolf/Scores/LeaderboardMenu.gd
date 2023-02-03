@@ -24,5 +24,5 @@ func _on_OptionButton_item_selected(index):
 		$NightFall.hide()
 		$Exodus.show()
 	elif curr_selected == 1:
-		$NightFall.hide()
+		$NightFall.show()
 		$Exodus.hide()

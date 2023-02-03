@@ -1,0 +1,68 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Scenes/UI/Intro.gd" type="Script" id=1]
+[ext_resource path="res://addons/silent_wolf/assets/fonts/Comfortaa-Bold.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://Scenes/UI/Intro_pics/melonz.png.png" type="Texture" id=3]
+
+[sub_resource type="Animation" id=1]
+resource_name = "melon"
+length = 2.967
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2, 2.1, 2.2, 2.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 4, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0 ]
+}
+
+[sub_resource type="DynamicFont" id=2]
+size = 100
+font_data = ExtResource( 2 )
+
+[node name="Intro" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/melon = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 976.896, 539.391 )
+texture = ExtResource( 3 )
+hframes = 3
+vframes = 2
+
+[node name="Label" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -474.0
+margin_top = -349.0
+margin_right = 474.0
+margin_bottom = -82.0
+custom_fonts/font = SubResource( 2 )
+text = "A GAME MADE BY:
+givemeurmelons"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Tween" type="Tween" parent="Label"]

@@ -114,6 +114,7 @@ transform = Transform( 0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, -7.85912 )
 
 [node name="end" parent="." instance=ExtResource( 15 )]
 transform = Transform( 1.43099e-07, 0, -12, 0, 12, 0, 12, 0, 1.43099e-07, 0, 0, -274.86 )
+map_name = "NightFall"
 
 [node name="start" parent="." instance=ExtResource( 14 )]
 transform = Transform( -5.24537e-07, 0, 12, 0, 12, 0, -12, 0, -5.24537e-07, 0, 0, -45.3131 )

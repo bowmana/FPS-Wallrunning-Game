@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://addons/silent_wolf/Auth/Register.gd" type="Script" id=1]
 [ext_resource path="res://addons/silent_wolf/common/SWButton.tscn" type="PackedScene" id=2]
@@ -49,26 +49,34 @@ size = 64
 font_data = ExtResource( 3 )
 
 [sub_resource type="DynamicFont" id=6]
-size = 64
-font_data = ExtResource( 4 )
+font_data = ExtResource( 3 )
 
 [sub_resource type="DynamicFont" id=7]
-size = 32
 font_data = ExtResource( 3 )
 
 [sub_resource type="DynamicFont" id=8]
-size = 32
-font_data = ExtResource( 4 )
+font_data = ExtResource( 3 )
 
 [sub_resource type="DynamicFont" id=9]
-size = 32
 font_data = ExtResource( 3 )
 
 [sub_resource type="DynamicFont" id=10]
 size = 32
 font_data = ExtResource( 3 )
 
-[sub_resource type="StyleBoxFlat" id=11]
+[sub_resource type="DynamicFont" id=11]
+size = 32
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=12]
+size = 32
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=13]
+size = 32
+font_data = ExtResource( 3 )
+
+[sub_resource type="StyleBoxFlat" id=14]
 content_margin_left = 30.0
 content_margin_right = 30.0
 content_margin_top = 30.0
@@ -84,17 +92,17 @@ corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
-[sub_resource type="DynamicFont" id=12]
+[sub_resource type="DynamicFont" id=15]
 size = 32
 outline_color = Color( 0.666667, 0.223529, 0.223529, 1 )
 font_data = ExtResource( 3 )
 
-[sub_resource type="DynamicFont" id=13]
+[sub_resource type="DynamicFont" id=16]
 size = 32
 outline_color = Color( 0.854902, 0.0901961, 0.0901961, 1 )
 font_data = ExtResource( 3 )
 
-[sub_resource type="DynamicFont" id=14]
+[sub_resource type="DynamicFont" id=17]
 size = 32
 font_data = ExtResource( 3 )
 
@@ -143,41 +151,45 @@ margin_bottom = 525.0
 custom_constants/separation = 30
 
 [node name="FormLabels" type="VBoxContainer" parent="FormContainer/MainFormContainer"]
-margin_right = 17.0
+margin_right = 162.0
 margin_bottom = 393.0
 custom_constants/separation = 30
 
-[node name="PlayerNameLabel" type="Label" parent="FormContainer/MainFormContainer/FormLabels"]
-margin_right = 17.0
-margin_bottom = 80.0
-rect_min_size = Vector2( 0, 80 )
+[node name="Label3" type="Label" parent="FormContainer/MainFormContainer/FormLabels"]
+margin_top = 28.0
+margin_right = 162.0
+margin_bottom = 47.0
+size_flags_vertical = 6
 custom_fonts/font = SubResource( 6 )
-text = "Username:"
+text = "Player Name: "
 
-[node name="EmailLabel" type="Label" parent="FormContainer/MainFormContainer/FormLabels"]
-margin_top = 110.0
-margin_right = 17.0
-margin_bottom = 112.0
-custom_fonts/font = SubResource( 6 )
-text = "Email:"
+[node name="Label" type="Label" parent="FormContainer/MainFormContainer/FormLabels"]
+margin_top = 133.0
+margin_right = 162.0
+margin_bottom = 152.0
+size_flags_vertical = 6
+custom_fonts/font = SubResource( 7 )
+text = "Email: "
 
-[node name="PasswordLabel" type="Label" parent="FormContainer/MainFormContainer/FormLabels"]
-margin_top = 142.0
-margin_right = 17.0
-margin_bottom = 144.0
-custom_fonts/font = SubResource( 6 )
-text = "Password:"
+[node name="Label2" type="Label" parent="FormContainer/MainFormContainer/FormLabels"]
+margin_top = 239.0
+margin_right = 162.0
+margin_bottom = 258.0
+size_flags_vertical = 6
+custom_fonts/font = SubResource( 8 )
+text = "Password: "
 
-[node name="ConfirmPasswordLabel" type="Label" parent="FormContainer/MainFormContainer/FormLabels"]
-margin_top = 174.0
-margin_right = 17.0
-margin_bottom = 176.0
-custom_fonts/font = SubResource( 6 )
-text = "Confirm password:"
+[node name="Label4" type="Label" parent="FormContainer/MainFormContainer/FormLabels"]
+margin_top = 345.0
+margin_right = 162.0
+margin_bottom = 364.0
+size_flags_vertical = 6
+custom_fonts/font = SubResource( 9 )
+text = "Confirm Password: "
 
 [node name="FormInputFields" type="VBoxContainer" parent="FormContainer/MainFormContainer"]
-margin_left = 47.0
-margin_right = 547.0
+margin_left = 192.0
+margin_right = 692.0
 margin_bottom = 393.0
 custom_constants/separation = 30
 
@@ -185,7 +197,7 @@ custom_constants/separation = 30
 margin_right = 500.0
 margin_bottom = 78.0
 rect_min_size = Vector2( 500, 78 )
-custom_fonts/font = SubResource( 7 )
+custom_fonts/font = SubResource( 10 )
 max_length = 30
 
 [node name="Email" type="LineEdit" parent="FormContainer/MainFormContainer/FormInputFields"]
@@ -193,7 +205,7 @@ margin_top = 108.0
 margin_right = 500.0
 margin_bottom = 183.0
 rect_min_size = Vector2( 360, 75 )
-custom_fonts/font = SubResource( 8 )
+custom_fonts/font = SubResource( 11 )
 max_length = 50
 
 [node name="Password" type="LineEdit" parent="FormContainer/MainFormContainer/FormInputFields"]
@@ -201,7 +213,7 @@ margin_top = 213.0
 margin_right = 500.0
 margin_bottom = 288.0
 rect_min_size = Vector2( 360, 75 )
-custom_fonts/font = SubResource( 9 )
+custom_fonts/font = SubResource( 12 )
 max_length = 30
 secret = true
 
@@ -210,13 +222,13 @@ margin_top = 318.0
 margin_right = 500.0
 margin_bottom = 393.0
 rect_min_size = Vector2( 360, 75 )
-custom_fonts/font = SubResource( 10 )
+custom_fonts/font = SubResource( 13 )
 max_length = 30
 secret = true
 
 [node name="InfoLabels" type="VBoxContainer" parent="FormContainer/MainFormContainer"]
-margin_left = 577.0
-margin_right = 661.0
+margin_left = 722.0
+margin_right = 806.0
 margin_bottom = 393.0
 rect_min_size = Vector2( 40, 0 )
 custom_constants/separation = 24
@@ -250,8 +262,8 @@ margin_top = 585.0
 margin_right = 1269.0
 margin_bottom = 722.0
 rect_min_size = Vector2( 250, 0 )
-custom_styles/normal = SubResource( 11 )
-custom_fonts/font = SubResource( 12 )
+custom_styles/normal = SubResource( 14 )
+custom_fonts/font = SubResource( 15 )
 custom_colors/font_color = Color( 0.666667, 0.223529, 0.223529, 1 )
 custom_colors/font_outline_modulate = Color( 0.937255, 0.917647, 0.917647, 1 )
 text = "Password should contain at least 8 characters including uppercase and lowercase letters, numbers and (optionally) special characters."
@@ -262,7 +274,7 @@ visible = false
 margin_top = 585.0
 margin_right = 1269.0
 margin_bottom = 622.0
-custom_fonts/font = SubResource( 13 )
+custom_fonts/font = SubResource( 16 )
 custom_colors/font_color = Color( 0.866667, 0.101961, 0.101961, 1 )
 autowrap = true
 
@@ -277,7 +289,7 @@ visible = false
 margin_top = 763.0
 margin_right = 1269.0
 margin_bottom = 800.0
-custom_fonts/font = SubResource( 14 )
+custom_fonts/font = SubResource( 17 )
 text = "Processing..."
 align = 1
 
