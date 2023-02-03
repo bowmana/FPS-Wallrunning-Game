@@ -36,8 +36,9 @@ GlobalGameSettings="*res://Assets/Singletons/GlobalGameSettings.gd"
 Weaponlist="*res://Assets/Singletons/Weaponlist.gd"
 WeaponInteract="*res://Assets/Singletons/WeaponInteract.gd"
 Global="*res://Assets/Singletons/Global.gd"
-SoundsManager="*res://Assets/Singletons/SoundsManager.gd"
 SilentWolf="*res://addons/silent_wolf/SilentWolf.gd"
+Sfx="*res://Assets/Singletons/SFX.tscn"
+SoundManager="*res://Assets/Singletons/SoundManager.gd"
 
 [display]
 

@@ -73,7 +73,7 @@ func play_shotsound():
 			shootsound.stream = stream_sounds[3]
 	shootsound.pitch_scale = rand_range(-20,-14)
 
-	shootsound.play()
+	SoundManager.play_sfx(shootsound.stream, self)
 	last_shot_sound = rand_shot
 
 func _process(delta):
