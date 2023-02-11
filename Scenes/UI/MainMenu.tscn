@@ -21,7 +21,7 @@ __meta__ = {
 
 [node name="OptionsMenu" type="VBoxContainer" parent="."]
 anchor_left = 0.5
-anchor_right = 0.5
+anchor_right = 0.551042
 anchor_bottom = 1.0
 alignment = 1
 __meta__ = {

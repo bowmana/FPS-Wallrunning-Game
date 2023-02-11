@@ -1,7 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Assets/Models/weapons/shotty1/shotty1.glb" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Shotgun.gd" type="Script" id=2]
+[ext_resource path="res://lmg1-3.wav" type="AudioStream" id=3]
+[ext_resource path="res://lmg1-2.wav" type="AudioStream" id=4]
+[ext_resource path="res://lmg1-4.wav" type="AudioStream" id=5]
+[ext_resource path="res://lmg1-1.wav" type="AudioStream" id=6]
 
 [sub_resource type="Animation" id=1]
 length = 0.08
@@ -85,8 +89,9 @@ script = ExtResource( 2 )
 default_position = Vector3( 0.3, -1, -0.8 )
 ads_position = Vector3( 0.107, -0.52, -0.2 )
 ads_cast_from = Vector3( 0, 0.7, 0 )
-weapon_fire_anim = "shotty1fire"
+weapon_name = "shotty"
 ads_cast_to_offset = Vector3( 0, 12, 0 )
+stream_sounds = [ ExtResource( 6 ), ExtResource( 4 ), ExtResource( 3 ), ExtResource( 5 ) ]
 
 [node name="clipBarrel_large" parent="." index="0"]
 layers = 2
@@ -124,3 +129,7 @@ anims/reloadsmg = SubResource( 3 )
 transform = Transform( 0.470933, 0.470933, 0, -0.470933, 0.470933, 0, 0, 0, 1, 1.21606, 0.841401, 1.8 )
 enabled = true
 cast_to = Vector3( 0, -1, -150 )
+
+[node name="smoke_spawn_point" type="Spatial" parent="." index="10"]
+
+[node name="shoot" type="AudioStreamPlayer" parent="." index="11"]

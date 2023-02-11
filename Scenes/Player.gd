@@ -24,7 +24,7 @@ onready var boost_bar = $"/root/World/UI/BoostBar"
 onready var console_label = $"/root/World/UI/Label2"
 onready var camera = $Head/Camera
 onready var particles = $Head/Camera/Particles
-onready var anim = $AnimationPlayer2
+onready var anim = $AnimationPlayer
 onready var weapon_cam = $ViewportContainer/Viewport/Camera
 onready var walkingsound = $walking
 onready var jetsound = $jet
@@ -234,7 +234,7 @@ func sliding(delta, head_basis):
 
 	particles.emitting = false
 	
-func crouch(head_basis, delta):
+func crouching():
 	
 	if crouch:
 		speed = crouch_speed
@@ -273,8 +273,9 @@ func play_footstepL():
 			walkingsound.stream = preload("res://walkingL3.wav")
 		"3":
 			walkingsound.stream = preload("res://walkingL4.wav")
-	walkingsound.pitch_scale = rand_range(-20,-14)
+	
 	walkingsound.play()
+#	walkingsound.pitch_scale = rand_range(1,2)
 	last_step_sound = rand_footstep
 	
 func play_footstepR():
@@ -290,14 +291,14 @@ func play_footstepR():
 			walkingsound.stream = preload("res://walkingR3.wav")
 		"3":
 			walkingsound.stream = preload("res://walkingR4.wav")
-	walkingsound.pitch_scale = rand_range(-20,-14)
+#	walkingsound.pitch_scale = rand_range(1,2) 
 	walkingsound.play()
 	
 	last_step_sound = rand_footstep
 			
 
 
-func _process(delta):
+func _process(_delta):
 	head_bonked = false
 	if headray.is_colliding():
 		head_bonked = true
@@ -324,16 +325,28 @@ func _process(delta):
 	weapon_select()
 	if curr_weapon == 1:
 		if gun2:
-			weaponholder.remove_child(gun2)
-		if gun1 != null:
+			if gun2.get_parent() == weaponholder:
+#				anim.play("change_weapon")
+				weaponholder.remove_child(gun2)
+				
+				
+		if gun1 != null and gun1.get_parent() == null:
+			
 			weaponholder.add_child(gun1)
+			
+#			anim.play_backwards("change_weapon")
 		
 			
 	if curr_weapon == 2 :
 		if gun1:
-			weaponholder.remove_child(gun1)
-		if gun2 != null:
+			if gun1.get_parent() == weaponholder:
+#				anim.play("change_weapon")
+				weaponholder.remove_child(gun1)
+				
+		if gun2 != null and gun2.get_parent() == null:
+			
 			weaponholder.add_child(gun2)
+#			anim.play_backwards("change_weapon")
 	
 
 
@@ -419,7 +432,7 @@ func _physics_process(delta):
 	wall_run()
 	
 	process_wallrun_rotation(delta)
-	crouch(head_basis,delta)
+	crouching()
 	sliding(delta, head_basis)
 	
 	
@@ -455,8 +468,8 @@ func _physics_process(delta):
 		
 			anim.play("Sprinting", 0.1, 1.5)
 			
-	if speed == SPRINT_SPEED and velocity.length() > 3.0:
-		weapon_cam.fov = lerp(weapon_cam.fov, 80, 10 * delta)
+	if speed >= 21 and velocity.length() > 3.0:
+		weapon_cam.fov = lerp(weapon_cam.fov, 90, 10 * delta)
 	else:
 		weapon_cam.fov = lerp(weapon_cam.fov, 70, 10 * delta)
 		

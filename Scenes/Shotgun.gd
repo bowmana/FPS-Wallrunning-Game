@@ -6,14 +6,13 @@ export var spread =8 #controls the random range of the additional raycasts
 func fire(delta):
 	can_fire = false
 	current_ammo -= 1
-	anim_player.play(weapon_fire_anim)
-	var side_recoil = rand_range(-4,4)
-	var recoil = rand_range(1,1.5)
-	up_recoil += recoil * delta
-	head.rotation.x = lerp(head.rotation.x, deg2rad(head.rotation_degrees.x + up_recoil), delta)
-	head.rotation.y = lerp(head.rotation.y, deg2rad(side_recoil), 2*delta)
+	anim_player.play("fire")
+	recoil(delta)
+	emit_smoke()
+	play_shotsound()
 	
 	for i in range(10): # Fire 6 rays
+		
 		var new_raycast = raycast.duplicate()# Duplicate the raycast
 		add_child(new_raycast)
 		new_raycast.enabled = true

@@ -107,7 +107,7 @@ fire_rate = 0.15
 clip_size = 50
 default_position = Vector3( 0.136, -0.29, -0.387 )
 ads_position = Vector3( 0, -0.284, -0.232 )
-weapon_fire_anim = "lmgfire"
+weapon_name = "lmg"
 fully_auto = true
 ads_cast_to_offset = Vector3( 0, -10, 0 )
 stream_sounds = [ ExtResource( 5 ), ExtResource( 6 ), ExtResource( 4 ), ExtResource( 3 ) ]
@@ -140,3 +140,6 @@ material/0 = ExtResource( 7 )
 transform = Transform( 0.0143279, 0, 0, 0, 0.00354828, 0, 0, 0, -0.0404854, 0.0643618, 0.163775, -0.0124836 )
 mesh = SubResource( 5 )
 material/0 = ExtResource( 8 )
+
+[node name="smoke_spawn_point" type="Spatial" parent="." index="7"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.191509, -0.369008 )

@@ -1,10 +1,11 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://Scenes/Player.gd" type="Script" id=1]
 [ext_resource path="res://walking.wav" type="AudioStream" id=2]
 [ext_resource path="res://Scenes/Interaction.gd" type="Script" id=3]
 [ext_resource path="res://jet.wav" type="AudioStream" id=4]
 [ext_resource path="res://Scenes/Camera.gd" type="Script" id=5]
+[ext_resource path="res://Assets/Models/Crosshairs/scope.png" type="Texture" id=6]
 [ext_resource path="res://Scenes/Viewport.gd" type="Script" id=7]
 [ext_resource path="res://Scenes/WeaponsHolder.gd" type="Script" id=8]
 
@@ -28,126 +29,6 @@ radius = 0.75
 mid_height = 1.25
 
 [sub_resource type="Animation" id=5]
-length = 0.08
-tracks/0/type = "value"
-tracks/0/path = NodePath("Head/Camera/Weapons:translation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.02, 0.08 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0, 0.125 ), Vector3( 0, 0, 0 ) ]
-}
-
-[sub_resource type="Animation" id=6]
-resource_name = "lmg2fire"
-length = 0.061
-tracks/0/type = "value"
-tracks/0/path = NodePath("Head/Camera/Weapons:translation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.06 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0, 0.125 ) ]
-}
-
-[sub_resource type="Animation" id=7]
-resource_name = "lmgfire"
-length = 0.061
-tracks/0/type = "value"
-tracks/0/path = NodePath("Head/Camera/Weapons:translation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0, 0.125 ) ]
-}
-
-[sub_resource type="Animation" id=8]
-length = 0.5
-tracks/0/type = "value"
-tracks/0/path = NodePath("Head/Camera/Weapons:rotation_degrees")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.12, 0.31, 0.5 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
-"update": 0,
-"values": [ Vector3( 0, 0, 0 ), Vector3( -9.09091, -11.3636, 0 ), Vector3( -40, -25, -20 ), Vector3( 0, 0, 0 ) ]
-}
-tracks/1/type = "bezier"
-tracks/1/path = NodePath("Head/Camera/Weapons:translation:x")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"points": PoolRealArray(  ),
-"times": PoolRealArray(  )
-}
-tracks/2/type = "bezier"
-tracks/2/path = NodePath("Head/Camera/Weapons:translation:y")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"points": PoolRealArray(  ),
-"times": PoolRealArray(  )
-}
-tracks/3/type = "bezier"
-tracks/3/path = NodePath("Head/Camera/Weapons:translation:z")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"points": PoolRealArray(  ),
-"times": PoolRealArray(  )
-}
-
-[sub_resource type="Animation" id=9]
-resource_name = "shotty1fire"
-length = 0.061
-tracks/0/type = "value"
-tracks/0/path = NodePath("Head/Camera/Weapons:translation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0.061 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector3( -0.1, 0.3, -0.4 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Head/Camera/Weapons:rotation_degrees")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0.061 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector3( 0.3, 0.6, 0.3 ) ]
-}
-
-[sub_resource type="Animation" id=10]
 length = 0.6
 tracks/0/type = "value"
 tracks/0/path = NodePath("Head/Camera:translation")
@@ -162,7 +43,7 @@ tracks/0/keys = {
 "values": [ Vector3( 0, 1, 0 ), Vector3( 0, 1.2, 0 ), Vector3( 0, 1, 0 ) ]
 }
 
-[sub_resource type="Animation" id=11]
+[sub_resource type="Animation" id=6]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Head:translation")
 tracks/0/interp = 1
@@ -176,7 +57,7 @@ tracks/0/keys = {
 "values": [ Vector3( 0, 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=12]
+[sub_resource type="Animation" id=7]
 resource_name = "Sprinting"
 length = 0.6
 tracks/0/type = "value"
@@ -209,7 +90,7 @@ tracks/1/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=13]
+[sub_resource type="Animation" id=8]
 resource_name = "Walking"
 length = 0.6
 tracks/0/type = "value"
@@ -242,7 +123,35 @@ tracks/1/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=14]
+[sub_resource type="Animation" id=9]
+resource_name = "change_weapon"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Head/Camera/Weapons:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, -2, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Head/Camera/Weapons:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=10]
 resource_name = "crouch"
 length = 0.2
 tracks/0/type = "value"
@@ -330,7 +239,7 @@ tracks/6/keys = {
 "values": [ Vector3( 0, 0, 0 ), Vector3( 0, -1.1, -0.15 ) ]
 }
 
-[sub_resource type="Animation" id=15]
+[sub_resource type="Animation" id=11]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Head/Camera/Weapons:translation")
 tracks/0/interp = 1
@@ -416,6 +325,46 @@ tracks/6/keys = {
 "values": [ Vector3( 0, 0, 0 ), Vector3( 0, -1, 1.5 ), Vector3( 0, 0, 0 ) ]
 }
 
+[sub_resource type="Animation" id=12]
+resource_name = "zoom"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Head/Camera/CanvasLayer/Scope/ZoomOverlay:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("ViewportContainer:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Head/Camera:fov")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 70.0, 15.0 ]
+}
+
 [node name="Player" type="KinematicBody" groups=[
 "Player",
 ]]
@@ -425,10 +374,31 @@ SPRINT_SPEED = 30
 jump = 90
 dec_mouse_sens = 0.15
 
+[node name="ViewportContainer" type="ViewportContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Viewport" type="Viewport" parent="ViewportContainer"]
+size = Vector2( 1920, 1080 )
+transparent_bg = true
+handle_input_locally = false
+render_target_update_mode = 3
+script = ExtResource( 7 )
+
+[node name="Camera" type="Camera" parent="ViewportContainer/Viewport"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.774869, -0.0341966 )
+cull_mask = 2
+near = 0.01
+script = ExtResource( 5 )
+camera_path = NodePath("../../../Head/Camera")
+
 [node name="Head" type="Spatial" parent="."]
 
 [node name="Camera" type="Camera" parent="Head"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.06667, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
 cull_mask = 1048573
 far = 800.0
 
@@ -470,6 +440,23 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Scope" type="Control" parent="Head/Camera/CanvasLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ZoomOverlay" type="TextureRect" parent="Head/Camera/CanvasLayer/Scope"]
+modulate = Color( 1, 1, 1, 0 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 6 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="headray" type="RayCast" parent="Head"]
 transform = Transform( 1, 0, 0, 0, 1, 2.13163e-14, 0, 0, 1, 0, 1.37365, 1.59946e-08 )
 enabled = true
@@ -484,41 +471,15 @@ transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0
 mesh = SubResource( 4 )
 material/0 = null
 
-[node name="ViewportContainer" type="ViewportContainer" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Viewport" type="Viewport" parent="ViewportContainer"]
-size = Vector2( 1920, 1080 )
-transparent_bg = true
-handle_input_locally = false
-render_target_update_mode = 3
-script = ExtResource( 7 )
-
-[node name="Camera" type="Camera" parent="ViewportContainer/Viewport"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
-cull_mask = 2
-near = 0.01
-script = ExtResource( 5 )
-camera_path = NodePath("../../../Head/Camera")
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/AssultFire = SubResource( 5 )
-anims/lmg2fire = SubResource( 6 )
-anims/lmgfire = SubResource( 7 )
-anims/reloadsmg = SubResource( 8 )
-anims/shotty1fire = SubResource( 9 )
-
-[node name="AnimationPlayer2" type="AnimationPlayer" parent="."]
-anims/HeadBob = SubResource( 10 )
-anims/Idle = SubResource( 11 )
-anims/Sprinting = SubResource( 12 )
-anims/Walking = SubResource( 13 )
-anims/crouch = SubResource( 14 )
-anims/sliding = SubResource( 15 )
+anims/HeadBob = SubResource( 5 )
+anims/Idle = SubResource( 6 )
+anims/Sprinting = SubResource( 7 )
+anims/Walking = SubResource( 8 )
+anims/change_weapon = SubResource( 9 )
+anims/crouch = SubResource( 10 )
+anims/sliding = SubResource( 11 )
+anims/zoom = SubResource( 12 )
 
 [node name="JetTimer" type="Timer" parent="."]
 

@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Assets/Models/weapons/sniper1/sniper1.glb" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/UI/WeaponPickup.tscn" type="PackedScene" id=2]
+
+[node name="sniper1" instance=ExtResource( 1 )]
+transform = Transform( 0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0 )
+
+[node name="WeaponPickup" parent="." index="13" instance=ExtResource( 2 )]
+Uid = "sniper1"

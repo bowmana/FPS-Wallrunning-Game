@@ -1,0 +1,293 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://Assets/Models/weapons/sniper1/sniper1.glb" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/Sniper.gd" type="Script" id=2]
+[ext_resource path="res://lmg1-1.wav" type="AudioStream" id=3]
+[ext_resource path="res://lmg1-3.wav" type="AudioStream" id=4]
+[ext_resource path="res://lmg1-4.wav" type="AudioStream" id=5]
+[ext_resource path="res://lmg1-2.wav" type="AudioStream" id=6]
+
+[sub_resource type="Animation" id=1]
+length = 0.08
+tracks/0/type = "value"
+tracks/0/path = NodePath("Head/Camera/Weapons:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.02, 0.1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0, 0.125 ), Vector3( 0, 0, 0.1 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "bolt"
+length = 1.4
+tracks/0/type = "value"
+tracks/0/path = NodePath("attachment_barrelEnd:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.6, 0.8, 1.1, 1.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0.3535, -0.14, -3.14 ), Vector3( 0.3535, -0.00916021, -3.14 ), Vector3( 0.3535, -0.00916021, -2.85011 ), Vector3( 0.3535, -0.00916021, -2.85011 ), Vector3( 0.3535, -0.00916021, -3.14 ), Vector3( 0.3535, -0.14, -3.14 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "fire"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:default_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0.2, -0.4, -0.035 ), Vector3( 0.2, -0.43, -0.037 ), Vector3( 0.2, -0.4, -0.035 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:ads_position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, -0.26, 0.2 ), Vector3( 0, -0.27, -0.22 ), Vector3( 0, -0.26, -0.2 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:rotation_degrees")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 3, 0.2, 0 ), Vector3( 0, 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=13]
+resource_name = "reload"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("mag:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.6, 1.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, -0.14, -2.9462 ), Vector3( -0.0499237, -0.662924, -3.18651 ), Vector3( -1.25996, -4.45933, -3.43149 ), Vector3( 0, -0.14, -2.946 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("mag:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2, 0.6, 1.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 180, 0 ), Vector3( -12, 180, 0 ), Vector3( -11.1212, 173.293, 22.7552 ), Vector3( 0, 180, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:default_position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.2, 1.8 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0.2, -0.4, -0.035 ), Vector3( 0.2, -0.5, -0.035 ), Vector3( 0.2, -0.4, -0.035 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath(".:ads_position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.2, 1.8 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, -0.26, -0.2 ), Vector3( 0, -0.36, -0.2 ), Vector3( 0, -0.26, -0.2 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath(".:rotation_degrees")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.2, 1.8 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 9, 0, -20 ), Vector3( 0, 0, 0 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("bullet:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 0.5, 1.8 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("bullet:rotation_degrees")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 0.6, 1.2, 1.6, 1.7, 1.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 180, 0 ), Vector3( -14.1001, 172.552, -0.820994 ), Vector3( -1.61956, 175.321, -0.695481 ), Vector3( -1.49442, 178.119, -0.647534 ), Vector3( -1.49442, 178.119, -0.647532 ), Vector3( 0, 180, 0 ) ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("bullet:translation")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0, 0.6, 1.2, 1.6, 1.7, 1.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0.294031, -3.0055 ), Vector3( -0.961743, -3.9789, -3.42162 ), Vector3( -0.475879, -1.74901, -3.21266 ), Vector3( -0.144438, -0.359827, -3.1188 ), Vector3( -0.0692492, 0.00521369, -3.09736 ), Vector3( 0, 0.324342, -3.08657 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Head/Camera/Weapons:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.12, 0.31, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( -9.09091, -11.3636, 0 ), Vector3( -40, -25, -20 ), Vector3( 0, 0, 0 ) ]
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("Head/Camera/Weapons:translation:x")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray(  ),
+"times": PoolRealArray(  )
+}
+tracks/2/type = "bezier"
+tracks/2/path = NodePath("Head/Camera/Weapons:translation:y")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"points": PoolRealArray(  ),
+"times": PoolRealArray(  )
+}
+tracks/3/type = "bezier"
+tracks/3/path = NodePath("Head/Camera/Weapons:translation:z")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"points": PoolRealArray(  ),
+"times": PoolRealArray(  )
+}
+
+[node name="sniper1" instance=ExtResource( 1 )]
+transform = Transform( 0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0 )
+script = ExtResource( 2 )
+fire_rate = 0.7
+reload_speed = 2
+default_position = Vector3( 0.2, -0.4, -0.035 )
+ads_position = Vector3( 0, -0.26, -0.2 )
+weapon_name = "sniper1"
+bolt = true
+playbackspeed = 2
+stream_sounds = [ ExtResource( 3 ), ExtResource( 6 ), ExtResource( 4 ), ExtResource( 5 ) ]
+
+[node name="scope_small" parent="." index="0"]
+layers = 2
+
+[node name="mediumBlaster_barrelLarge" parent="." index="1"]
+layers = 2
+
+[node name="blaster_centerDetail" parent="." index="2"]
+layers = 2
+
+[node name="blaster_center" parent="." index="3"]
+layers = 2
+
+[node name="detailRail" parent="." index="4"]
+layers = 2
+
+[node name="blaster_barrel" parent="." index="5"]
+layers = 2
+
+[node name="stock_assault" parent="." index="6"]
+layers = 2
+
+[node name="mediumBlaster_handleGuard" parent="." index="7"]
+layers = 2
+
+[node name="scope" parent="." index="8"]
+layers = 2
+
+[node name="attachment_barrelEnd" parent="." index="9"]
+transform = Transform( 7.54979e-08, 0, -0.507, 0, 1, 0, 1, 0, 3.82774e-08, 0.3535, -0.00916021, -3.14 )
+layers = 2
+
+[node name="largeBlaster_centerDetail" parent="." index="10"]
+layers = 2
+
+[node name="bullet" parent="." index="11"]
+transform = Transform( -0.251999, 0, -6.99379e-08, 0, 0.332198, 0, 2.20305e-08, 0, -0.799997, 0, 0.324342, -3.08657 )
+visible = false
+layers = 2
+
+[node name="mag" parent="." index="12"]
+transform = Transform( -0.999998, 0, -1.696e-07, 0, 0.999998, 0, 8.74226e-08, 0, -1.94, 0, -0.14, -2.946 )
+layers = 2
+
+[node name="shoot" type="AudioStreamPlayer" parent="." index="13"]
+
+[node name="Laser" type="RayCast" parent="." index="14"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="15"]
+anims/AssultFire = SubResource( 1 )
+anims/bolt = SubResource( 2 )
+anims/fire = SubResource( 3 )
+anims/reload = SubResource( 13 )
+anims/reloadsmg = SubResource( 4 )
+
+[node name="smoke_spawn_point" type="Spatial" parent="." index="16"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.736952, -7.39278 )
