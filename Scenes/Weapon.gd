@@ -64,9 +64,9 @@ func _ready():
 	
 	current_ammo = clip_size
 	laser = $Laser
-	raycast = get_node("/root/World/Player/Head/Camera/RayCast")
+	raycast = get_node("/root/World/Player/Head/CamRoot/HeadBob/Camera/RayCast")
 #	add_child(laser_decal)
-	camera = get_node("/root/World/Player/Head/Camera")
+	camera = get_node("/root/World/Player/Head/CamRoot/HeadBob/Camera")
 	head = get_node("/root/World/Player/Head")
 
 	anim_player = $AnimationPlayer
@@ -236,11 +236,11 @@ func fire(delta):
 	can_fire = false
 	current_ammo -=1
 	recoil(delta)
-#	if !fully_auto:
-#		if bolt:
-#			get_tree().create_timer(1.2).connect("timeout", self, "decrease_recoil", [delta])
-#		else:
-#			get_tree().create_timer(.6).connect("timeout", self, "decrease_recoil", [delta])
+	if !fully_auto:
+		if bolt:
+			get_tree().create_timer(.2).connect("timeout", self, "decrease_recoil", [delta])
+		else:
+			get_tree().create_timer(.6).connect("timeout", self, "decrease_recoil", [delta])
 	anim_player.play("fire", -1, playbackspeed)
 	emit_smoke()
 	play_shotsound()
@@ -266,9 +266,9 @@ func reload(delta):
 
 func emit_smoke():
 	var new_smoke = smoke_path.instance()
-	new_smoke.transform = $smoke_spawn_point.global_transform
+	new_smoke.transform = $smoke_spawn_point.transform
 	add_child(new_smoke)
-	get_tree().create_timer(3.0).connect("timeout", self, "_remove_smoke", [new_smoke])
+	get_tree().create_timer(.5).connect("timeout", self, "_remove_smoke", [new_smoke])
 
 func _remove_smoke(smoke):
 	# remove the smoke node from the scene tree and free its memory

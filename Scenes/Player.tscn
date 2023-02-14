@@ -1,11 +1,11 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://Scenes/Player.gd" type="Script" id=1]
 [ext_resource path="res://walking.wav" type="AudioStream" id=2]
 [ext_resource path="res://Scenes/Interaction.gd" type="Script" id=3]
 [ext_resource path="res://jet.wav" type="AudioStream" id=4]
 [ext_resource path="res://Scenes/Camera.gd" type="Script" id=5]
-[ext_resource path="res://Assets/Models/Crosshairs/scope.png" type="Texture" id=6]
+[ext_resource path="res://Assets/Models/weapons/sniper_canvas/SniperCanvas.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Scenes/Viewport.gd" type="Script" id=7]
 [ext_resource path="res://Scenes/WeaponsHolder.gd" type="Script" id=8]
 
@@ -31,7 +31,7 @@ mid_height = 1.25
 [sub_resource type="Animation" id=5]
 length = 0.6
 tracks/0/type = "value"
-tracks/0/path = NodePath("Head/Camera:translation")
+tracks/0/path = NodePath("Head/CamRoot/HeadBob:translation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -40,7 +40,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.3, 0.6 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector3( 0, 1, 0 ), Vector3( 0, 1.2, 0 ), Vector3( 0, 1, 0 ) ]
+"values": [ Vector3( 0, -1, 0 ), Vector3( 0, -0.999, 0 ), Vector3( 0, -1, 0 ) ]
 }
 
 [sub_resource type="Animation" id=6]
@@ -60,25 +60,13 @@ tracks/0/keys = {
 [sub_resource type="Animation" id=7]
 resource_name = "Sprinting"
 length = 0.6
-tracks/0/type = "value"
-tracks/0/path = NodePath("Head/Camera:translation")
+tracks/0/type = "method"
+tracks/0/path = NodePath(".")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.3, 0.6 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Vector3( 0, 1, 0 ), Vector3( 0, 1.2, 0 ), Vector3( 0, 1, 0 ) ]
-}
-tracks/1/type = "method"
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
 "times": PoolRealArray( 0.1, 0.4 ),
 "transitions": PoolRealArray( 1, 1 ),
 "values": [ {
@@ -88,30 +76,30 @@ tracks/1/keys = {
 "args": [  ],
 "method": "play_footstepR"
 } ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Head/CamRoot/HeadBob:translation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, -1, 0 ), Vector3( 0, -0.994, 0 ), Vector3( 0, -1, 0 ) ]
 }
 
 [sub_resource type="Animation" id=8]
 resource_name = "Walking"
 length = 0.6
-tracks/0/type = "value"
-tracks/0/path = NodePath("Head/Camera:translation")
+tracks/0/type = "method"
+tracks/0/path = NodePath(".")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.3, 0.6 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Vector3( 0, 1, 0 ), Vector3( 0, 1.2, 0 ), Vector3( 0, 1, 0 ) ]
-}
-tracks/1/type = "method"
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
 "times": PoolRealArray( 0.1, 0.4 ),
 "transitions": PoolRealArray( 1, 1 ),
 "values": [ {
@@ -121,13 +109,25 @@ tracks/1/keys = {
 "args": [  ],
 "method": "play_footstepR"
 } ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Head/CamRoot/HeadBob:translation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, -1, 0 ), Vector3( 0, -0.994, 0 ), Vector3( 0, -1, 0 ) ]
 }
 
 [sub_resource type="Animation" id=9]
 resource_name = "change_weapon"
 length = 0.5
 tracks/0/type = "value"
-tracks/0/path = NodePath("Head/Camera/Weapons:translation")
+tracks/0/path = NodePath("Head/CamRoot/Weapons:translation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -139,7 +139,7 @@ tracks/0/keys = {
 "values": [ Vector3( 0, 0, 0 ), Vector3( 0, -2, 0 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Head/Camera/Weapons:rotation_degrees")
+tracks/1/path = NodePath("Head/CamRoot/Weapons:rotation_degrees")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -155,7 +155,7 @@ tracks/1/keys = {
 resource_name = "crouch"
 length = 0.2
 tracks/0/type = "value"
-tracks/0/path = NodePath("Head/Camera/Weapons:translation")
+tracks/0/path = NodePath("Head/CamRoot/Weapons:translation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -167,7 +167,7 @@ tracks/0/keys = {
 "values": [ Vector3( 0, 0, 0 ), Vector3( 0, -0.1, 0 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Head/Camera/Weapons:rotation_degrees")
+tracks/1/path = NodePath("Head/CamRoot/Weapons:rotation_degrees")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -241,7 +241,7 @@ tracks/6/keys = {
 
 [sub_resource type="Animation" id=11]
 tracks/0/type = "value"
-tracks/0/path = NodePath("Head/Camera/Weapons:translation")
+tracks/0/path = NodePath("Head/CamRoot/Weapons:translation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -253,7 +253,7 @@ tracks/0/keys = {
 "values": [ Vector3( 0, 0, 0 ), Vector3( 0, -0.1, 0 ), Vector3( 0, 0, 0 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Head/Camera/Weapons:rotation_degrees")
+tracks/1/path = NodePath("Head/CamRoot/Weapons:rotation_degrees")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -326,10 +326,24 @@ tracks/6/keys = {
 }
 
 [sub_resource type="Animation" id=12]
-resource_name = "zoom"
+resource_name = "weapon_draw"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Head/CamRoot/Weapons:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, -1.49964, 0 ) ]
+}
+
+[sub_resource type="Animation" id=13]
 length = 0.1
 tracks/0/type = "value"
-tracks/0/path = NodePath("Head/Camera/CanvasLayer/Scope/ZoomOverlay:modulate")
+tracks/0/path = NodePath("Head/CamRoot/HeadBob/Camera/CanvasLayer/Scope/ZoomOverlay:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -353,7 +367,7 @@ tracks/1/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Head/Camera:fov")
+tracks/2/path = NodePath("Head/CamRoot/HeadBob/Camera:fov")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -363,6 +377,76 @@ tracks/2/keys = {
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ 70.0, 15.0 ]
+}
+
+[sub_resource type="Animation" id=14]
+resource_name = "change_weapon"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Head/CamRoot/Weapons:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, -2, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Head/CamRoot/Weapons:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=15]
+resource_name = "weapon_draw"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Head/CamRoot/Weapons:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, -1.49964, 0 ) ]
+}
+
+[sub_resource type="Animation" id=16]
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Head/CamRoot/HeadBob/Camera/CanvasLayer/Scope/ZoomOverlay:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("ViewportContainer:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
 [node name="Player" type="KinematicBody" groups=[
@@ -393,69 +477,44 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.774869, -0.0341966 )
 cull_mask = 2
 near = 0.01
 script = ExtResource( 5 )
-camera_path = NodePath("../../../Head/Camera")
+camera_path = NodePath("../../../Head/CamRoot/HeadBob/Camera")
 
 [node name="Head" type="Spatial" parent="."]
 
-[node name="Camera" type="Camera" parent="Head"]
+[node name="CamRoot" type="Spatial" parent="Head"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+
+[node name="HeadBob" type="Spatial" parent="Head/CamRoot"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0 )
+
+[node name="Camera" type="Camera" parent="Head/CamRoot/HeadBob"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
 cull_mask = 1048573
 far = 800.0
 
-[node name="InteractionRaycast" type="RayCast" parent="Head/Camera"]
+[node name="InteractionRaycast" type="RayCast" parent="Head/CamRoot/HeadBob/Camera"]
 enabled = true
 cast_to = Vector3( 0, 0, -4 )
 collision_mask = 2
 script = ExtResource( 3 )
 
-[node name="Weapons" type="Spatial" parent="Head/Camera"]
-script = ExtResource( 8 )
-sway_left = Vector3( 0, 0.05, 0 )
-sway_right = Vector3( 0, -0.05, 0 )
-
-[node name="Particles" type="Particles" parent="Head/Camera"]
+[node name="Particles" type="Particles" parent="Head/CamRoot/HeadBob/Camera"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.76106, 1.24865 )
 emitting = false
 amount = 200
 process_material = SubResource( 1 )
 draw_pass_1 = SubResource( 2 )
 
-[node name="RayCast" type="RayCast" parent="Head/Camera"]
+[node name="RayCast" type="RayCast" parent="Head/CamRoot/HeadBob/Camera"]
 enabled = true
 cast_to = Vector3( 0, -1, -400 )
 
-[node name="CanvasLayer" type="CanvasLayer" parent="Head/Camera"]
+[node name="CanvasLayer" parent="Head/CamRoot/HeadBob/Camera" instance=ExtResource( 6 )]
 
-[node name="ColorRect" type="ColorRect" parent="Head/Camera/CanvasLayer"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -2.0
-margin_top = -2.0
-margin_right = 4.0
-margin_bottom = 4.0
-color = Color( 0.803922, 0.0705882, 0.956863, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Scope" type="Control" parent="Head/Camera/CanvasLayer"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ZoomOverlay" type="TextureRect" parent="Head/Camera/CanvasLayer/Scope"]
-modulate = Color( 1, 1, 1, 0 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-texture = ExtResource( 6 )
-expand = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="Weapons" type="Spatial" parent="Head/CamRoot"]
+script = ExtResource( 8 )
+sway_left = Vector3( 0, 0.05, 0 )
+sway_right = Vector3( 0, -0.05, 0 )
 
 [node name="headray" type="RayCast" parent="Head"]
 transform = Transform( 1, 0, 0, 0, 1, 2.13163e-14, 0, 0, 1, 0, 1.37365, 1.59946e-08 )
@@ -479,7 +538,13 @@ anims/Walking = SubResource( 8 )
 anims/change_weapon = SubResource( 9 )
 anims/crouch = SubResource( 10 )
 anims/sliding = SubResource( 11 )
-anims/zoom = SubResource( 12 )
+anims/weapon_draw = SubResource( 12 )
+anims/zoom = SubResource( 13 )
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="."]
+anims/change_weapon = SubResource( 14 )
+anims/weapon_draw = SubResource( 15 )
+anims/zoom = SubResource( 16 )
 
 [node name="JetTimer" type="Timer" parent="."]
 
@@ -494,3 +559,5 @@ stream = ExtResource( 4 )
 volume_db = -30.0
 mix_target = 1
 bus = "FX"
+
+[editable path="Head/CamRoot/HeadBob/Camera/CanvasLayer"]

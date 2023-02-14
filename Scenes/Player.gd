@@ -22,9 +22,10 @@ export var dec_mouse_sens = .2
 onready var head = $Head
 onready var boost_bar = $"/root/World/UI/BoostBar"
 onready var console_label = $"/root/World/UI/Label2"
-onready var camera = $Head/Camera
-onready var particles = $Head/Camera/Particles
+onready var camera = $Head/CamRoot
+onready var particles = $Head/CamRoot/HeadBob/Camera/Particles
 onready var anim = $AnimationPlayer
+onready var anim2 = $AnimationPlayer2
 onready var weapon_cam = $ViewportContainer/Viewport/Camera
 onready var walkingsound = $walking
 onready var jetsound = $jet
@@ -34,8 +35,8 @@ onready var headray = $Head/headray
 var gun1
 var gun2
 
-onready var weaponholder = $Head/Camera/Weapons
-onready var testingdropnode = $Head/Camera/Weapons2
+onready var weaponholder = $Head/CamRoot/Weapons
+
 
 onready var curr_weapon = 1
 
@@ -324,30 +325,36 @@ func _process(_delta):
 	
 	weapon_select()
 	if curr_weapon == 1:
-		if gun2:
+		if gun2 != null:
 			if gun2.get_parent() == weaponholder:
-#				anim.play("change_weapon")
+				if gun2.has_method("stop_zoom"):
+					gun2.stop_zoom()
 				weaponholder.remove_child(gun2)
+
 				
-				
+					
 		if gun1 != null and gun1.get_parent() == null:
-			
+			anim2.play_backwards("change_weapon",1)
 			weaponholder.add_child(gun1)
-			
-#			anim.play_backwards("change_weapon")
-		
-			
-	if curr_weapon == 2 :
-		if gun1:
-			if gun1.get_parent() == weaponholder:
-#				anim.play("change_weapon")
-				weaponholder.remove_child(gun1)
+#			if gun1.has_method("stop_zoom"):
+#				gun1.stop_zoom()
+
 				
+	if curr_weapon == 2 :
+		if gun1 != null:
+			if gun1.get_parent() == weaponholder:
+				if gun1.has_method("stop_zoom"):
+					gun1.stop_zoom()
+				weaponholder.remove_child(gun1)
+
+			
 		if gun2 != null and gun2.get_parent() == null:
 			
+			anim2.play_backwards("change_weapon",1)
 			weaponholder.add_child(gun2)
-#			anim.play_backwards("change_weapon")
-	
+#			if gun2.has_method("stop_zoom"):
+#				gun2.stop_zoom()
+
 
 
 
@@ -395,8 +402,6 @@ func jet_pack(delta):
 		else:
 			
 			space_button_held_time = 0
-
-
 
 
 func _physics_process(delta):
@@ -454,21 +459,21 @@ func _physics_process(delta):
 		
 	direction = direction.normalized()
 	if velocity.length() < 3.0 and !sliding and is_on_floor():
-		anim.play("HeadBob", 0.1, 0.2)
+		anim.play("HeadBob", 0.2, 0.2)
 		
 
 
 	elif velocity.length() <= SPEED and !sliding and (is_on_floor() or wallrunning):
-		anim.play("Walking", 0.1, 1.0)
+		anim.play("Walking", 0.2, 1.0)
 		
 		
 	else:
 		
 		if !sliding and (is_on_floor() or wallrunning):
 		
-			anim.play("Sprinting", 0.1, 1.5)
+			anim.play("Sprinting", 0.2, 1.5)
 			
-	if speed >= 21 and velocity.length() > 3.0:
+	if speed >= 22 and velocity.length() > 3.0:
 		weapon_cam.fov = lerp(weapon_cam.fov, 90, 10 * delta)
 	else:
 		weapon_cam.fov = lerp(weapon_cam.fov, 70, 10 * delta)

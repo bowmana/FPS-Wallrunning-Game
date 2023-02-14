@@ -28,7 +28,7 @@ func _on_WeaponPickup_body_exited(body):
 	WeaponInteract.entered_flag = false
 
 
-
+#
 #func set_weapon(gun):
 #	curr_weapon = gun
 #func get_weapon():
