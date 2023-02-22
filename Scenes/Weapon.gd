@@ -7,28 +7,37 @@ export var clip_size = 5
 export var reload_speed = 1
 export var default_position : Vector3
 export var ads_position : Vector3
+export var ads_rotation : Vector3
+export var default_rotation : Vector3
 export var ads_acceleration : float = 0.7
 export var default_fov : float = 70 #default camera view for all games in godot
 export var ads_fov : float = 55
 export var ads_cast_from : Vector3 = Vector3(0,.1,0)
 export var weapon_name: String
 export var fully_auto :bool
-export var bolt :bool
+export var bolt : bool
 export var playbackspeed = 1
+export var emit_smoke_time = .15
+export var lasersound : AudioStream
 
-onready var ammo_label = $"/root/World/UI/Label"
+#onready var ammo_label = $"/root/World/UI/Label"
 onready var b_decal = preload("res://Scenes/Player/Decals/BulletDecal.tscn")
-onready var crosshair_decal = preload("res://Scenes/Player/Decals/CrossHair.tscn")
+
 onready var laser_decal_path = preload("res://Scenes/Player/Decals/LaserDecal.tscn")
 onready var laser_decal = laser_decal_path.instance()
-onready var smoke_path = preload("res://Scenes/Player/Weapons/smoke.tscn")
+onready var smoke_path = preload("res://Assets/Models/weapons/smoke.tscn")
 onready var weaponPickup = preload("res://Scenes/UI/WeaponPickup.tscn")
 
-
+onready var right_ch = $CanvasLayer/Scope/Right_CH
+onready var left_ch = $CanvasLayer/Scope/Left_CH
+onready var up_ch = $CanvasLayer/Scope/Up_CH
+onready var down_ch = $CanvasLayer/Scope/Down_CH
+var CH_recoil_pos = 50
 
 var weapon : Spatial
 var raycast : RayCast
 var laser : RayCast
+export var has_laser = false
 
 var camera : Camera
 var head: Spatial
@@ -39,33 +48,33 @@ var can_fire = true
 var reloading = false
 var up_recoil = 0
 
-export var ads_cast_to_offset : Vector3 = Vector3(0,8.33,0)
+var turn_laser_on = false
 export var stream_sounds: Array
+export var reload_stream_sounds: Array
+export var bolt_stream_sounds: Array
 var last_shot_sound = floor(rand_range(0,3))
-var initial_cast_to : Vector3 =  Vector3(0,0,0)
-var rayPos : Vector3 =  Vector3(0,0,0)
+
+
 onready var shootsound = $shoot
+onready var reloadsound = $reload
 
 var heat_values
 
 var aiming = false
 var current_x_rot = 0
-var lerp_speed = 10
+
 
 
 func _ready():
 	heat_values = Weaponlist.get_spray(weapon_name)
 
-#	if weapon_name in Weaponlist.weapons_recoil:
-#		heat_values = Weaponlist.weapons_recoil[weapon_name]
-#		print(heat_values)
-#	else:
-#		print("Key not found:", weapon_name)
-	
 	current_ammo = clip_size
+	set_ammo_count(current_ammo)
+	
 	laser = $Laser
 	raycast = get_node("/root/World/Player/Head/CamRoot/HeadBob/Camera/RayCast")
-#	add_child(laser_decal)
+	if has_laser:
+		add_child(laser_decal)
 	camera = get_node("/root/World/Player/Head/CamRoot/HeadBob/Camera")
 	head = get_node("/root/World/Player/Head")
 
@@ -86,34 +95,69 @@ func play_shotsound():
 			shootsound.stream = stream_sounds[3]
 	shootsound.pitch_scale = rand_range(-20,-14)
 
-	SoundManager.play_sfx(shootsound.stream, self)
+	SoundManager.play_sfx(shootsound.stream, get_tree().current_scene)
 	last_shot_sound = rand_shot
 
+
+func play_reload_sound(start_or_finish_sound):
+	if start_or_finish_sound == "start":
+		reloadsound.stream = reload_stream_sounds[0]
+	elif start_or_finish_sound == "end":
+		reloadsound.stream = reload_stream_sounds[1]
+	else:
+		print("error, include a start/finsih sound")
+	SoundManager.play_sfx(reloadsound.stream, get_tree().current_scene)
+	
+func play_bolt_sound(start_or_finish_sound):
+	if start_or_finish_sound == "start":
+		reloadsound.stream = bolt_stream_sounds[0]
+	elif start_or_finish_sound == "end":
+		reloadsound.stream = bolt_stream_sounds[1]
+	else:
+		print("error, include a start/finsih sound")
+	SoundManager.play_sfx(reloadsound.stream, get_tree().current_scene)
+func _input(event):
+	if event.is_action_pressed("laser"):
+		turn_laser_on = !turn_laser_on
+		shootsound.stream = lasersound
+		SoundManager.play_sfx(shootsound.stream, get_tree().current_scene)
+
+
 func _process(delta):
+	
 
 	if reloading:
-		ammo_label.set_text("reloading")
+		set_ammo_count("í ½í´ƒí ½í´--")
+#		ammo_label.set_text("reloading")
+#		set_ammo_count(current_ammo)
 		decrease_recoil(delta)
 		head.rotation.x = lerp(head.rotation.x, 0, delta)
-	else:
-		ammo_label.set_text("%d / %d" % [current_ammo, clip_size])
+#	else:
+#		set_ammo_count(current_ammo)
+#		ammo_label.set_text("%d / %d" % [current_ammo, clip_size])
+##		$Ammo_count_viewport.render_target_update_mode = Viewport.UPDATE_ONCE
+#		ammo_label.text = str(current_ammo)
+
 	if fully_auto:
+		
 		if Input.is_action_pressed("primary_fire") and can_fire:
 			#fire weapon
 			if current_ammo >0 and not reloading:
 				
 				fire(delta)
-
+			
 			elif not reloading: 
 				reload(delta)
 				
 		if ! Input.is_action_pressed("primary_fire") and can_fire:
-			if head.rotation.x != 0:
-				decrease_recoil(delta)
-				head.rotation.x = lerp(head.rotation.x, 0, delta)
+
+			decrease_recoil(delta)
+			head.rotation.x = lerp(head.rotation.x, 0, delta)
+			adjust_crosshair_back(delta)
 				
 				
 	else:
+
 		if Input.is_action_just_pressed("primary_fire") and can_fire:
 			#fire weapon
 			if current_ammo >0 and not reloading:
@@ -125,20 +169,14 @@ func _process(delta):
 
 			elif not reloading: 
 				reload(delta)
-				
-			
-				
+
 		if ! Input.is_action_just_pressed("primary_fire") and can_fire:
-			if head.rotation.x != 0:
+		
 				
 #				decrease_recoil(delta)
-				head.rotation.x = lerp(head.rotation.x, 0, delta)
-				
+			head.rotation.x = lerp(head.rotation.x, 0, delta)
+			adjust_crosshair_back(delta)
 			
-				
-
-			
-		
 
 	if Input.is_action_just_pressed("reload") and not reloading:
 		reload(delta)
@@ -146,37 +184,59 @@ func _process(delta):
 		
 	if Input.is_action_pressed("ads") and not reloading:
 		aiming = true
-		
+		crosshair_modulate(delta)
 		transform.origin = transform.origin.linear_interpolate(ads_position, ads_acceleration)
 		
-
-		var distance = raycast.get_collision_point().distance_to(raycast.global_transform.origin)
-		var scalingfactor = lerp(.3, 4, (distance) / 100)
-		laser_decal.scale = Vector3(scalingfactor,scalingfactor,scalingfactor)
-#		stamp_decal_to_normal(laser_decal, raycast)
-#		laser.visible = false
-		raycast.visible = true
+		rotation_degrees= rotation_degrees.linear_interpolate(ads_rotation, ads_acceleration)
+		if has_laser:
+			hide_laser()
+#		raycast.visible = true
 		camera.fov = lerp(camera.fov, ads_fov, ads_acceleration)
 		GlobalGameSettings.set_dec_sensitivity(.2)
 	else:
 		aiming = false
+		crosshair_modulate_back()
 		transform.origin = transform.origin.linear_interpolate(default_position, ads_acceleration)
-
+		if !reloading:
+			rotation_degrees = rotation_degrees.linear_interpolate(default_rotation, ads_acceleration)
+		if has_laser:
+			show_laser()
+			
 	
-		raycast.visible = true
 
-		laser.cast_to = raycast.cast_to
-#		stamp_decal_to_normal(laser_decal, laser)
-#		laser.visible = true
 		
-
-		var distance = laser.get_collision_point().distance_to(laser.global_transform.origin)
-		var scalingfactor = lerp(.3, 4, (distance) / 100)
-		laser_decal.scale = Vector3(scalingfactor,scalingfactor,scalingfactor)
+		
 		camera.fov = lerp(camera.fov, default_fov, ads_acceleration)
 		GlobalGameSettings.set_dec_sensitivity(1)
 		
+func show_laser():
+	if turn_laser_on:
+		laser.cast_to.z = raycast.cast_to.z
+		if reloading:
+			$Laser_visual.visible = false
+			laser_decal.visible = false
+		if laser.is_colliding() and not reloading:
+			laser_decal.visible = true
+			$Laser_visual.visible = true
+		elif !laser.is_colliding() and not reloading:
+			$Laser_visual.visible = true
+			laser_decal.visible = false
 		
+		var distance = raycast.get_collision_point().distance_to(raycast.global_transform.origin)
+		var scalingfactor = lerp(.3, 4, (distance) / 100)
+#		laser.cast_to = raycast.cast_to
+		laser_decal.scale = Vector3(scalingfactor,scalingfactor,scalingfactor)
+		stamp_decal_to_normal(laser_decal, laser)
+#		$Laser_visual.visible = true
+	else:
+		hide_laser()
+	
+	
+	
+	
+func hide_laser():
+	$Laser_visual.visible = false
+	laser_decal.visible = false
 		
 func check_collision(_raycast):
 
@@ -199,9 +259,6 @@ func check_collision(_raycast):
 
 
 var heat_index = 0
-
-#heat_values = [[0,0],[0.1,0.2],[0.2,0.3],[0.3,0.4],[0.4,0.5],[0.5,0.6],[0.6,0.7],[0.7,0.8],[0.8,0.9],[0.9,1.0],[1.0,1.1],[1.1,1.2],[1.2,1.3],[1.3,1.4],[1.4,1.5],[1.5,1.6],[1.6,1.7],[1.7,1.8],[1.8,1.9],[1.9,2.0],[2.0,2.1],[2.1,2.2],[2.2,2.3],[2.3,2.4],[2.4,2.5],[2.5,2.6],[2.6,2.7],[2.7,2.8],[2.8,2.9],[2.9,3.0]]
-
 var heat : Array
 
 func recoil(delta):
@@ -229,12 +286,19 @@ func decrease_recoil(delta):
 		
 
 
+func set_ammo_count(val):
+
+	
+	$Ammo_count_viewport/Ammo_count.text = str(val)
+	$Ammo_count_viewport.render_target_update_mode = Viewport.UPDATE_ALWAYS
+
 func fire(delta): 
 
 	heat_values = Weaponlist.get_spray(weapon_name)
 
 	can_fire = false
 	current_ammo -=1
+	set_ammo_count(current_ammo)
 	recoil(delta)
 	if !fully_auto:
 		if bolt:
@@ -242,8 +306,10 @@ func fire(delta):
 		else:
 			get_tree().create_timer(.6).connect("timeout", self, "decrease_recoil", [delta])
 	anim_player.play("fire", -1, playbackspeed)
-	emit_smoke()
+	emit_smoke($smoke_spawn_point)
 	play_shotsound()
+	adjust_crosshair(delta)
+	CH_recoil_pos +=4
 	check_collision(raycast)
 	yield(get_tree().create_timer(fire_rate), "timeout")
 	can_fire = true
@@ -251,9 +317,28 @@ func fire(delta):
 	
 
 	
+func adjust_crosshair(delta):
+	up_ch.position = lerp(up_ch.position, Vector2(0, -CH_recoil_pos), 3*delta)
+	left_ch.position = lerp(left_ch.position, Vector2(-CH_recoil_pos,0), 3*delta)
+	right_ch.position = lerp(right_ch.position, Vector2(CH_recoil_pos,0), 3*delta)
+	down_ch.position = lerp(down_ch.position, Vector2(0, CH_recoil_pos), 3*delta)
+	if down_ch.position > Vector2(0,52):
+		CH_recoil_pos = 52
+	
+func adjust_crosshair_back(delta):
+	for ch in $CanvasLayer/Scope.get_children():
+		ch.position = lerp(ch.position, Vector2(0,0), 3* delta)
+		CH_recoil_pos -= ch.position.x
+		
+func crosshair_modulate(delta):
+	$CanvasLayer/Scope.set_modulate(lerp($CanvasLayer/Scope.modulate, Color(1,1,1,0),.03))
+	adjust_crosshair_back(delta)
+func crosshair_modulate_back():
+	$CanvasLayer/Scope.set_modulate(lerp($CanvasLayer/Scope.modulate, Color(1,1,1,1),.03))
+	
 
 func reload(delta):
-	
+
 	print("reloading")
 
 	print(head.rotation.x)
@@ -261,14 +346,15 @@ func reload(delta):
 	reloading = true
 	yield(get_tree().create_timer(reload_speed), "timeout")
 	current_ammo = clip_size
+	set_ammo_count(current_ammo)
 	reloading = false
 	print("reload complete")
 
-func emit_smoke():
+func emit_smoke(spawn_point):
 	var new_smoke = smoke_path.instance()
-	new_smoke.transform = $smoke_spawn_point.transform
+	new_smoke.transform = spawn_point.transform
 	add_child(new_smoke)
-	get_tree().create_timer(.5).connect("timeout", self, "_remove_smoke", [new_smoke])
+	get_tree().create_timer(emit_smoke_time).connect("timeout", self, "_remove_smoke", [new_smoke])
 
 func _remove_smoke(smoke):
 	# remove the smoke node from the scene tree and free its memory

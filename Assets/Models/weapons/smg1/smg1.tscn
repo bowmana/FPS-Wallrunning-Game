@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Assets/Models/weapons/smg1/smg1.glb" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Weapon.gd" type="Script" id=2]
@@ -6,36 +6,88 @@
 [ext_resource path="res://lmg1-2.wav" type="AudioStream" id=4]
 [ext_resource path="res://lmg1-4.wav" type="AudioStream" id=5]
 [ext_resource path="res://lmg1-1.wav" type="AudioStream" id=6]
+[ext_resource path="res://Assets/Models/weapons/sniper_canvas/CrosshairCanvas.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Assets/Models/weapons/sniper_canvas/Laser.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Assets/UI/fonts/static/Oswald-Medium.ttf" type="DynamicFontData" id=9]
+[ext_resource path="res://Scenes/UI/Ammo_count.tscn" type="PackedScene" id=10]
 
 [sub_resource type="Animation" id=1]
-length = 0.2
-tracks/0/type = "value"
-tracks/0/path = NodePath("Head/Camera/Weapons:translation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.02, 0.08 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0, 0.125 ), Vector3( 0, 0, 0 ) ]
-}
-
-[sub_resource type="Animation" id=2]
 resource_name = "fire"
 length = 0.2
 tracks/0/type = "value"
-tracks/0/path = NodePath(".:translation")
+tracks/0/path = NodePath(".:default_position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray(  ),
-"transitions": PoolRealArray(  ),
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [  ]
+"values": [ Vector3( 0.342, -0.409, -0.612 ), Vector3( 0.342, -0.409, -0.58 ), Vector3( 0.342, -0.409, -0.612 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:ads_position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, -0.213, -0.033 ), Vector3( 0, -0.212, -0.03 ), Vector3( 0, -0.213, -0.033 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:rotation_degrees")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0.7, 0, 0 ), Vector3( 0, 0, 0 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("attachment_silencer:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 1, 1, 1 ), Vector3( 1.25, 1.25, 1 ), Vector3( 1, 1, 1 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("attachment_silencer:translation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, -0.0414097, -1.99761 ), Vector3( 0, -0.231936, -1.99761 ), Vector3( 0, -0.041, -1.998 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "reload"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:ads_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, -0.213, -0.033 ), Vector3( 0, -0.25, -0.033 ), Vector3( 0, -0.213, -0.033 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath(".:default_position")
@@ -44,80 +96,91 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2 ),
+"times": PoolRealArray( 0, 0.5, 1 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector3( 0.342, -0.409, -0.612 ), Vector3( 0.342, -0.409, -0.58 ), Vector3( 0.342, -0.409, -0.612 ) ]
+"values": [ Vector3( 0.342, -0.409, -0.612 ), Vector3( 0.342, -0.609, -1.2 ), Vector3( 0.342, -0.409, -0.612 ) ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath(".:ads_position")
+tracks/2/path = NodePath(".:rotation_degrees")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2 ),
+"times": PoolRealArray( 0, 0.5, 1 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector3( 0, -0.211, -0.033 ), Vector3( 0, -0.211, -0.03 ), Vector3( 0, -0.211, -0.033 ) ]
+"values": [ Vector3( 0, 0, 0 ), Vector3( -12, 0, -25 ), Vector3( 0, 0, 0 ) ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath(".:rotation_degrees")
+tracks/3/path = NodePath("clip_small:translation")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2 ),
+"times": PoolRealArray( 0, 0.5, 1 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector3( 0, 0, 0 ), Vector3( 0.7, 0, 0 ), Vector3( 0, 0, 0 ) ]
+"values": [ Vector3( 0, 0, 0.840917 ), Vector3( 0.018841, -2.47761, 0.361933 ), Vector3( 0, 0, 0.8 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("clip_small:rotation_degrees")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 5.97642e-06, 3.4151e-06, 1.31268e-05 ), Vector3( -0.957542, 3.04428, -15.086 ), Vector3( 0, 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=3]
-length = 0.5
-tracks/0/type = "value"
-tracks/0/path = NodePath("Head/Camera/Weapons:rotation_degrees")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.12, 0.31, 0.5 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
-"update": 0,
-"values": [ Vector3( 0, 0, 0 ), Vector3( -9.09091, -11.3636, 0 ), Vector3( -40, -25, -20 ), Vector3( 0, 0, 0 ) ]
+[sub_resource type="Shader" id=8]
+code = "shader_type canvas_item;
+uniform float height = 5.0;
+uniform float speed = 15.0;
+uniform float frequency = 10.0;
+uniform float distortion = 20;
+uniform float shift_amount =.005;
+
+float rand(vec2 co){
+    return fract(sin(dot(co.xy ,vec2(12.9898,78.233))) * 43758.5453);
 }
-tracks/1/type = "bezier"
-tracks/1/path = NodePath("Head/Camera/Weapons:translation:x")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"points": PoolRealArray(  ),
-"times": PoolRealArray(  )
+void vertex(){
+	float noise = (rand(UV) - 0.5) * distortion; // random noise
+	UV.x += (rand(UV + TIME) - 0.5) * shift_amount; // randomly shift UV.x
+    UV.y += (rand(UV + TIME + 1.0) - 0.5) * shift_amount; 
+	VERTEX.y += (height + noise) * sin((frequency * UV.x) + (speed * TIME));
+
 }
-tracks/2/type = "bezier"
-tracks/2/path = NodePath("Head/Camera/Weapons:translation:y")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"points": PoolRealArray(  ),
-"times": PoolRealArray(  )
-}
-tracks/3/type = "bezier"
-tracks/3/path = NodePath("Head/Camera/Weapons:translation:z")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"points": PoolRealArray(  ),
-"times": PoolRealArray(  )
-}
+"
+
+[sub_resource type="ShaderMaterial" id=9]
+shader = SubResource( 8 )
+shader_param/height = 5.0
+shader_param/speed = 15.0
+shader_param/frequency = 10.0
+shader_param/distortion = 20.0
+shader_param/shift_amount = 0.005
+
+[sub_resource type="DynamicFont" id=10]
+size = 200
+font_data = ExtResource( 9 )
+
+[sub_resource type="QuadMesh" id=11]
+size = Vector2( 0.3, 0.3 )
+
+[sub_resource type="ViewportTexture" id=7]
+viewport_path = NodePath("Ammo_count_viewport")
+
+[sub_resource type="SpatialMaterial" id=12]
+resource_local_to_scene = true
+flags_transparent = true
+flags_unshaded = true
+albedo_texture = SubResource( 7 )
 
 [node name="smg1" instance=ExtResource( 1 )]
 transform = Transform( 0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0.1 )
@@ -125,9 +188,11 @@ script = ExtResource( 2 )
 fire_rate = 0.1
 clip_size = 25
 default_position = Vector3( 0.342, -0.409, -0.612 )
-ads_position = Vector3( 0, -0.211, -0.033 )
+ads_position = Vector3( 0, -0.213, -0.033 )
 weapon_name = "smg1"
+fully_auto = true
 playbackspeed = 2
+has_laser = true
 stream_sounds = [ ExtResource( 6 ), ExtResource( 4 ), ExtResource( 3 ), ExtResource( 5 ) ]
 
 [node name="Laser" type="RayCast" parent="." index="0"]
@@ -136,6 +201,7 @@ enabled = true
 cast_to = Vector3( 0, -1, -1500 )
 
 [node name="clip_small" parent="." index="1"]
+transform = Transform( 1, -2.29106e-07, 5.96047e-08, 2.29106e-07, 1, -1.04308e-07, -5.96047e-08, 1.04308e-07, 0.999999, 0, 0, 0.840917 )
 layers = 2
 
 [node name="detailRail_front" parent="." index="2"]
@@ -151,7 +217,7 @@ layers = 2
 layers = 2
 
 [node name="attachment_silencer" parent="." index="6"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0360555, -2 )
+transform = Transform( 1, 0, 0, 0, 1, -2.23517e-09, 0, 2.23517e-09, 1, 0, -0.0414097, -1.99761 )
 layers = 2
 
 [node name="mediumBlaster_handleGuard" parent="." index="7"]
@@ -172,11 +238,32 @@ enabled = true
 cast_to = Vector3( 0, -1, -2000 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="12"]
-anims/AssultFire = SubResource( 1 )
-anims/fire = SubResource( 2 )
-anims/reloadsmg = SubResource( 3 )
+anims/fire = SubResource( 1 )
+anims/reload = SubResource( 2 )
 
 [node name="smoke_spawn_point" type="Spatial" parent="." index="13"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.696965, -2.4532 )
 
 [node name="shoot" type="AudioStreamPlayer" parent="." index="14"]
+
+[node name="CanvasLayer" parent="." index="15" instance=ExtResource( 7 )]
+
+[node name="Laser_visual" parent="." index="16" instance=ExtResource( 8 )]
+ray_node = NodePath("../Laser")
+
+[node name="Ammo_count_viewport" type="Viewport" parent="." index="17"]
+size = Vector2( 256, 256 )
+transparent_bg = true
+disable_3d = true
+usage = 0
+render_target_v_flip = true
+render_target_update_mode = 1
+
+[node name="Ammo_count" parent="Ammo_count_viewport" index="0" instance=ExtResource( 10 )]
+material = SubResource( 9 )
+custom_fonts/font = SubResource( 10 )
+
+[node name="Display_ammo_count" type="MeshInstance" parent="." index="18"]
+transform = Transform( 1, 0, 0, 0, 0.886471, 0.462786, 0, -0.462786, 0.886471, -1.02463, 1.02585, 0.513695 )
+mesh = SubResource( 11 )
+material/0 = SubResource( 12 )

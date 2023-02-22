@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/bolt_bolt_finish.wav-035a421b46fa9ab1f86961553545f7b3.sample"
+
+[deps]
+
+source_file="res://Assets/Models/weapons/bolt1/bolt_bolt_finish.wav"
+dest_files=[ "res://.import/bolt_bolt_finish.wav-035a421b46fa9ab1f86961553545f7b3.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

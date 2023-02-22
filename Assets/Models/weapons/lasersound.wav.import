@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/lasersound.wav-70d5e2c506494f409bccf6f1737eb578.sample"
+
+[deps]
+
+source_file="res://Assets/Models/weapons/lasersound.wav"
+dest_files=[ "res://.import/lasersound.wav-70d5e2c506494f409bccf6f1737eb578.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

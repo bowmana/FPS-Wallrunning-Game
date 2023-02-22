@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/bolt_reload_init.wav-a5a30c8c5a5a5abc3b0b608dde926fe7.sample"
+
+[deps]
+
+source_file="res://Assets/Models/weapons/bolt1/bolt_reload_init.wav"
+dest_files=[ "res://.import/bolt_reload_init.wav-a5a30c8c5a5a5abc3b0b608dde926fe7.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

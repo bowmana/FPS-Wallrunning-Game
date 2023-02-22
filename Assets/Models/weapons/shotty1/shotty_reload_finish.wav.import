@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/shotty_reload_finish.wav-17cb8a59ff99a66d8330070bbe3d302f.sample"
+
+[deps]
+
+source_file="res://Assets/Models/weapons/shotty1/shotty_reload_finish.wav"
+dest_files=[ "res://.import/shotty_reload_finish.wav-17cb8a59ff99a66d8330070bbe3d302f.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

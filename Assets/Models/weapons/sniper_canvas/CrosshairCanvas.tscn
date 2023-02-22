@@ -1,0 +1,39 @@
+[gd_scene format=2]
+
+[node name="CanvasLayer" type="CanvasLayer"]
+
+[node name="Scope" type="Control" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Right_CH" type="Line2D" parent="Scope"]
+points = PoolVector2Array( 10, 0, 30, 0 )
+width = 2.0
+default_color = Color( 1, 1, 1, 1 )
+end_cap_mode = 2
+
+[node name="Up_CH" type="Line2D" parent="Scope"]
+rotation = -1.57079
+points = PoolVector2Array( 10, 0, 30, 0 )
+width = 2.0
+default_color = Color( 1, 1, 1, 1 )
+end_cap_mode = 2
+
+[node name="Left_CH" type="Line2D" parent="Scope"]
+rotation = 3.14159
+points = PoolVector2Array( 10, 0, 30, 0 )
+width = 2.0
+default_color = Color( 1, 1, 1, 1 )
+end_cap_mode = 2
+
+[node name="Down_CH" type="Line2D" parent="Scope"]
+rotation = 1.57079
+points = PoolVector2Array( 10, 0, 30, 0 )
+width = 2.0
+default_color = Color( 1, 1, 1, 1 )
+end_cap_mode = 2

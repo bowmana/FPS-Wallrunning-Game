@@ -5,10 +5,12 @@ export var spread =8 #controls the random range of the additional raycasts
 
 func fire(delta):
 	can_fire = false
-	current_ammo -= 1
+	current_ammo -=1
+	set_ammo_count(current_ammo)
 	anim_player.play("fire")
 	recoil(delta)
-	emit_smoke()
+	emit_smoke($smoke_spawn_point)
+	emit_smoke($smoke_spawn_point2)
 	play_shotsound()
 	
 	for i in range(10): # Fire 6 rays

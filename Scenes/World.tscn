@@ -1,8 +1,8 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://default_env.tres" type="Environment" id=2]
-[ext_resource path="res://Assets/Models/weapons/sniper1/sniper1_pickup.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Assets/Models/weapons/bolt1/bolt1_pickup.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/UI/UI.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scenes/Enemies/Enemy.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scenes/Player/Weapons/pickups/lmg_pickup.tscn" type="PackedScene" id=6]
@@ -17,8 +17,11 @@
 [ext_resource path="res://Assets/Enviornment/Other/end.tscn" type="PackedScene" id=15]
 [ext_resource path="res://Scenes/UI/Tab_popup.tscn" type="PackedScene" id=16]
 [ext_resource path="res://Assets/Enviornment/clouds/clouds.tscn" type="PackedScene" id=17]
+[ext_resource path="res://Scenes/Exodus.gd" type="Script" id=18]
+[ext_resource path="res://smoothwindloop.wav" type="AudioStream" id=19]
 
 [node name="World" type="Spatial"]
+script = ExtResource( 18 )
 
 [node name="UI" parent="." instance=ExtResource( 4 )]
 
@@ -55,20 +58,11 @@ transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 53.4163
 [node name="floor3" parent="." instance=ExtResource( 9 )]
 transform = Transform( 20, 0, 0, 0, 20, 0, 0, 0, 20, 0, -32.4335, 0 )
 
-[node name="Particles" parent="floor3" instance=ExtResource( 17 )]
-transform = Transform( 0.425, 1.15179e-08, 0, -6.89451e-08, 0.071, 0, 0, 0, 0.536, 0, -0.340879, 0 )
-amount = 200
-
 [node name="floor5" parent="." instance=ExtResource( 9 )]
 transform = Transform( -4.37114e-08, 0, 5, 0, 5, 0, -1, 0, -2.18557e-07, -12.9226, 3.4838, 18.4505 )
 
 [node name="floor4" parent="." instance=ExtResource( 9 )]
 transform = Transform( 20, 0, 0, 0, 20, 0, 0, 0, 20, 0, -32.4335, -227.293 )
-
-[node name="Particles" parent="floor4" instance=ExtResource( 17 )]
-transform = Transform( 0.4, 0, 0, 0, 0.0894812, 0, 0, 0, 0.5, 0, -0.382449, 0 )
-amount = 200
-visibility_aabb = AABB( -4, -4.21772, -4, 8, 8.43543, 8 )
 
 [node name="smg1" parent="." instance=ExtResource( 12 )]
 transform = Transform( 0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -5.16866, 1.51902, 0 )
@@ -86,10 +80,27 @@ transform = Transform( -5.24537e-07, 0, 12, 0, 12, 0, -12, 0, -5.24537e-07, 0, 0
 transform = Transform( 1.43099e-07, 0, -12, 0, 12, 0, 12, 0, 1.43099e-07, 0, 0, -274.86 )
 map_name = "Exodus"
 
-[node name="sniper1" parent="." instance=ExtResource( 3 )]
-
 [node name="Tab_popup" parent="." instance=ExtResource( 16 )]
 visible = false
 
 [node name="target" parent="." instance=ExtResource( 11 )]
 transform = Transform( 9.55343e-15, -2.18557e-07, -5, -5, -2.18557e-07, 0, -2.18557e-07, 5, -2.18557e-07, 0, 7.38752, -66.053 )
+
+[node name="Particles" parent="." instance=ExtResource( 17 )]
+transform = Transform( 20, 0, 0, 0, 20, 0, 0, 0, 20, -502.117, -270.32, 0 )
+
+[node name="Particles2" parent="." instance=ExtResource( 17 )]
+transform = Transform( 20, 0, 0, 0, 20, 0, 0, 0, 20, -502.117, -270.32, -264.026 )
+
+[node name="Particles3" parent="." instance=ExtResource( 17 )]
+transform = Transform( 20, 0, 0, 0, 20, 0, 0, 0, 20, 435.716, -112.44, -264.026 )
+
+[node name="Particles4" parent="." instance=ExtResource( 17 )]
+transform = Transform( 20, 0, 0, 0, 20, 0, 0, 0, 20, 435.716, -112.44, 7.75421 )
+visibility_aabb = AABB( -16.1567, -4, -4, 8, 8, 8 )
+
+[node name="bolt1_pickup" parent="." instance=ExtResource( 3 )]
+
+[node name="wind" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 19 )
+bus = "FX"

@@ -23,6 +23,7 @@ onready var head = $Head
 onready var boost_bar = $"/root/World/UI/BoostBar"
 onready var console_label = $"/root/World/UI/Label2"
 onready var camera = $Head/CamRoot
+onready var headbob = $Head/CamRoot/HeadBob
 onready var particles = $Head/CamRoot/HeadBob/Camera/Particles
 onready var anim = $AnimationPlayer
 onready var anim2 = $AnimationPlayer2
@@ -66,10 +67,6 @@ var jet_timer_on = false
 var crouch = false
 var head_bonked = false
 var last_step_sound = floor(rand_range(0,3))
-#var slide_counter = 0 
-#var slide_timer_on = false
-#var is_crouch = false
-
 
 
 
@@ -77,7 +74,6 @@ func _ready():
 	
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	world = get_node(world_node)
-	
 
 
 func _input(event):
@@ -96,11 +92,14 @@ func _input(event):
 					curr_weapon +=1
 				else:
 					curr_weapon =1
+					
 			elif event.button_index == BUTTON_WHEEL_DOWN:
 				if curr_weapon > 1:
 					curr_weapon -=1
+					
 				else:
 					curr_weapon =2
+				
 			
 		
 	if (Input.is_action_just_pressed("Interact") and WeaponInteract.entered_flag == true and curr_weapon==1):
@@ -111,7 +110,7 @@ func _input(event):
 			
 			weapon_pickup.set_global_transform(get_global_transform())
 
-#	
+			weapon_pickup.scale = Vector3(.2,.2,.2)
 			world.add_child(weapon_pickup)
 			WeaponInteract.get_remove_node().queue_free()
 			gun1 = Weaponlist.get_primary()
@@ -123,11 +122,11 @@ func _input(event):
 			weaponholder.remove_child(gun2)
 			var weapon_pickup = Weaponlist.get_weapon_pickup(gun2.name)
 			weapon_pickup.set_global_transform(get_global_transform())
+			weapon_pickup.scale = Vector3(.2,.2,.2)
 			world.add_child(weapon_pickup)
 			WeaponInteract.get_remove_node().queue_free()
 			gun2 = Weaponlist.get_secondary()
 			
-
 
 
 func wall_run():
@@ -300,6 +299,7 @@ func play_footstepR():
 
 
 func _process(_delta):
+
 	head_bonked = false
 	if headray.is_colliding():
 		head_bonked = true
@@ -324,46 +324,37 @@ func _process(_delta):
 			gun2 = Weaponlist.get_secondary()
 	
 	weapon_select()
+	
 	if curr_weapon == 1:
 		if gun2 != null:
 			if gun2.get_parent() == weaponholder:
-				if gun2.has_method("stop_zoom"):
-					gun2.stop_zoom()
 				weaponholder.remove_child(gun2)
-
-				
-					
 		if gun1 != null and gun1.get_parent() == null:
-			anim2.play_backwards("change_weapon",1)
+			
+			anim2.play_backwards("change_weapon")
 			weaponholder.add_child(gun1)
-#			if gun1.has_method("stop_zoom"):
-#				gun1.stop_zoom()
+			
 
 				
 	if curr_weapon == 2 :
 		if gun1 != null:
 			if gun1.get_parent() == weaponholder:
-				if gun1.has_method("stop_zoom"):
-					gun1.stop_zoom()
+#				anim2.play("change_weapon")
 				weaponholder.remove_child(gun1)
-
-			
 		if gun2 != null and gun2.get_parent() == null:
-			
-			anim2.play_backwards("change_weapon",1)
+			anim2.play_backwards("change_weapon")
 			weaponholder.add_child(gun2)
-#			if gun2.has_method("stop_zoom"):
-#				gun2.stop_zoom()
+			
 
 
 
 
 func weapon_select():
-	if Input.is_action_just_pressed("weapon1"):
+	if Input.is_action_just_pressed("weapon1") and WeaponInteract.get_zoom() == true:
 		
 		curr_weapon = 1
 
-	elif Input.is_action_just_pressed("weapon2"):
+	elif Input.is_action_just_pressed("weapon2") and WeaponInteract.get_zoom() == true:
 		curr_weapon = 2
 		
 		
@@ -464,14 +455,20 @@ func _physics_process(delta):
 
 
 	elif velocity.length() <= SPEED and !sliding and (is_on_floor() or wallrunning):
-		anim.play("Walking", 0.2, 1.0)
+		if Input.is_action_pressed("ads"):
+			anim.play("Walking_ads", 0.2, 1.0)
+		else:
+			anim.play("Walking", 0.2, 1.0)
 		
 		
 	else:
 		
 		if !sliding and (is_on_floor() or wallrunning):
-		
-			anim.play("Sprinting", 0.2, 1.5)
+			if Input.is_action_pressed("ads"):
+				anim.play("Sprinting_ads", 0.2, 1.5)
+			else:
+				anim.play("Sprinting", 0.2, 1.5)
+				
 			
 	if speed >= 22 and velocity.length() > 3.0:
 		weapon_cam.fov = lerp(weapon_cam.fov, 90, 10 * delta)

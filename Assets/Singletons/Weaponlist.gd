@@ -16,9 +16,11 @@ onready var shotty1_pickup : PackedScene = preload("res://Assets/Models/weapons/
 
 onready var sniper1 : PackedScene = preload("res://Assets/Models/weapons/sniper1/sniper1.tscn")
 onready var sniper1_pickup : PackedScene = preload("res://Assets/Models/weapons/sniper1/sniper1_pickup.tscn")
+onready var bolt1 : PackedScene = preload("res://Assets/Models/weapons/bolt1/bolt1.tscn")
+onready var bolt1_pickup : PackedScene = preload("res://Assets/Models/weapons/bolt1/bolt1_pickup.tscn")
 onready var weapons = {"primary": null, "secondary": null}
 onready var weaponslist = {"lmg": {"scene": lmg, "pickupscene": lmg_pickup},"lmg2": {"scene": lmg2, "pickupscene": lmg2_pickup}, "airplanegun": {"scene": airplanegun, "pickupscene": airplanegun_pickup}, "smg1": {"scene": smg1, "pickupscene": smg1_pickup}, "sniper1": {"scene": sniper1, "pickupscene": sniper1_pickup}
-,"shotty1": {"scene": shotty1, "pickupscene": shotty1_pickup}}
+,"shotty1": {"scene": shotty1, "pickupscene": shotty1_pickup},"bolt1": {"scene": bolt1, "pickupscene": bolt1_pickup} }
 
 onready var primary_changed = false
 onready var secondary_changed = false
@@ -40,6 +42,8 @@ func get_spray(weapon):
 		"shotty":
 			return [[0,0],[0.4,0.45],[0.5,0.6],[0.8,0.9],[1,1.5],[1,1.5],[1,1.5],[1,1.5],[1,1.5],[rand_range(-0.7,1.3),rand_range(-0.7,1.3)]]
 		"sniper1":
+			return [[0,0],[rand_range(20,30),rand_range(20,30)]]
+		"bolt1":
 			return [[0,0],[rand_range(20,30),rand_range(20,30)]]
 
 
