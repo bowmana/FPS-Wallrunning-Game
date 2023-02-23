@@ -61,7 +61,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.1, 0.2 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector3( 0.128, -0.212, -0.434 ), Vector3( 0.128, -0.205, -0.234 ), Vector3( 0.128, -0.212, -0.434 ) ]
+"values": [ Vector3( 0.17, -0.212, -0.434 ), Vector3( 0.17, -0.205, -0.234 ), Vector3( 0.17, -0.212, -0.434 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath(".:ads_position")
@@ -126,6 +126,7 @@ tracks/5/keys = {
 
 [sub_resource type="Animation" id=3]
 resource_name = "reload"
+length = 2.0
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:default_position")
 tracks/0/interp = 1
@@ -133,10 +134,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2, 1 ),
+"times": PoolRealArray( 0, 0.2, 2 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector3( 0.128, -0.212, -0.434 ), Vector3( 0.128, -0.312, -0.934 ), Vector3( 0.128, -0.212, -0.434 ) ]
+"values": [ Vector3( 0.17, -0.212, -0.434 ), Vector3( 0.17, -0.312, -0.934 ), Vector3( 0.17, -0.212, -0.434 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath(".:ads_position")
@@ -145,7 +146,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.2, 1 ),
+"times": PoolRealArray( 0, 0.2, 2 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
 "values": [ Vector3( 0.02, -0.135, -0.15 ), Vector3( 0.02, -0.235, -0.55 ), Vector3( 0.02, -0.135, -0.15 ) ]
@@ -157,7 +158,7 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 0.4, 1 ),
+"times": PoolRealArray( 0, 0.4, 2 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
 "values": [ Vector3( 0, 0, 0 ), Vector3( 7.80102, 7.1979, -13.6349 ), Vector3( 0, 0, 0 ) ]
@@ -169,7 +170,7 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0, 0.4, 0.5, 1 ),
+"times": PoolRealArray( 0, 0.4, 0.5, 2 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
 "values": [ Vector3( -0.100001, -0.65, 0.122 ), Vector3( -0.319515, -1.92452, 0.219109 ), Vector3( -0.77313, -4.1374, 0.359678 ), Vector3( -0.1, -0.65, 0.122 ) ]
@@ -181,7 +182,7 @@ tracks/4/loop_wrap = true
 tracks/4/imported = false
 tracks/4/enabled = true
 tracks/4/keys = {
-"times": PoolRealArray( 0, 0.5, 1 ),
+"times": PoolRealArray( 0, 0.5, 2 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
 "values": [ Vector3( 0, 0, 0 ), Vector3( 1.87153, -1.88444, -17.9102 ), Vector3( 0, 0, 0 ) ]
@@ -193,7 +194,7 @@ tracks/5/loop_wrap = true
 tracks/5/imported = false
 tracks/5/enabled = true
 tracks/5/keys = {
-"times": PoolRealArray( 0, 0.9 ),
+"times": PoolRealArray( 0, 1.9 ),
 "transitions": PoolRealArray( 1, 1 ),
 "values": [ {
 "args": [ "start" ],
@@ -219,14 +220,19 @@ albedo_texture = SubResource( 7 )
 [node name="bolt1" instance=ExtResource( 1 )]
 transform = Transform( 0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0.018, 0, 0 )
 script = ExtResource( 2 )
-default_position = Vector3( 0.128, -0.212, -0.434 )
+damage = 102.0
+reload_speed = 2.0
+weapon_range = 8000
+default_position = Vector3( 0.17, -0.212, -0.434 )
 ads_position = Vector3( 0.02, -0.135, -0.15 )
 ads_rotation = Vector3( 0.6, 0, 0 )
+ads_acceleration = 0.02
 ads_fov = 30.0
 weapon_name = "bolt1"
 bolt = true
 emit_smoke_time = 0.5
 lasersound = ExtResource( 11 )
+inital_shot_spread = 100
 has_laser = true
 stream_sounds = [ ExtResource( 6 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ) ]
 reload_stream_sounds = [ ExtResource( 13 ), ExtResource( 12 ) ]
@@ -251,7 +257,7 @@ layers = 2
 layers = 2
 
 [node name="attachment_silencer" parent="." index="5"]
-transform = Transform( 0.73, -3.43118e-10, 1.56855e-08, 3.57824e-10, 0.7, -3.31137e-08, -1.14504e-08, 2.31796e-08, 1, -0.100001, -0.157856, -2.15302 )
+transform = Transform( 0.73, -3.43119e-10, 1.56855e-08, 3.57824e-10, 0.7, -3.31137e-08, -1.14504e-08, 2.31796e-08, 1, -0.100001, -0.157856, -2.15302 )
 layers = 2
 
 [node name="largeBlaster_back" parent="." index="6"]
@@ -312,6 +318,6 @@ render_target_update_mode = 1
 [node name="Ammo_count" parent="Ammo_count_viewport" index="0" instance=ExtResource( 10 )]
 
 [node name="Display_ammo_count" type="MeshInstance" parent="." index="21"]
-transform = Transform( 1, 0, 0, 0, 0.886471, 0.462786, 0, -0.462786, 0.886471, -0.651204, 0.736634, 1.05778 )
+transform = Transform( 1, 0, 0, 0, 0.886471, 0.462786, 0, -0.462786, 0.886471, -0.813232, 0.736634, 1.05778 )
 mesh = SubResource( 4 )
 material/0 = SubResource( 6 )

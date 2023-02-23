@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/lmg3.wav-a7bc236ac0d85a5fa95615adac15b728.sample"
+
+[deps]
+
+source_file="res://Assets/Models/weapons/lmg2/lmg3.wav"
+dest_files=[ "res://.import/lmg3.wav-a7bc236ac0d85a5fa95615adac15b728.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

@@ -134,17 +134,17 @@ tracks/7/keys = {
 } ]
 }
 
-[sub_resource type="DynamicFont" id=6]
+[sub_resource type="DynamicFont" id=3]
 size = 200
 font_data = ExtResource( 9 )
 
-[sub_resource type="QuadMesh" id=7]
+[sub_resource type="QuadMesh" id=4]
 size = Vector2( 0.3, 0.3 )
 
 [sub_resource type="ViewportTexture" id=5]
 viewport_path = NodePath("Ammo_count_viewport")
 
-[sub_resource type="SpatialMaterial" id=8]
+[sub_resource type="SpatialMaterial" id=6]
 resource_local_to_scene = true
 flags_transparent = true
 flags_unshaded = true
@@ -153,7 +153,9 @@ albedo_texture = SubResource( 5 )
 [node name="shotty1" instance=ExtResource( 1 )]
 transform = Transform( 0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0 )
 script = ExtResource( 2 )
+damage = 15.0
 clip_size = 2
+weapon_range = 325
 default_position = Vector3( 0.22, -0.357, -1.162 )
 ads_position = Vector3( 0.012, -0.243, -0.873 )
 ads_cast_from = Vector3( 0, 0.7, 0 )
@@ -163,6 +165,7 @@ lasersound = ExtResource( 13 )
 has_laser = true
 stream_sounds = [ ExtResource( 5 ), ExtResource( 4 ), ExtResource( 3 ), ExtResource( 6 ) ]
 reload_stream_sounds = [ ExtResource( 12 ), ExtResource( 11 ) ]
+spread = 25
 
 [node name="clipBarrel_large" parent="." index="0"]
 layers = 2
@@ -222,9 +225,9 @@ render_target_v_flip = true
 render_target_update_mode = 1
 
 [node name="Ammo_count" parent="Ammo_count_viewport" index="0" instance=ExtResource( 10 )]
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = SubResource( 3 )
 
 [node name="Display_ammo_count" type="MeshInstance" parent="." index="16"]
 transform = Transform( 1, 0, 0, 0, 0.886471, 0.462786, 0, -0.462786, 0.886471, -1.36572, 1.54119, 3.36285 )
-mesh = SubResource( 7 )
-material/0 = SubResource( 8 )
+mesh = SubResource( 4 )
+material/0 = SubResource( 6 )

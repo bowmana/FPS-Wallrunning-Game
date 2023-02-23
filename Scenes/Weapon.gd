@@ -3,8 +3,10 @@ extends Spatial
 class_name Weapon
 
 export var fire_rate = 0.5
+export var damage : float = 10.0
 export var clip_size = 5
-export var reload_speed = 1
+export var reload_speed : float = 1.0
+export var weapon_range = 100
 export var default_position : Vector3
 export var ads_position : Vector3
 export var ads_rotation : Vector3
@@ -19,6 +21,7 @@ export var bolt : bool
 export var playbackspeed = 1
 export var emit_smoke_time = .15
 export var lasersound : AudioStream
+
 
 #onready var ammo_label = $"/root/World/UI/Label"
 onready var b_decal = preload("res://Scenes/Player/Decals/BulletDecal.tscn")
@@ -36,6 +39,8 @@ var CH_recoil_pos = 50
 
 var weapon : Spatial
 var raycast : RayCast
+var original_cast_to = 0
+export var inital_shot_spread = 0
 var laser : RayCast
 export var has_laser = false
 
@@ -64,6 +69,10 @@ var aiming = false
 var current_x_rot = 0
 
 
+var heat_index = 0
+var heat : Array
+
+
 
 func _ready():
 	heat_values = Weaponlist.get_spray(weapon_name)
@@ -73,6 +82,9 @@ func _ready():
 	
 	laser = $Laser
 	raycast = get_node("/root/World/Player/Head/CamRoot/HeadBob/Camera/RayCast")
+	raycast.cast_to = Vector3(0,0,-weapon_range)
+	original_cast_to = raycast.cast_to
+
 	if has_laser:
 		add_child(laser_decal)
 	camera = get_node("/root/World/Player/Head/CamRoot/HeadBob/Camera")
@@ -122,17 +134,26 @@ func _input(event):
 		shootsound.stream = lasersound
 		SoundManager.play_sfx(shootsound.stream, get_tree().current_scene)
 
-
+func initial_shot():
+	if heat_index == 0 and !Input.is_action_pressed("ads"):
+		raycast.cast_to = original_cast_to + Vector3(rand_range(-inital_shot_spread, inital_shot_spread), rand_range(-inital_shot_spread, inital_shot_spread), 0) 
+	elif Input.is_action_pressed("ads") or heat_index != 0: 
+		raycast.cast_to = original_cast_to
 func _process(delta):
 	
+	raycast.cast_to.z = -weapon_range
+	initial_shot()
 
+	
 	if reloading:
 		set_ammo_count("Ì†ΩÌ¥ÉÌ†ΩÌ¥Å--")
 #		ammo_label.set_text("reloading")
 #		set_ammo_count(current_ammo)
 		decrease_recoil(delta)
 		head.rotation.x = lerp(head.rotation.x, 0, delta)
-#	else:
+	
+
+	
 #		set_ammo_count(current_ammo)
 #		ammo_label.set_text("%d / %d" % [current_ammo, clip_size])
 ##		$Ammo_count_viewport.render_target_update_mode = Viewport.UPDATE_ONCE
@@ -250,7 +271,15 @@ func check_collision(_raycast):
 			collider.queue_free()
 			print("killed " + collider.name)
 		elif collider.is_in_group("Target"):
-			collider.queue_free()
+			var distance = _raycast.get_collision_point().distance_to(_raycast.global_transform.origin)
+			var new_damage = damage -(distance * .01)
+			if new_damage <= damage/1.5:
+				collider.decrease_health(damage/1.5)
+			else:
+				collider.decrease_health(new_damage)
+			print(distance, "distance")
+			
+			
 		
 		get_tree().get_root().add_child(b)
 	
@@ -258,8 +287,7 @@ func check_collision(_raycast):
 
 
 
-var heat_index = 0
-var heat : Array
+
 
 func recoil(delta):
 	heat_index +=1
@@ -293,7 +321,9 @@ func set_ammo_count(val):
 	$Ammo_count_viewport.render_target_update_mode = Viewport.UPDATE_ALWAYS
 
 func fire(delta): 
+		
 
+	
 	heat_values = Weaponlist.get_spray(weapon_name)
 
 	can_fire = false
@@ -313,7 +343,7 @@ func fire(delta):
 	check_collision(raycast)
 	yield(get_tree().create_timer(fire_rate), "timeout")
 	can_fire = true
-	
+	print(raycast.cast_to.z, "castto")
 	
 
 	
@@ -338,7 +368,7 @@ func crosshair_modulate_back():
 	
 
 func reload(delta):
-
+	
 	print("reloading")
 
 	print(head.rotation.x)

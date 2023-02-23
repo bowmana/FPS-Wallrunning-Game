@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/smg2.wav-5d1ed6d6985984e1875674848899a40d.sample"
+
+[deps]
+
+source_file="res://Assets/Models/weapons/smg1/smg2.wav"
+dest_files=[ "res://.import/smg2.wav-5d1ed6d6985984e1875674848899a40d.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

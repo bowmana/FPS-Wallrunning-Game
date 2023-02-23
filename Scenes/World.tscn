@@ -86,6 +86,12 @@ visible = false
 [node name="target" parent="." instance=ExtResource( 11 )]
 transform = Transform( 9.55343e-15, -2.18557e-07, -5, -5, -2.18557e-07, 0, -2.18557e-07, 5, -2.18557e-07, 0, 7.38752, -66.053 )
 
+[node name="target3" parent="." instance=ExtResource( 11 )]
+transform = Transform( 9.55343e-15, -2.18557e-07, -5, -5, -2.18557e-07, 0, -2.18557e-07, 5, -2.18557e-07, -56.4538, 7.38752, -135.012 )
+
+[node name="target2" parent="." instance=ExtResource( 11 )]
+transform = Transform( 9.55343e-15, -2.18557e-07, -5, -5, -2.18557e-07, 0, -2.18557e-07, 5, -2.18557e-07, -89.6739, 7.38752, -369.649 )
+
 [node name="Particles" parent="." instance=ExtResource( 17 )]
 transform = Transform( 20, 0, 0, 0, 20, 0, 0, 0, 20, -502.117, -270.32, 0 )
 

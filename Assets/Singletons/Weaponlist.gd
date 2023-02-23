@@ -36,7 +36,8 @@ func get_spray(weapon):
 		"lmg": 
 			return [[0,0],[0.8,0.9],[1,1.2],[1.6,1.8],[2,3],[2,3],[2,3],[2,3],[2,3],[rand_range(-1.4,10),rand_range(-1.4,10)]]
 		"lmg2":
-			return [[0,0],[0.8,0.9],[1,1.2],[1.6,1.8],[2,3],[2,3],[2,3],[2,3],[2,3],[rand_range(-1.4,10.6),rand_range(-1.4,10.6)]]
+			return [[0, 0], [rand_range(-1, 1), rand_range(-1, 4)], [rand_range(-1, 4), rand_range(-1, 6)],
+		[-1.2, 2.5], [-1.8, 3.2], [-2, 3.4], [-2.2, 3.4], [-2.3, 3.4],[rand_range(-.8, 3), rand_range(-.6, .8)], [rand_range(-.8, 3), rand_range(-.6, .8)]]
 		"smg1":
 			return [[0,0],[rand_range(-0.7,1.3),rand_range(-0.7,5)],[rand_range(-0.7,4.3),rand_range(-0.7,5)],[0.8,0.9],[1,1.5],[1,1.5],[1,1.5],[1,1.5],[1,1.5],[rand_range(-0.7,1.3),rand_range(-0.7,1.3)]]
 		"shotty":

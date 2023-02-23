@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/smg_reload_init.wav-eaf2dc861ec3528ac8db7efd2955702f.sample"
+
+[deps]
+
+source_file="res://Assets/Models/weapons/smg1/smg_reload_init.wav"
+dest_files=[ "res://.import/smg_reload_init.wav-eaf2dc861ec3528ac8db7efd2955702f.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

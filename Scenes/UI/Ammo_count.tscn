@@ -22,7 +22,7 @@ void vertex(){
 }
 "
 
-[sub_resource type="ShaderMaterial" id=3]
+[sub_resource type="ShaderMaterial" id=2]
 shader = SubResource( 4 )
 shader_param/height = 5.0
 shader_param/speed = 15.0
@@ -30,16 +30,16 @@ shader_param/frequency = 10.0
 shader_param/distortion = 20.0
 shader_param/shift_amount = 0.005
 
-[sub_resource type="DynamicFont" id=1]
+[sub_resource type="DynamicFont" id=3]
 size = 200
 font_data = ExtResource( 1 )
 
 [node name="Ammo_count" type="Label"]
 modulate = Color( 0, 1, 0.764706, 0.309804 )
-material = SubResource( 3 )
+material = SubResource( 2 )
 margin_right = 256.0
 margin_bottom = 256.0
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 3 )
 text = "50
 
 "
