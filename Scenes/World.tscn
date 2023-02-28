@@ -4,9 +4,8 @@
 [ext_resource path="res://default_env.tres" type="Environment" id=2]
 [ext_resource path="res://Assets/Models/weapons/bolt1/bolt1_pickup.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/UI/UI.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Scenes/Enemies/Enemy.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scenes/Player/Weapons/pickups/lmg_pickup.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Scenes/Player/Weapons/pickups/airplaneGun_pickup.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Assets/Enviornment/taget2/target_modulate.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Assets/Models/weapons/lmg2/lmg2_pickup.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Assets/Enviornment/Floor/floor2/floor2.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Assets/Enviornment/walls/wallmetal1/wallmetal1.tscn" type="PackedScene" id=10]
@@ -14,11 +13,12 @@
 [ext_resource path="res://Assets/Models/weapons/smg1/smg1_pickup.tscn" type="PackedScene" id=12]
 [ext_resource path="res://Assets/Models/weapons/shotty1/shotty1_pickup.tscn" type="PackedScene" id=13]
 [ext_resource path="res://Assets/Enviornment/Other/start.tscn" type="PackedScene" id=14]
-[ext_resource path="res://Assets/Enviornment/Other/end.tscn" type="PackedScene" id=15]
+[ext_resource path="res://Assets/Models/Materials/glass_invis.tres" type="Material" id=15]
 [ext_resource path="res://Scenes/UI/Tab_popup.tscn" type="PackedScene" id=16]
 [ext_resource path="res://Assets/Enviornment/clouds/clouds.tscn" type="PackedScene" id=17]
 [ext_resource path="res://Scenes/Exodus.gd" type="Script" id=18]
 [ext_resource path="res://smoothwindloop.wav" type="AudioStream" id=19]
+[ext_resource path="res://Assets/Enviornment/target3/target3.tscn" type="PackedScene" id=20]
 
 [node name="World" type="Spatial"]
 script = ExtResource( 18 )
@@ -27,6 +27,10 @@ script = ExtResource( 18 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.88194, 0 )
+speed = 30
+SPRINT_SPEED = 40
+crouch_speed = 5
+acceleration = 10
 jump = 110
 world_node = NodePath("..")
 
@@ -42,43 +46,54 @@ transform = Transform( 0.756824, -0.625564, -0.189441, 0.653619, 0.724339, 0.219
 visible = false
 shadow_enabled = true
 
-[node name="Enemy4" parent="." instance=ExtResource( 5 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12.0478, 37.6486 )
-speed = 400
-
 [node name="lmg_pickup" parent="." instance=ExtResource( 6 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.10033, 2.68012, 5.2317 )
-
-[node name="airplaneGun_pickup" parent="." instance=ExtResource( 7 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.45243, 2.68012, -6.50712 )
+visible = false
 
 [node name="wallmetal1" parent="." instance=ExtResource( 10 )]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 53.4163, -13.4533, -122.761 )
 
+[node name="wallmetal2" parent="." instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 53.4163, -13.4533, -526.988 )
+
+[node name="wallmetal3" parent="." instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 122.056, 30.3071, -472.13 )
+
+[node name="wallmetal4" parent="." instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 175.744, 45.5727, -537.089 )
+
 [node name="floor3" parent="." instance=ExtResource( 9 )]
 transform = Transform( 20, 0, 0, 0, 20, 0, 0, 0, 20, 0, -32.4335, 0 )
 
+[node name="floor8" parent="." instance=ExtResource( 9 )]
+transform = Transform( 5, 0, 0, 0, 5, 0, 0, 0, 5, -46.1573, 9.35824, 0 )
+
 [node name="floor5" parent="." instance=ExtResource( 9 )]
-transform = Transform( -4.37114e-08, 0, 5, 0, 5, 0, -1, 0, -2.18557e-07, -12.9226, 3.4838, 18.4505 )
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 8.56158, -37.8698 )
+
+[node name="mergedBlocks(Clone)" parent="floor5" index="0"]
+material_override = ExtResource( 15 )
 
 [node name="floor4" parent="." instance=ExtResource( 9 )]
-transform = Transform( 20, 0, 0, 0, 20, 0, 0, 0, 20, 0, -32.4335, -227.293 )
+transform = Transform( 5, 0, 0, 0, 20, 0, 0, 0, 5, -66.7574, -21.3993, -212.242 )
+
+[node name="floor6" parent="." instance=ExtResource( 9 )]
+transform = Transform( 5, 0, 0, 0, 20, 0, 0, 0, 5, -114.222, -33.6465, -367.062 )
+
+[node name="floor7" parent="." instance=ExtResource( 9 )]
+transform = Transform( 5, 0, 0, 0, 20, 0, 0, 0, 5, -18.185, -15.2221, -489.02 )
 
 [node name="smg1" parent="." instance=ExtResource( 12 )]
-transform = Transform( 0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -5.16866, 1.51902, 0 )
+transform = Transform( 0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -1.75767, -0.0367444, -9.54835 )
 
 [node name="lmg2" parent="." instance=ExtResource( 8 )]
-transform = Transform( 0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 3.22052, 0.737803, 0 )
+transform = Transform( 0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -7.48169, -0.0418575, -9.62248 )
 
 [node name="shotty1" parent="." instance=ExtResource( 13 )]
-transform = Transform( 0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, -7.85912 )
+transform = Transform( 0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 2.37028, 0, -9.75227 )
 
 [node name="start" parent="." instance=ExtResource( 14 )]
 transform = Transform( -5.24537e-07, 0, 12, 0, 12, 0, -12, 0, -5.24537e-07, 0, 0, -45.3131 )
-
-[node name="end" parent="." instance=ExtResource( 15 )]
-transform = Transform( 1.43099e-07, 0, -12, 0, 12, 0, 12, 0, 1.43099e-07, 0, 0, -274.86 )
-map_name = "Exodus"
 
 [node name="Tab_popup" parent="." instance=ExtResource( 16 )]
 visible = false
@@ -86,11 +101,8 @@ visible = false
 [node name="target" parent="." instance=ExtResource( 11 )]
 transform = Transform( 9.55343e-15, -2.18557e-07, -5, -5, -2.18557e-07, 0, -2.18557e-07, 5, -2.18557e-07, 0, 7.38752, -66.053 )
 
-[node name="target3" parent="." instance=ExtResource( 11 )]
-transform = Transform( 9.55343e-15, -2.18557e-07, -5, -5, -2.18557e-07, 0, -2.18557e-07, 5, -2.18557e-07, -56.4538, 7.38752, -135.012 )
-
 [node name="target2" parent="." instance=ExtResource( 11 )]
-transform = Transform( 9.55343e-15, -2.18557e-07, -5, -5, -2.18557e-07, 0, -2.18557e-07, 5, -2.18557e-07, -89.6739, 7.38752, -369.649 )
+transform = Transform( 9.55343e-15, -2.18557e-07, -5, -5, -2.18557e-07, 0, -2.18557e-07, 5, -2.18557e-07, -89.6739, 7.38752, -343.731 )
 
 [node name="Particles" parent="." instance=ExtResource( 17 )]
 transform = Transform( 20, 0, 0, 0, 20, 0, 0, 0, 20, -502.117, -270.32, 0 )
@@ -101,12 +113,42 @@ transform = Transform( 20, 0, 0, 0, 20, 0, 0, 0, 20, -502.117, -270.32, -264.026
 [node name="Particles3" parent="." instance=ExtResource( 17 )]
 transform = Transform( 20, 0, 0, 0, 20, 0, 0, 0, 20, 435.716, -112.44, -264.026 )
 
+[node name="Particles" parent="Particles3" index="0"]
+emitting = true
+
 [node name="Particles4" parent="." instance=ExtResource( 17 )]
 transform = Transform( 20, 0, 0, 0, 20, 0, 0, 0, 20, 435.716, -112.44, 7.75421 )
-visibility_aabb = AABB( -16.1567, -4, -4, 8, 8, 8 )
+
+[node name="Particles" parent="Particles4" index="0"]
+emitting = true
 
 [node name="bolt1_pickup" parent="." instance=ExtResource( 3 )]
+transform = Transform( 0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 7.43803, 0, -9.47871 )
 
 [node name="wind" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 19 )
 bus = "FX"
+
+[node name="target3" parent="." instance=ExtResource( 11 )]
+transform = Transform( -7.54979e-08, -3, -8.74228e-08, -1, 2.26494e-07, 8.74228e-08, -8.74228e-08, 2.62268e-07, -1, 4.34799, 8.91861, -3.05746 )
+
+[node name="target5" parent="." instance=ExtResource( 20 )]
+transform = Transform( -5, 0, -4.37114e-07, 0, 5, 0, 4.37114e-07, 0, -5, -18.1762, 10.0517, -10.8856 )
+health = 10
+_floor = NodePath("../floor8")
+
+[node name="target_modulate" parent="." instance=ExtResource( 7 )]
+transform = Transform( -0.161173, 0, 0.986926, 0, 1, 0, -0.986926, 0, -0.161173, 0, 6.1313, -25.2791 )
+
+[node name="target2" parent="target_modulate" index="0"]
+_floor = NodePath("../../floor5")
+mesh_instance_str = "mergedBlocks(Clone)"
+
+[editable path="floor3"]
+[editable path="floor8"]
+[editable path="floor5"]
+[editable path="Particles"]
+[editable path="Particles2"]
+[editable path="Particles3"]
+[editable path="Particles4"]
+[editable path="target_modulate"]

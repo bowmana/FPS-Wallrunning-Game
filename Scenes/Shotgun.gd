@@ -2,7 +2,7 @@ extends "res://Scenes/Weapon.gd"
 
 
 export var spread =8 #controls the random range of the additional raycasts
-onready var ads_spread = spread/2
+onready var ads_spread = spread/1.5
 onready var no_ads_spread = spread
 
 func fire(delta):

@@ -1,14 +1,18 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://Assets/Models/weapons/lmg2/lmg2.glb" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Weapon.gd" type="Script" id=2]
+[ext_resource path="res://Assets/Models/weapons/muzzle/muzzleflash.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Models/weapons/muzzle/MuzzleFlash.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Assets/Models/weapons/lmg2/lmg_reload_init.wav" type="AudioStream" id=5]
 [ext_resource path="res://Assets/Models/weapons/lmg2/lmg4.wav" type="AudioStream" id=6]
 [ext_resource path="res://Assets/Models/weapons/sniper_canvas/CrosshairCanvas.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Assets/Models/weapons/sniper_canvas/Laser.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Scenes/UI/Ammo_count.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Assets/UI/fonts/static/Oswald-Medium.ttf" type="DynamicFontData" id=10]
+[ext_resource path="res://Assets/Models/weapons/lmg2/lmg_reload_finish.wav" type="AudioStream" id=11]
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=1]
 resource_name = "fire"
 length = 0.2
 tracks/0/type = "method"
@@ -47,7 +51,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0, 0.1, 0.2 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector3( 0, -0.21, -0.043 ), Vector3( 0, -0.213, -0.02 ), Vector3( 0, -0.21, -0.043 ) ]
+"values": [ Vector3( 0, -0.21, -0.043 ), Vector3( 0, -0.212, 0 ), Vector3( 0, -0.21, -0.043 ) ]
 }
 tracks/3/type = "value"
 tracks/3/path = NodePath("attachment_silencer:translation")
@@ -85,8 +89,20 @@ tracks/5/keys = {
 "update": 0,
 "values": [ Vector3( 0, 0, 0 ), Vector3( 0.7, 0, 0 ), Vector3( 0, 0, 0 ) ]
 }
+tracks/6/type = "value"
+tracks/6/path = NodePath("MuzzleFlash:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0.05, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=2]
 resource_name = "reload"
 length = 2.5
 tracks/0/type = "value"
@@ -137,8 +153,25 @@ tracks/3/keys = {
 "update": 0,
 "values": [ Vector3( 0, 0, 0 ), Vector3( -12, 0, -25 ), Vector3( 0, 0, 0 ) ]
 }
+tracks/4/type = "method"
+tracks/4/path = NodePath(".")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 2.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [ "start" ],
+"method": "play_reload_sound"
+}, {
+"args": [ "end" ],
+"method": "play_reload_sound"
+} ]
+}
 
-[sub_resource type="Shader" id=6]
+[sub_resource type="Shader" id=3]
 code = "shader_type canvas_item;
 uniform float height = 5.0;
 uniform float speed = 15.0;
@@ -158,45 +191,57 @@ void vertex(){
 }
 "
 
-[sub_resource type="ShaderMaterial" id=7]
-shader = SubResource( 6 )
+[sub_resource type="ShaderMaterial" id=4]
+shader = SubResource( 3 )
 shader_param/height = 5.0
 shader_param/speed = 15.0
 shader_param/frequency = 10.0
 shader_param/distortion = 20.0
 shader_param/shift_amount = 0.005
 
-[sub_resource type="DynamicFont" id=8]
+[sub_resource type="DynamicFont" id=5]
 size = 200
 font_data = ExtResource( 10 )
 
-[sub_resource type="QuadMesh" id=9]
+[sub_resource type="QuadMesh" id=6]
 size = Vector2( 0.3, 0.3 )
 
-[sub_resource type="ViewportTexture" id=5]
+[sub_resource type="ViewportTexture" id=7]
 viewport_path = NodePath("Ammo_count_viewport")
 
-[sub_resource type="SpatialMaterial" id=10]
+[sub_resource type="SpatialMaterial" id=8]
 resource_local_to_scene = true
 flags_transparent = true
 flags_unshaded = true
-albedo_texture = SubResource( 5 )
+albedo_texture = SubResource( 7 )
+
+[sub_resource type="SpatialMaterial" id=9]
+flags_transparent = true
+flags_unshaded = true
+params_blend_mode = 1
+params_cull_mode = 2
+albedo_texture = ExtResource( 3 )
 
 [node name="lmg2" instance=ExtResource( 1 )]
 transform = Transform( 0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0 )
 script = ExtResource( 2 )
-fire_rate = 0.14
-damage = 20.0
+fire_rate = 0.2
+damage = 33.0
 clip_size = 45
 reload_speed = 2.5
 weapon_range = 800
 default_position = Vector3( 0.128, -0.289, -0.6 )
 ads_position = Vector3( 0, -0.21, -0.043 )
+ads_acceleration = 0.015
 weapon_name = "lmg2"
 fully_auto = true
-inital_shot_spread = 15
+emit_smoke_time = 0.18
+initial_shot_spread = 20
+max_shot_spread = 50
+spread_area = 500
 has_laser = true
 stream_sounds = [ ExtResource( 6 ), ExtResource( 6 ), ExtResource( 6 ), ExtResource( 6 ) ]
+reload_stream_sounds = [ ExtResource( 5 ), ExtResource( 11 ) ]
 
 [node name="attachment_silencer" parent="." index="0"]
 layers = 2
@@ -242,27 +287,30 @@ enabled = true
 cast_to = Vector3( 0, -1, -2000 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="13"]
-anims/fire = SubResource( 2 )
-anims/reload = SubResource( 3 )
+anims/fire = SubResource( 1 )
+anims/reload = SubResource( 2 )
 
 [node name="shoot" type="AudioStreamPlayer" parent="." index="14"]
 bus = "FX"
 
-[node name="Laser" type="RayCast" parent="." index="15"]
+[node name="reload" type="AudioStreamPlayer" parent="." index="15"]
+bus = "FX"
+
+[node name="Laser" type="RayCast" parent="." index="16"]
 transform = Transform( 0.699999, 0, 0.00122173, 0, 0.7, 0, -0.00122173, 0, 0.699999, 0.4, 0.745152, 0.1 )
 enabled = true
 cast_to = Vector3( 0, -1, -1500 )
 
-[node name="smoke_spawn_point" type="Spatial" parent="." index="16"]
+[node name="smoke_spawn_point" type="Spatial" parent="." index="17"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.768774, -1.49727 )
 
-[node name="CanvasLayer" parent="." index="17" instance=ExtResource( 7 )]
+[node name="CanvasLayer" parent="." index="18" instance=ExtResource( 7 )]
 
-[node name="Laser_visual" parent="." index="18" instance=ExtResource( 8 )]
+[node name="Laser_visual" parent="." index="19" instance=ExtResource( 8 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.25121 )
 ray_node = NodePath("../Laser")
 
-[node name="Ammo_count_viewport" type="Viewport" parent="." index="19"]
+[node name="Ammo_count_viewport" type="Viewport" parent="." index="20"]
 size = Vector2( 256, 256 )
 transparent_bg = true
 disable_3d = true
@@ -271,10 +319,14 @@ render_target_v_flip = true
 render_target_update_mode = 1
 
 [node name="Ammo_count" parent="Ammo_count_viewport" index="0" instance=ExtResource( 9 )]
-material = SubResource( 7 )
-custom_fonts/font = SubResource( 8 )
+material = SubResource( 4 )
+custom_fonts/font = SubResource( 5 )
 
-[node name="Display_ammo_count" type="MeshInstance" parent="." index="20"]
+[node name="Display_ammo_count" type="MeshInstance" parent="." index="21"]
 transform = Transform( 1, 0, 0, 0, 0.886471, 0.462786, 0, -0.462786, 0.886471, -0.752524, 0.8834, 1.55227 )
-mesh = SubResource( 9 )
-material/0 = SubResource( 10 )
+mesh = SubResource( 6 )
+material/0 = SubResource( 8 )
+
+[node name="MuzzleFlash" parent="." index="22" instance=ExtResource( 4 )]
+transform = Transform( 0.33, 0, 0, 0, 0.33, -7.06254e-09, 0, 3.32948e-09, 0.7, 0, 0.735775, -1.58672 )
+material_override = SubResource( 9 )

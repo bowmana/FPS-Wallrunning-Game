@@ -208,19 +208,20 @@ tracks/5/keys = {
 [sub_resource type="QuadMesh" id=4]
 size = Vector2( 0.3, 0.3 )
 
-[sub_resource type="ViewportTexture" id=7]
+[sub_resource type="ViewportTexture" id=5]
 viewport_path = NodePath("Ammo_count_viewport")
 
 [sub_resource type="SpatialMaterial" id=6]
 resource_local_to_scene = true
 flags_transparent = true
 flags_unshaded = true
-albedo_texture = SubResource( 7 )
+albedo_texture = SubResource( 5 )
 
 [node name="bolt1" instance=ExtResource( 1 )]
 transform = Transform( 0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0.018, 0, 0 )
 script = ExtResource( 2 )
 damage = 102.0
+clip_size = 4
 reload_speed = 2.0
 weapon_range = 8000
 default_position = Vector3( 0.17, -0.212, -0.434 )
@@ -232,7 +233,7 @@ weapon_name = "bolt1"
 bolt = true
 emit_smoke_time = 0.5
 lasersound = ExtResource( 11 )
-inital_shot_spread = 100
+initial_shot_spread = 150
 has_laser = true
 stream_sounds = [ ExtResource( 6 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ) ]
 reload_stream_sounds = [ ExtResource( 13 ), ExtResource( 12 ) ]

@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/lmg_reload_finish.wav-6dfea40372e36d4162d8d47e2173c29a.sample"
+
+[deps]
+
+source_file="res://Assets/Models/weapons/lmg2/lmg_reload_finish.wav"
+dest_files=[ "res://.import/lmg_reload_finish.wav-6dfea40372e36d4162d8d47e2173c29a.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

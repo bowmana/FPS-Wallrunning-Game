@@ -19,6 +19,9 @@ func _process(delta):
 			set_interaction_text(collider.get_interaction_text())
 		elif current_collider:
 			current_collider = null
+			set_interaction_text(null)
+		
+			
 			
 func set_interaction_text(text):
 	if !text:

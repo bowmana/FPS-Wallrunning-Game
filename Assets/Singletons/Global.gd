@@ -36,11 +36,13 @@ func load_level_select():
 func load_settings():
 	get_tree().change_scene(settings)
 func next_level():
+	
 	current_level +=1
 	if current_level >= Global.levels.size():
 		# no more levels to load
 		game_over()
 	else:
+		
 		get_tree().change_scene(levels[current_level]["scene"])
 		
 func new_game():

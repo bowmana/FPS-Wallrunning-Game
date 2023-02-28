@@ -1,0 +1,87 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Assets/Models/level_models/Obstacles/glassObstacle.glb" type="PackedScene" id=1]
+[ext_resource path="res://Assets/Models/level_models/Obstacles/Material.material" type="Material" id=2]
+
+[node name="glassObstacle" instance=ExtResource( 1 )]
+transform = Transform( 10, 0, 0, 0, 10, 0, 0, 0, 0.01, 0, 0, 0 )
+
+[node name="Cube_cell" parent="." index="0"]
+material_override = ExtResource( 2 )
+material/0 = ExtResource( 2 )
+
+[node name="Cube_cell001" parent="." index="1"]
+material_override = ExtResource( 2 )
+material/0 = ExtResource( 2 )
+
+[node name="Cube_cell002" parent="." index="2"]
+material_override = ExtResource( 2 )
+material/0 = ExtResource( 2 )
+
+[node name="Cube_cell003" parent="." index="3"]
+material_override = ExtResource( 2 )
+material/0 = ExtResource( 2 )
+
+[node name="Cube_cell004" parent="." index="4"]
+material_override = ExtResource( 2 )
+material/0 = ExtResource( 2 )
+
+[node name="Cube_cell005" parent="." index="5"]
+material_override = ExtResource( 2 )
+material/0 = ExtResource( 2 )
+
+[node name="Cube_cell006" parent="." index="6"]
+material_override = ExtResource( 2 )
+material/0 = ExtResource( 2 )
+
+[node name="Cube_cell007" parent="." index="7"]
+material_override = ExtResource( 2 )
+material/0 = ExtResource( 2 )
+
+[node name="Cube_cell008" parent="." index="8"]
+material_override = ExtResource( 2 )
+material/0 = ExtResource( 2 )
+
+[node name="Cube_cell009" parent="." index="9"]
+material_override = ExtResource( 2 )
+material/0 = ExtResource( 2 )
+
+[node name="Cube_cell010" parent="." index="10"]
+material_override = ExtResource( 2 )
+material/0 = ExtResource( 2 )
+
+[node name="Cube_cell011" parent="." index="11"]
+material_override = ExtResource( 2 )
+material/0 = ExtResource( 2 )
+
+[node name="Cube_cell012" parent="." index="12"]
+material_override = ExtResource( 2 )
+material/0 = ExtResource( 2 )
+
+[node name="Cube_cell013" parent="." index="13"]
+material_override = ExtResource( 2 )
+material/0 = ExtResource( 2 )
+
+[node name="Cube_cell014" parent="." index="14"]
+material_override = ExtResource( 2 )
+material/0 = ExtResource( 2 )
+
+[node name="Cube_cell015" parent="." index="15"]
+material_override = ExtResource( 2 )
+material/0 = ExtResource( 2 )
+
+[node name="Cube_cell016" parent="." index="16"]
+material_override = ExtResource( 2 )
+material/0 = ExtResource( 2 )
+
+[node name="Cube_cell017" parent="." index="17"]
+material_override = ExtResource( 2 )
+material/0 = ExtResource( 2 )
+
+[node name="Cube_cell018" parent="." index="18"]
+material_override = ExtResource( 2 )
+material/0 = ExtResource( 2 )
+
+[node name="Cube_cell019" parent="." index="19"]
+material_override = ExtResource( 2 )
+material/0 = ExtResource( 2 )

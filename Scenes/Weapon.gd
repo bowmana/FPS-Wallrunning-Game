@@ -40,7 +40,10 @@ var CH_recoil_pos = 50
 var weapon : Spatial
 var raycast : RayCast
 var original_cast_to = 0
-export var inital_shot_spread = 0
+export var initial_shot_spread = 0
+onready var original_spread = initial_shot_spread
+export var max_shot_spread = 30
+export var spread_area = 300
 var laser : RayCast
 export var has_laser = false
 
@@ -76,7 +79,7 @@ var heat : Array
 
 func _ready():
 	heat_values = Weaponlist.get_spray(weapon_name)
-
+	print(original_spread, "original_spread")
 	current_ammo = clip_size
 	set_ammo_count(current_ammo)
 	
@@ -136,8 +139,12 @@ func _input(event):
 
 func initial_shot():
 	if heat_index == 0 and !Input.is_action_pressed("ads"):
-		raycast.cast_to = original_cast_to + Vector3(rand_range(-inital_shot_spread, inital_shot_spread), rand_range(-inital_shot_spread, inital_shot_spread), 0) 
-	elif Input.is_action_pressed("ads") or heat_index != 0: 
+		raycast.cast_to = original_cast_to + Vector3(rand_range(-initial_shot_spread, initial_shot_spread), rand_range(-initial_shot_spread, initial_shot_spread), 0) 
+		
+	elif heat_index != 0 and !Input.is_action_pressed("ads"):
+		raycast.cast_to = original_cast_to + Vector3(rand_range(-initial_shot_spread/2, initial_shot_spread/2), rand_range(-initial_shot_spread/2, initial_shot_spread/2), 0) 
+
+	elif Input.is_action_pressed("ads"): 
 		raycast.cast_to = original_cast_to
 func _process(delta):
 	
@@ -343,7 +350,7 @@ func fire(delta):
 	check_collision(raycast)
 	yield(get_tree().create_timer(fire_rate), "timeout")
 	can_fire = true
-	print(raycast.cast_to.z, "castto")
+#	print(raycast.cast_to.z, "castto")
 	
 
 	
@@ -352,10 +359,14 @@ func adjust_crosshair(delta):
 	left_ch.position = lerp(left_ch.position, Vector2(-CH_recoil_pos,0), 3*delta)
 	right_ch.position = lerp(right_ch.position, Vector2(CH_recoil_pos,0), 3*delta)
 	down_ch.position = lerp(down_ch.position, Vector2(0, CH_recoil_pos), 3*delta)
-	if down_ch.position > Vector2(0,52):
-		CH_recoil_pos = 52
+	initial_shot_spread += spread_area*delta
+	if down_ch.position > Vector2(0,30):
+		print(initial_shot_spread)
+		initial_shot_spread = max_shot_spread
+		CH_recoil_pos = 30
 	
 func adjust_crosshair_back(delta):
+	initial_shot_spread = original_spread
 	for ch in $CanvasLayer/Scope.get_children():
 		ch.position = lerp(ch.position, Vector2(0,0), 3* delta)
 		CH_recoil_pos -= ch.position.x
@@ -363,6 +374,7 @@ func adjust_crosshair_back(delta):
 func crosshair_modulate(delta):
 	$CanvasLayer/Scope.set_modulate(lerp($CanvasLayer/Scope.modulate, Color(1,1,1,0),.03))
 	adjust_crosshair_back(delta)
+	print(delta)
 func crosshair_modulate_back():
 	$CanvasLayer/Scope.set_modulate(lerp($CanvasLayer/Scope.modulate, Color(1,1,1,1),.03))
 	

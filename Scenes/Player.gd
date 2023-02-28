@@ -100,11 +100,12 @@ func _input(event):
 				else:
 					curr_weapon =2
 				
-			
+
 		
 	if (Input.is_action_just_pressed("Interact") and WeaponInteract.entered_flag == true and curr_weapon==1):
-		Weaponlist.add_primary(WeaponInteract.get_uid())
-		if Weaponlist.weapons["primary"] != null:
+		
+		if Weaponlist.get_primary() != null:
+			Weaponlist.add_primary(WeaponInteract.get_uid())
 			weaponholder.remove_child(gun1)
 			var weapon_pickup = Weaponlist.get_weapon_pickup(gun1.name)
 			
@@ -112,13 +113,15 @@ func _input(event):
 
 			weapon_pickup.scale = Vector3(.2,.2,.2)
 			world.add_child(weapon_pickup)
+
 			WeaponInteract.get_remove_node().queue_free()
 			gun1 = Weaponlist.get_primary()
 		
-		
-	if (Input.is_action_just_pressed("Interact") and WeaponInteract.entered_flag == true and curr_weapon==2):
-		Weaponlist.add_secondary(WeaponInteract.get_uid())
-		if Weaponlist.weapons["primary"] != null:
+#
+	elif (Input.is_action_just_pressed("Interact") and WeaponInteract.entered_flag == true and curr_weapon==2):
+
+		if Weaponlist.get_secondary() != null:
+			Weaponlist.add_secondary(WeaponInteract.get_uid())
 			weaponholder.remove_child(gun2)
 			var weapon_pickup = Weaponlist.get_weapon_pickup(gun2.name)
 			weapon_pickup.set_global_transform(get_global_transform())
@@ -126,7 +129,7 @@ func _input(event):
 			world.add_child(weapon_pickup)
 			WeaponInteract.get_remove_node().queue_free()
 			gun2 = Weaponlist.get_secondary()
-			
+
 
 
 func wall_run():
@@ -201,7 +204,7 @@ func wall_jump():
 func sliding(delta, head_basis):
 
 		
-	if Input.is_action_pressed("slide") and is_on_floor() and not slide_cooldown and Input.is_action_pressed("move_forward") and speed > 20 :
+	if Input.is_action_pressed("slide") and is_on_floor() and not slide_cooldown and Input.is_action_pressed("move_forward") and speed > 30 :
 		sliding = true
 		slide_cooldown = true
 		yield(get_tree().create_timer(1.0), "timeout")
@@ -239,7 +242,7 @@ func crouching():
 	if crouch:
 		speed = crouch_speed
 
-	if Input.is_action_just_pressed("slide") and is_on_floor() and !sliding and !crouch and speed <=20.01 :
+	if Input.is_action_just_pressed("slide") and is_on_floor() and !sliding and !crouch and speed <=30.01 :
 
 		anim.play("crouch")
 		print(crouch, "here1")
@@ -299,7 +302,7 @@ func play_footstepR():
 
 
 func _process(_delta):
-
+	
 	head_bonked = false
 	if headray.is_colliding():
 		head_bonked = true
@@ -470,7 +473,7 @@ func _physics_process(delta):
 				anim.play("Sprinting", 0.2, 1.5)
 				
 			
-	if speed >= 22 and velocity.length() > 3.0:
+	if speed >= 32 and velocity.length() > 3.0:
 		weapon_cam.fov = lerp(weapon_cam.fov, 90, 10 * delta)
 	else:
 		weapon_cam.fov = lerp(weapon_cam.fov, 70, 10 * delta)

@@ -2,7 +2,6 @@ extends Area
 
 export var Uid : String
 onready var node_parent = get_parent()
-#onready var curr_weapon = 1
 
 	
 func _on_Area_body_entered(body):
@@ -11,6 +10,7 @@ func _on_Area_body_entered(body):
 		WeaponInteract.entered_flag = true
 		WeaponInteract.set_uid(Uid)
 		WeaponInteract.set_remove_node(node_parent)
+	
 		if Weaponlist.get_primary() == null:
 			Weaponlist.add_primary(Uid)
 			get_parent().queue_free()
